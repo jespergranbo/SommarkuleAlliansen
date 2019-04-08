@@ -8,25 +8,22 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body background="~/Content/images/footballfield.jpg">
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Sommarkulan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Hem", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Anmälan", "About", "Home")</li>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @Html.ActionLink("Sommarkulan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item">@Html.ActionLink("Hem", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Anmälan", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Kontakt", "Contact", "Home", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
