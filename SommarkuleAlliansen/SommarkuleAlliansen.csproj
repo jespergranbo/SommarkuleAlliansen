@@ -131,6 +131,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\child.cs" />
+    <Compile Include="Models\employe.cs" />
+    <Compile Include="Models\groups.cs" />
     <Compile Include="Models\caretaker.cs" />
     <Compile Include="Models\group_leaders.cs" />
     <Compile Include="Models\location.cs" />
