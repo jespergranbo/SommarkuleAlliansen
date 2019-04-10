@@ -26,6 +26,7 @@ namespace SommarkuleAlliansen.Controllers
             //        return View(dt);
             //    }
             //}
+
             return View();
         }
 
