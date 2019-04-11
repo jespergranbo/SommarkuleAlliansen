@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using SommarkuleAlliansen.Models;
 
 namespace SommarkuleAlliansen.Controllers
 {
@@ -13,21 +14,33 @@ namespace SommarkuleAlliansen.Controllers
     {
         public ActionResult Index()
         {
-            //string mainconn = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
-            //MySqlConnection sqlconn = new MySqlConnection(mainconn);
-            //MySqlCommand comm = new MySqlCommand("select * from employe");
-            //{
-            //    MySqlDataAdapter da = new MySqlDataAdapter();
-            //    comm.Connection = sqlconn;
-            //    da.SelectCommand = comm;
-            //    DataTable dt = new DataTable();
-            //    {
-            //        da.Fill(dt);
-            //        return View(dt);
-            //    }
-            //}
-
-            return View();
+            List<employe> employes = new List<employe>();
+            string constr = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM employe";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            employes.Add(new employe
+                            {
+                                employe_id = Convert.ToInt32(sdr["employe_id"]),
+                                employe_type = Convert.ToInt32(sdr["employe_type"]),
+                                name = sdr["name"].ToString(),
+                                number = Convert.ToInt32(sdr["number"]),
+                                password = sdr["password"].ToString()
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return View(employes);
         }
 
         public ActionResult About()
