@@ -254,6 +254,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Employe\LogIn.cshtml" />
     <Content Include="Views\Employe\Caretaker.cshtml" />
+    <Content Include="Views\Employe\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

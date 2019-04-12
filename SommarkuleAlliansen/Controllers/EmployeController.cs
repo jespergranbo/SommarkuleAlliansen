@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
@@ -62,35 +63,115 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Caretaker()
         {
-            List<caretaker> caretakers = new List<caretaker>();
+            if (Session["employe_id"] != null)
+            {
+                List<caretaker> caretakers = new List<caretaker>();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT * FROM caretaker";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                caretakers.Add(new caretaker
+                                {
+                                    caretaker_id = Convert.ToInt32(sdr["caretaker_id"]),
+                                    caretaker_name = Convert.ToString(sdr["caretaker_name"]),
+                                    caretaker_number = Convert.ToInt32(sdr["caretaker_number"]),
+                                    caretaker_email = Convert.ToString(sdr["caretaker_email"]),
+                                    adress = Convert.ToString(sdr["address"]),
+                                    alternative_name = Convert.ToString(sdr["alternative_name"]),
+                                    alternative_number = Convert.ToInt32(sdr["alternative_number"]),
+                                    debt = Convert.ToDouble(sdr["debt"])
+                                });
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return View(caretakers);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            caretaker caretaker = new caretaker();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT * FROM caretaker";
+                string query = "SELECT * FROM caretaker WHERE caretaker_id = @id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
                         while (sdr.Read())
                         {
-                            caretakers.Add(new caretaker
-                            {
-                                caretaker_id = Convert.ToInt32(sdr["caretaker_id"]),
-                                caretaker_name = Convert.ToString(sdr["caretaker_name"]),
-                                caretaker_number = Convert.ToInt32(sdr["caretaker_number"]),
-                                caretaker_email = Convert.ToString(sdr["caretaker_email"]),
-                                adress = Convert.ToString(sdr["address"]),
-                                alternative_name = Convert.ToString(sdr["alternative_name"]),
-                                alternative_number = Convert.ToInt32(sdr["alternative_number"]),
-                                debt = Convert.ToDouble(sdr["debt"])
-                            });
+                            caretaker.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
+                            caretaker.caretaker_name = Convert.ToString(sdr["caretaker_name"]);
+                            caretaker.caretaker_number = Convert.ToInt32(sdr["caretaker_number"]);
+                            caretaker.caretaker_email = Convert.ToString(sdr["caretaker_email"]);
+                            caretaker.adress = Convert.ToString(sdr["address"]);
+                            caretaker.alternative_name = Convert.ToString(sdr["alternative_name"]);
+                            caretaker.alternative_number = Convert.ToInt32(sdr["alternative_number"]);
+                            caretaker.debt = Convert.ToDouble(sdr["debt"]);
                         }
                     }
                     con.Close();
                 }
             }
-            return View(caretakers);
+                if (caretaker == null)
+                {
+                    return HttpNotFound();
+                }
+            return View(caretaker);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "caretaker_id,caretaker_name,caretaker_number,caretaker_email,adress,alternative_name,alternative_number,debt")] caretaker caretaker)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "UPDATE caretaker SET caretaker_name = @caretaker_name, caretaker_number = @caretaker_number, caretaker_email = @caretaker_email, address = @address, alternative_name = @alternative_name, alternative_number = @alternative_number, debt = @debt WHERE caretaker_id = @id;";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", caretaker.caretaker_id);
+                        cmd.Parameters.AddWithValue("@caretaker_name", caretaker.caretaker_name);
+                        cmd.Parameters.AddWithValue("@caretaker_number", caretaker.caretaker_number);
+                        cmd.Parameters.AddWithValue("@caretaker_email", caretaker.caretaker_email);
+                        cmd.Parameters.AddWithValue("@address", caretaker.adress);
+                        cmd.Parameters.AddWithValue("@alternative_name", caretaker.alternative_name);
+                        cmd.Parameters.AddWithValue("@alternative_number", caretaker.alternative_number);
+                        cmd.Parameters.AddWithValue("@debt", caretaker.debt);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return RedirectToAction("Caretaker");
+            }
+            return View(caretaker);
         }
     }
 }
