@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
+using SommarkuleAlliansen.Models;
 
 namespace SommarkuleAlliansen.Controllers
 {
@@ -13,19 +14,7 @@ namespace SommarkuleAlliansen.Controllers
     {
         public ActionResult Index()
         {
-            string mainconn = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
-            MySqlConnection sqlconn = new MySqlConnection(mainconn);
-            MySqlCommand comm = new MySqlCommand("select * from employe");
-            {
-                MySqlDataAdapter da = new MySqlDataAdapter();
-                comm.Connection = sqlconn;
-                da.SelectCommand = comm;
-                DataTable dt = new DataTable();
-                {
-                    da.Fill(dt);
-                    return View(dt);
-                }
-            }
+            return View();
         }
 
         public ActionResult About()
