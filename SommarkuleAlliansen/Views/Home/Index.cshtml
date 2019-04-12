@@ -1,5 +1,4 @@
-﻿@model IEnumerable < SommarkuleAlliansen.Models.employe > 
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 <center>
@@ -27,11 +26,6 @@
             <h4>Sista anmälningsdatumet</h4>
             <p>31 Maj, 2019</p>
             <p>Du anmäler ditt barn till Sommarkulan genom vårt anmälningsformulär som du tar dig till via länken ovan.</p>
-            @foreach (SommarkuleAlliansen.Models.employe employe in Model)
-            {
-                <p>@employe.name</p>
-                <p>@employe.number</p>
-            }
         </div>
 
         <div style="float: left; width: 365px;">

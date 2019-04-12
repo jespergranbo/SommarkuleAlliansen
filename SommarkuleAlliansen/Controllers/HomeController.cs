@@ -14,33 +14,7 @@ namespace SommarkuleAlliansen.Controllers
     {
         public ActionResult Index()
         {
-            List<employe> employes = new List<employe>();
-            string constr = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
-            using (MySqlConnection con = new MySqlConnection(constr))
-            {
-                string query = "SELECT * FROM employe";
-                using (MySqlCommand cmd = new MySqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (MySqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                            employes.Add(new employe
-                            {
-                                employe_id = Convert.ToInt32(sdr["employe_id"]),
-                                employe_type = Convert.ToInt32(sdr["employe_type"]),
-                                name = sdr["name"].ToString(),
-                                number = Convert.ToInt32(sdr["number"]),
-                                password = sdr["password"].ToString()
-                            });
-                        }
-                    }
-                    con.Close();
-                }
-            }
-            return View(employes);
+            return View();
         }
 
         public ActionResult About()
