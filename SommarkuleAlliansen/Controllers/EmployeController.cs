@@ -161,10 +161,6 @@ namespace SommarkuleAlliansen.Controllers
                         con.Open();
                         using (MySqlDataReader sdr = cmd.ExecuteReader())
                         {
-                            while (sdr.Read())
-                            {
-
-                            }
                         }
                         con.Close();
                     }
