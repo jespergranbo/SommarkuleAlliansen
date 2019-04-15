@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SommarkuleAlliansen.Models.child>
+
+@{
+    ViewBag.Title = "Child";
+}
+<div style="border-style: solid; margin-top: 25px; background-color:white;">
+    <table class="table">
+        <tr>
+            <th>
+                Namn
+            </th>
+            <th>
+                Födelsedatum
+            </th>
+            <th>
+                Tröjstorlek
+            </th>
+            <th>
+                Förening
+            </th>
+            <th>
+                Period
+            </th>
+            <th>
+                Vårdnadshavare
+            </th>
+            <td>@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @String.Format("{0:yyy/M/d}", item.birth_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.shirt_size)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.location_name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.weeks)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.caretaker_name)
+                </td>
+                <td>
+                    @Html.ActionLink("Visa mer", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Redigera", "Edit", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

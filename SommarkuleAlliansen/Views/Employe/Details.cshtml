@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildCaretakerVM>
+
+@{
+    ViewBag.Title = "Details";
+}
+<div style="margin-top: 25px; overflow:auto;">
+    <div style="border:2px solid black; float:left; width:400px; background-color:white; padding-left: 1%;">
+        <h4>Vårdnadshavare</h4>
+        <b style="margin-bottom: 0px;">Namn:</b>
+        <p>@Model.ElementAt(0).caretaker_name</p>
+        <b style="margin-bottom: 0px;">Nummer:</b>
+        <p>@Model.ElementAt(0).caretaker_number</p>
+        <b style="margin-bottom: 0px;">Email:</b>
+        <p>@Model.ElementAt(0).caretaker_email</p>
+        <b style="margin-bottom: 0px;">Adress:</b>
+        <p>@Model.ElementAt(0).adress</p>
+        <b style="margin-bottom: 0px;">Alternativ kontaktperson:</b>
+        <p>@Model.ElementAt(0).alternative_name</p>
+        <b style="margin-bottom: 0px;">Alternativ kontaktnummer:</b>
+        <p>@Model.ElementAt(0).alternative_number</p>
+    </div>
+    <div style="border-left:2px solid black; border-right:2px solid black; border-top:2px solid black; float:right; width: 550px; background-color: white;">
+        <h4 style="background-color: white; margin-bottom: 8px; padding-left:1%;">Barn</h4>
+        @foreach (var item in Model)
+        {
+            double dateDiff = (item.end_date - item.start_date).TotalDays;
+            dateDiff++;
+
+        <div style="border-bottom:2px solid black; padding-left:1%;">
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@item.name</p>
+            <b style="margin-bottom: 0px;">Födelsedatum:</b>
+            <p>@String.Format("{0:yyy/M/d}", item.birth_date)</p>
+            @if (item.comment != "")
+                {
+            <b style="margin-bottom: 0px;">Kommentar:</b>
+            <p>@item.comment</p>
+                }
+            <b style="margin-bottom: 0px;">Start datum:</b>
+            <p>@String.Format("{0:yyy/M/d}", item.start_date)</p>
+            <b style="margin-bottom: 0px;">Slut datum:</b>
+            <p>@String.Format("{0:yyy/M/d}", item.end_date)</p>
+            <b style="margin-bottom: 0px;">Anmäld för period:</b>
+            <p>@dateDiff</p>
+        </div>
+        }
+    </div>
+</div>

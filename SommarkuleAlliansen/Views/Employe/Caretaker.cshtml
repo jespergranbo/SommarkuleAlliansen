@@ -7,9 +7,6 @@
     <table class="table">
         <tr>
             <th>
-                ID
-            </th>
-            <th>
                 Namn
             </th>
             <th>
@@ -30,15 +27,13 @@
             <th>
                 Skuld
             </th>
-            <th></th>
+            <td>Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
+            
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.caretaker_id)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.caretaker_name)
                 </td>
@@ -61,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.debt):-
                 </td>
                 <td>
-                    @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
+                    @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
                 </td>
             </tr>
         }

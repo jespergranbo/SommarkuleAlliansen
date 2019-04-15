@@ -17,5 +17,8 @@ namespace SommarkuleAlliansen.Models
         public bool vaccinated { get; set; }
         public int shirt_size { get; set; }
         public int location_id { get; set; }
+        public string caretaker_name { get; set; }
+        public string location_name { get; set; }
+        public string weeks { get; set; }
     }
 }
