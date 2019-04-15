@@ -1,8 +1,25 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .box {
+        float: left;
+        width: 33.33%;
+        padding: 20px;
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
 <center>
-    <div style="border-style: solid; margin-top: 25px; padding: 0px 22% 1% 22%; background-color:white;">
+    <div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%;">
         <h2>Årets Sommarkula 2019</h2>
         <h3>Vecka 25 (17/6 - 20/6) och Vecka 26 (24/6 - 28/6)</h3>
         <p>
@@ -16,10 +33,10 @@
             <img src="~/Content/images/gavle_kommun.png" />
         </div>
     </div>
-    <div style="border-style: solid; background-color:white; margin-top: 25px; height: 285px;">
+    <div class="clearfix" style="border-radius:5px; background-color:white; padding:10px; margin-top:5%;">
         <h3>Viktiga Datum</h3>
         <br />
-        <div style="float:left; width: 365px;">
+        <div class="box">
             <div>
                 <img src="~/Content/images/datepicture.png" />
             </div>
@@ -28,7 +45,7 @@
             <p>Du anmäler ditt barn till Sommarkulan genom vårt anmälningsformulär som du tar dig till via länken ovan.</p>
         </div>
 
-        <div style="float: left; width: 365px;">
+        <div class="box">
             <div>
                 <img src="~/Content/images/datepicture.png" />
             </div>
@@ -37,7 +54,7 @@
             <p>Avgiften till Sommarkulan betalar du till vårt bankgiro. Betalningsuppgifter hittar du i bekräftelsemailet som skickas efter din anmälan.</p>
         </div>
 
-        <div style="float: left; width: 365px;">
+        <div class="box">
             <div>
                 <img src="~/Content/images/datepicture.png" />
             </div>

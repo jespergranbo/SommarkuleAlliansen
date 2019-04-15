@@ -3,17 +3,17 @@
 @{
     ViewBag.Title = "Caretaker";
 }
-<div style="border-style: solid; margin-top: 25px; background-color:white;">
+<div  style="border-style: solid; margin-top:25px; background-color:white;">
     <table class="table">
         <tr>
             <th>
                 Namn
             </th>
             <th>
-                Nmr
+                Nummer
             </th>
             <th>
-                Epost
+                Mail
             </th>
             <th>
                 Adress
@@ -27,38 +27,50 @@
             <th>
                 Skuld
             </th>
+            <th>
+                Betalt
+            </th>
+            <th>
+                Betalas
+            </th>
             <td>Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
-            
+
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.caretaker_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.caretaker_number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.caretaker_email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.adress)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.alternative_name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.alternative_number)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.debt):-
-                </td>
-                <td>
-                    @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.caretaker_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.caretaker_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.caretaker_email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alternative_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.alternative_number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.debt):-
+            </td>
+            <td>
+                <input size="1" type="text" name="Payment"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.debt):-
+            </td>
+            <td>
+                @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
+            </td>
+        </tr>
         }
     </table>
 </div>
