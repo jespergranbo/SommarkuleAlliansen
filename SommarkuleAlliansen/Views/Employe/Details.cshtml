@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 <div style="margin-top: 25px; overflow:auto;">
-    <div style="border:2px solid black; float:left; width:400px; background-color:white; padding-left: 1%;">
+    <div style="border-radius: 5px; float:left; width:400px; background-color:white; padding-left: 1%;">
         <h4>Vårdnadshavare</h4>
         <b style="margin-bottom: 0px;">Namn:</b>
         <p>@Model.ElementAt(0).caretaker_name</p>
@@ -19,14 +19,14 @@
         <b style="margin-bottom: 0px;">Alternativ kontaktnummer:</b>
         <p>@Model.ElementAt(0).alternative_number</p>
     </div>
-    <div style="border-left:2px solid black; border-right:2px solid black; border-top:2px solid black; float:right; width: 550px; background-color: white;">
-        <h4 style="background-color: white; margin-bottom: 8px; padding-left:1%;">Barn</h4>
+    <div style="border-radius: 5px; float:right; width: 550px; background-color: white;">
+        <h4 style="border-radius: 5px; background-color: white; margin-bottom: 8px; padding-left:1%;">Barn</h4>
         @foreach (var item in Model)
         {
             double dateDiff = (item.end_date - item.start_date).TotalDays;
             dateDiff++;
 
-        <div style="border-bottom:2px solid black; padding-left:1%;">
+        <div style="border-bottom:2px solid grey; padding-left:1%;">
             <b style="margin-bottom: 0px;">Namn:</b>
             <p>@item.name</p>
             <b style="margin-bottom: 0px;">Födelsedatum:</b>
