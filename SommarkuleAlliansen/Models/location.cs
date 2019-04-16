@@ -11,5 +11,6 @@ namespace SommarkuleAlliansen.Models
         public string name { get; set; }
         public string adress { get; set; }
         public DateTime date { get; set; }
+        public int price { get; set; }
     }
 }
