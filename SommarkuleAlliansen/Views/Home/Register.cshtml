@@ -17,11 +17,11 @@
             </select>
             <h3>Barnets Uppgifter</h3>
             <label>Barnets Namn:</label> <br />
-            <input type="text" id="childName" name="child_name" /> <br />
+            <input type="text" id="childName" name="child_name" required/> <br />
             <label>Födelsedatum:</label> <br />
-            <input type="datetime" id="childBirth" name="birth" /> <br />
+            <input type="datetime" id="childBirth" name="birth" required/> <br />
             <label>Tröjstorlek:</label> <br />
-            <select name="shirtSize">
+            <select name="shirtSize" required>
                 @for (int i = 0; i < 5; i++)
                 {
                     if (i <= 3)
@@ -38,25 +38,25 @@
                 }
             </select> <br />
             <label>Simkunnig</label> <br />
-            <input type="radio" id="swimTrue" value="true" name="canSwim" /> Ja <br />
+            <input type="radio" id="swimTrue" value="true" name="canSwim" required/> Ja <br />
             <input type="radio" id="swimFalse" value="false" name="canSwim" /> Nej <br />
             <label>Tillåt att barnet är med på foton</label> <br />
-            <input type="radio" id="photoTrue" value="true" name="allowPhoto" /> Ja <br />
+            <input type="radio" id="photoTrue" value="true" name="allowPhoto" required/> Ja <br />
             <input type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej <br />
             <label>Barnet vaccinerat mot stelkramp</label> <br />
-            <input type="radio" id="vaccineTrue" value="true" name="isVaccinated" /> Ja <br />
+            <input type="radio" id="vaccineTrue" value="true" name="isVaccinated" required/> Ja <br />
             <input type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej <br />
             <label>Annan information som kan vara nödvändig för sommarkulans ledare</label> <br />
             <textarea id="childComment" name="comment" style="width: 400px;"></textarea> <br />
             <h3>Vårdnadshavarens Uppgifter</h3>
             <label>Namn</label> <br />
-            <input type="text" id="caretakerName" name="caretakerName" /> <br />
+            <input type="text" id="caretakerName" name="caretakerName" required/> <br />
             <label>Adress</label> <br />
-            <input type="text" id="caretakerAddress" name="caretakerAddress" /> <br />
+            <input type="text" id="caretakerAddress" name="caretakerAddress" required/> <br />
             <label>Mailadress</label> <br />
-            <input type="email" id="caretakerEmail" name="caretakerEmail" /> <br />
+            <input type="email" id="caretakerEmail" name="caretakerEmail" required/> <br />
             <label>Mobilnr (eller annat telenr där du kan kontaktas dagtid)</label> <br />
-            <input type="number" id="caretakerNumber" name="caretakerNumber" /> <br />
+            <input type="number" id="caretakerNumber" name="caretakerNumber" required/> <br />
             <label>Alternativ kontaktperson (annan målsman/mor- eller farförälder)</label> <br />
             <input type="text" id="alternativeName" name="altName" /> <br />
             <label>Telenr till alternativ kontaktperson</label> <br />
