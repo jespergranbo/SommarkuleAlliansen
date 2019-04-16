@@ -54,6 +54,7 @@ namespace SommarkuleAlliansen.Controllers
         public ActionResult Register(int location_id, string child_name, DateTime birth, string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string comment, string caretakerName, string caretakerAddress, string caretakerEmail, int caretakerNumber, string altName, int altNumber)
         {
             long caretaker_id = 0;
+            int price = 0;
             if (ModelState.IsValid)
             {
                 using (MySqlConnection con = new MySqlConnection(constr))
@@ -73,9 +74,42 @@ namespace SommarkuleAlliansen.Controllers
                         }
                         con.Close();
                     }
+                    query = "SELECT * FROM location WHERE location_id = @location_id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@location_id", location_id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                price = Convert.ToInt32(sdr["price"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                    if (caretaker_id != 0)
+                    {
+                        query = "UPDATE caretaker SET debt = @debt WHERE caretaker_id = @caretaker_id;";
+                        using (MySqlCommand cmd = new MySqlCommand(query))
+                        {
+                            cmd.Connection = con;
+                            cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
+                            cmd.Parameters.AddWithValue("@debt", price);
+                            con.Open();
+                            using (MySqlDataReader sdr = cmd.ExecuteReader())
+                            {
+                                while (sdr.Read())
+                                {
+                                }
+                            }
+                            con.Close();
+                        }
+                    }
                     if (caretaker_id == 0)
                     {
-                        query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, address, @alternative_name, @alternative_number);";
+                        query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number, debt) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, address, @alternative_name, @alternative_number, @debt);";
                         using (MySqlCommand cmd = new MySqlCommand(query))
                         {
                             cmd.Connection = con;
@@ -85,6 +119,7 @@ namespace SommarkuleAlliansen.Controllers
                             cmd.Parameters.AddWithValue("@address", caretakerAddress);
                             cmd.Parameters.AddWithValue("@alternative_name", altName);
                             cmd.Parameters.AddWithValue("@alternative_number", altNumber);
+                            cmd.Parameters.AddWithValue("@debt", price);
                             con.Open();
                             using (MySqlDataReader sdr = cmd.ExecuteReader())
                             {
