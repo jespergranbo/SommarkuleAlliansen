@@ -15,7 +15,7 @@ namespace SommarkuleAlliansen.Models
         public DateTime birth_date { get; set; }
         public bool allow_photos { get; set; }
         public bool vaccinated { get; set; }
-        public int shirt_size { get; set; }
+        public string shirt_size { get; set; }
         public int location_id { get; set; }
         public string caretaker_name { get; set; }
         public string location_name { get; set; }
