@@ -127,7 +127,7 @@ namespace SommarkuleAlliansen.Controllers
                                     location_name = Convert.ToString(sdr["location_name"]),
                                     weeks = Convert.ToString(sdr["weeks"]),
                                     birth_date = Convert.ToDateTime(sdr["birth_date"]),
-                                    shirt_size = Convert.ToInt32(sdr["shirt_size"])
+                                    shirt_size = Convert.ToString(sdr["shirt_size"])
                                 });
                             }
                         }

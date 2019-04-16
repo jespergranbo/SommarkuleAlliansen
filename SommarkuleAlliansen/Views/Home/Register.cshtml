@@ -1,0 +1,68 @@
+﻿@model IEnumerable<SommarkuleAlliansen.Models.location>
+@{
+    ViewBag.Title = "Registrera";
+    int shirtSizes = 80;
+}
+
+<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%;">
+    @using (Html.BeginForm())
+    {
+        <form action="Register()" method="post">
+            <label>Period</label> <br />
+            <select name="location_id">
+                @foreach (var item in Model)
+                {
+                    <option value="@item.location_id">@item.location_name, @item.weeks (@String.Format("{0:MM/dd}", item.start_date) - @String.Format("{0:MM/dd}", item.end_date)), @item.price:-</option>
+                }
+            </select>
+            <h3>Barnets Uppgifter</h3>
+            <label>Barnets Namn:</label> <br />
+            <input type="text" id="childName" name="child_name" /> <br />
+            <label>Födelsedatum:</label> <br />
+            <input type="datetime" id="childBirth" name="birth" /> <br />
+            <label>Tröjstorlek:</label> <br />
+            <select name="shirtSize">
+                @for (int i = 0; i < 5; i++)
+                {
+                    if (i <= 3)
+                    {
+                        <option value="@shirtSizes CL" id="@i">@shirtSizes CL</option>
+                        shirtSizes += 20;
+                    }
+                    else
+                    {
+                        <option value="Small" id="4">Small</option>
+                        <option value="Medium" id="5">Medium</option>
+                        <option value="Large" id="6">Large</option>
+                    }
+                }
+            </select> <br />
+            <label>Simkunnig</label> <br />
+            <input type="radio" id="swimTrue" value="true" name="canSwim" /> Ja <br />
+            <input type="radio" id="swimFalse" value="false" name="canSwim" /> Nej <br />
+            <label>Tillåt att barnet är med på foton</label> <br />
+            <input type="radio" id="photoTrue" value="true" name="allowPhoto" /> Ja <br />
+            <input type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej <br />
+            <label>Barnet vaccinerat mot stelkramp</label> <br />
+            <input type="radio" id="vaccineTrue" value="true" name="isVaccinated" /> Ja <br />
+            <input type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej <br />
+            <label>Annan information som kan vara nödvändig för sommarkulans ledare</label> <br />
+            <textarea id="childComment" name="comment" style="width: 400px;"></textarea> <br />
+            <h3>Vårdnadshavarens Uppgifter</h3>
+            <label>Namn</label> <br />
+            <input type="text" id="caretakerName" name="caretakerName" /> <br />
+            <label>Adress</label> <br />
+            <input type="text" id="caretakerAddress" name="caretakerAddress" /> <br />
+            <label>Mailadress</label> <br />
+            <input type="email" id="caretakerEmail" name="caretakerEmail" /> <br />
+            <label>Mobilnr (eller annat telenr där du kan kontaktas dagtid)</label> <br />
+            <input type="number" id="caretakerNumber" name="caretakerNumber" /> <br />
+            <label>Alternativ kontaktperson (annan målsman/mor- eller farförälder)</label> <br />
+            <input type="text" id="alternativeName" name="altName" /> <br />
+            <label>Telenr till alternativ kontaktperson</label> <br />
+            <input type="number" id="alternativeNumber" name="altNumber" /> <br />
+            <h4>Informationen kommer att skickas som en bekräftelse till din mail.</h4>
+            <input type="submit" value="Skicka" />
+        </form>
+    }
+</div>
