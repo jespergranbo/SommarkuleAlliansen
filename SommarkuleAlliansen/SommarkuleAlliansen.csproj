@@ -163,6 +163,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\child.cs" />
+    <Compile Include="Models\Email.cs" />
     <Compile Include="Models\employe.cs" />
     <Compile Include="Models\groups.cs" />
     <Compile Include="Models\caretaker.cs" />

@@ -1,40 +1,29 @@
-﻿@{
+﻿@model SommarkuleAlliansen.Models.Email
+@{
     ViewBag.Title = "Contact";
 }
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-* {
-  box-sizing: border-box;
-}
+    * {
+        box-sizing: border-box;
+    }
 
-/* Style inputs */
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  margin-top: 6px;
-  margin-bottom: 16px;
-  resize: vertical;
-}
+    /* Style inputs */
+    input[type=text], select, textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        margin-top: 6px;
+        margin-bottom: 16px;
+        resize: vertical;
+    }
 
-input[type=submit] {
-  background-color: lightslategrey;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: grey;
-}
-
-/* Style the container/contact section */
+    /* Style the container/contact section */
     .Contactcontainer {
         border-radius: 5px;
         background-color: white;
@@ -42,41 +31,70 @@ input[type=submit]:hover {
         margin-top: 5%;
     }
 
-/* Create two columns that float next to eachother */
-.column {
-  float: left;
-  width: 50%;
-  margin-top: 6px;
-  padding: 20px;
-}
+    /* Create two columns that float next to eachother */
+    .column {
+        float: left;
+        width: 50%;
+        margin-top: 6px;
+        padding: 20px;
+    }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 </style>
-<body>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
     <div class="Contactcontainer">
-        <div class="row">
-            <div class="column">
-                <h4>Kontaktformulär</h4>
-                <p>
-                    Om du vill komma i kontakt med oss på Sommarkulan så använd vidstående formulär för att skicka din fråga så kontaktar vi dig.
-                </p>
-            </div>
-            <div class="column">
-                <form action="/action_page.php">
-                    <label for="fname">För- och efternamn</label>
-                    <input type="text" id="fname" name="Namn" placeholder="För- och efternamn">
-                    <label for="lname">Epost</label>
-                    <input type="text" id="lname" name="Mail" placeholder="Epost..">
-                    <label for="subject">Ämne</label>
-                    <textarea id="subject" name="subject" placeholder="Skriv här.." style="height:170px"></textarea>
-                    <input type="submit" value="Skicka">
-                </form>
+            <div class="row">
+                <div class="column">
+                    <h4>Kontaktformulär</h4>
+                    <p>
+                        Om du vill komma i kontakt med oss på Sommarkulan så använd vidstående formulär för att skicka din fråga så kontaktar vi dig.
+                    </p>
+                </div>
+                <div class="column">
+                    <div class="form-group">
+                        <b style="padding-left:15px;">Ditt namn</b>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.FromName, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <b style="padding-left:15px;">Din Epostadress</b>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.FromEmail, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <b style="padding-left:15px;">Ämne</b>
+                        <div class="col-md-10">
+                            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Subject, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <b style="padding-left:15px;">Meddelande</b>
+                        <div class="col-md-10">
+                            @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Message, null, new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" class="btn btn-outline-secondary" value="Send" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</body>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

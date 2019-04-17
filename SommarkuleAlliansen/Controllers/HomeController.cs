@@ -7,6 +7,9 @@ using System.Data;
 using System.Configuration;
 using MySql.Data.MySqlClient;
 using SommarkuleAlliansen.Models;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace SommarkuleAlliansen.Controllers
 {
@@ -109,7 +112,7 @@ namespace SommarkuleAlliansen.Controllers
                     }
                     if (caretaker_id == 0)
                     {
-                        query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number, debt) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, address, @alternative_name, @alternative_number, @debt);";
+                        query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number, debt) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, @address, @alternative_name, @alternative_number, @debt);";
                         using (MySqlCommand cmd = new MySqlCommand(query))
                         {
                             cmd.Connection = con;
@@ -158,6 +161,28 @@ namespace SommarkuleAlliansen.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Contact(Email email)
+        {
+            if (ModelState.IsValid)
+            {
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress("sommarkulan@outlook.com"));  // replace with valid value 
+                message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
+                message.Subject = email.Subject;
+                message.Body = string.Format(body, email.FromName, email.FromEmail, email.Message);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("Sent");
+                }
+            }
+            return View(email);
         }
         public ActionResult ConfirmedOrder()
         {
