@@ -58,6 +58,9 @@ namespace SommarkuleAlliansen.Controllers
         {
             long caretaker_id = 0;
             int price = 0;
+            DateTime start_date = DateTime.Now;
+            DateTime end_date = DateTime.Now;
+            string location_name = "";
             if (ModelState.IsValid)
             {
                 using (MySqlConnection con = new MySqlConnection(constr))
@@ -88,6 +91,9 @@ namespace SommarkuleAlliansen.Controllers
                             while (sdr.Read())
                             {
                                 price = Convert.ToInt32(sdr["price"]);
+                                start_date = Convert.ToDateTime(sdr["start_date"]);
+                                end_date = Convert.ToDateTime(sdr["end_date"]);
+                                location_name = Convert.ToString(sdr["location_name"]);
                             }
                         }
                         con.Close();
@@ -150,12 +156,31 @@ namespace SommarkuleAlliansen.Controllers
                         }
                         con.Close();
                     }
+                    return RedirectToAction("OrderConfermation", new { caretakerEmail , caretakerName, child_name, price, start_date, end_date, location_name});
                 }
-                return RedirectToAction("ConfirmedOrder");
             }
             return View();
         }
+        public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name)
+        {
+            if (ModelState.IsValid)
+            {
+                var body = "Tack för anmälan " + caretakerName + " ditt barn " + child_name + " är anmäld för perioden " + String.Format("{0:MM/dd}", start_date) + " - " + String.Format("{0:MM/dd}", end_date) + " i föreningen " + location_name + ". Du ska betala " + price + ":- inom 2 veckor.";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(caretakerEmail));  // replace with valid value 
+                message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
+                message.Subject = "Orderbekräftelse";
+                message.Body = string.Format(body);
+                message.IsBodyHtml = true;
 
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("ConfirmedOrder", new { caretakerName, caretakerEmail});
+                }
+            }
+            return View();
+        }
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
@@ -184,9 +209,19 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View(email);
         }
-        public ActionResult ConfirmedOrder()
+        public ActionResult ConfirmedOrder(string caretakerName, string caretakerEmail)
         {
-            return View();
+            if (caretakerName == null || caretakerEmail == null)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                caretaker caretakerOrder = new caretaker();
+                caretakerOrder.caretaker_name = caretakerName;
+                caretakerOrder.caretaker_email = caretakerEmail;
+                return View(caretakerOrder);
+            }
         }
     }
 }

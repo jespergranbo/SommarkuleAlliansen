@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
-using System.Web;
+using System.Net.Mail;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using MySql.Data.MySqlClient;
 using SommarkuleAlliansen.Models;
@@ -42,7 +44,7 @@ namespace SommarkuleAlliansen.Controllers
                                 password = sdr["password"].ToString()
                             });
                         }
-                        foreach(employe emp in employes)
+                        foreach (employe emp in employes)
                         {
                             if (emp.name == account.name && emp.password == account.password)
                             {
@@ -60,7 +62,7 @@ namespace SommarkuleAlliansen.Controllers
                     con.Close();
                 }
             }
-            return View();
+          return View();
         }
         public ActionResult Caretaker()
         {
@@ -228,7 +230,7 @@ namespace SommarkuleAlliansen.Controllers
                 List<ChildCaretakerVM> caretakerDetails = new List<ChildCaretakerVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.name, child.birth_date, child.comment, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date " +
+                    string query = "SELECT child.name, child.birth_date, child.comment, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
                         "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id INNER JOIN location on child.location_id = location.location_id WHERE caretaker.caretaker_id = @id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
@@ -254,7 +256,8 @@ namespace SommarkuleAlliansen.Controllers
                                     location_name = Convert.ToString(sdr["location_name"]),
                                     location_adress = Convert.ToString(sdr["location_address"]),
                                     start_date = Convert.ToDateTime(sdr["start_date"]),
-                                    end_date = Convert.ToDateTime(sdr["end_date"])
+                                    end_date = Convert.ToDateTime(sdr["end_date"]),
+                                    weeks = Convert.ToString(sdr["weeks"])
                                 });
                             }
                         }
@@ -271,6 +274,28 @@ namespace SommarkuleAlliansen.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Details(ChildCaretakerVM childCaretakerVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var message = new MailMessage();
+                message.To.Add(new MailAddress("sommarkulan@outlook.com"));  // replace with valid value 
+                message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
+                message.Subject = "Betalningspåminnelse";
+                message.Body = string.Format(body);
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    await smtp.SendMailAsync(message);
+                    return RedirectToAction("Sent");
+                }
+            }
+            return View();
         }
     }
 }
