@@ -6,25 +6,25 @@
 <div  style="border-radius:5px; background-color:white; padding:10px; margin-top:5%;">
     <table class="table">
         <tr>
-            <th>
+            <th style="border:none;">
                 Namn
             </th>
-            <th>
+            <th style="border:none;">
                 Födelsedatum
             </th>
-            <th>
+            <th style="border:none;">
                 Tröjstorlek
             </th>
-            <th>
+            <th style="border:none;">
                 Förening
             </th>
-            <th>
+            <th style="border:none;">
                 Period
             </th>
-            <th>
+            <th style="border:none;">
                 Vårdnadshavare
             </th>
-            <td>@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
+            <td style="border:none;">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
         </tr>
 
         @foreach (var item in Model)
@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
                 <td>
-                    @String.Format("{0:yyy/M/d}", item.birth_date)
+                    @String.Format("{0:yyy/MM/dd}", item.birth_date)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.shirt_size)
@@ -49,8 +49,8 @@
                     @Html.DisplayFor(modelItem => item.caretaker_name)
                 </td>
                 <td>
-                    @Html.ActionLink("Visa mer", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Redigera", "Edit", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Visa mer", "DetailsChild", new { id=item.child_id }) |
+                    @Html.ActionLink("Redigera", "EditChild", new { id=item.child_id })
                 </td>
             </tr>
         }

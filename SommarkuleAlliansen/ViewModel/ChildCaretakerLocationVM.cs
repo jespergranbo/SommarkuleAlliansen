@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SommarkuleAlliansen.ViewModel
 {
-    public class ChildCaretakerVM
+    public class ChildCaretakerLocationVM
     {
         public int caretaker_id { get; set; }
         public string caretaker_name { get; set; }
@@ -23,7 +23,7 @@ namespace SommarkuleAlliansen.ViewModel
         public DateTime birth_date { get; set; }
         public bool allow_photos { get; set; }
         public bool vaccinated { get; set; }
-        public int shirt_size { get; set; }
+        public string shirt_size { get; set; }
 
         public int location_id { get; set; }
         public string location_name { get; set; }

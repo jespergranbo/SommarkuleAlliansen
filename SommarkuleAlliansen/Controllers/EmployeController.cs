@@ -227,7 +227,7 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                List<ChildCaretakerVM> caretakerDetails = new List<ChildCaretakerVM>();
+                List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
                     string query = "SELECT child.name, child.birth_date, child.comment, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
@@ -241,7 +241,7 @@ namespace SommarkuleAlliansen.Controllers
                         {
                             while (sdr.Read())
                             {
-                                caretakerDetails.Add(new ChildCaretakerVM
+                                caretakerDetails.Add(new ChildCaretakerLocationVM
                                 {
                                     name = Convert.ToString(sdr["name"]),
                                     birth_date = Convert.ToDateTime(sdr["birth_date"]),
@@ -277,7 +277,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Details(ChildCaretakerVM childCaretakerVM)
+        public async Task<ActionResult> Details(ChildCaretakerLocationVM childCaretakerVM)
         {
             if (ModelState.IsValid)
             {
@@ -296,6 +296,145 @@ namespace SommarkuleAlliansen.Controllers
                 }
             }
             return View();
+        }
+        public ActionResult EditChild(int? id)
+        {
+            if (Session["employe_id"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ChildCaretakerLocationVM child = new ChildCaretakerLocationVM();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT child.child_id, child.name, child.comment, child.can_swim, child.birth_date, child.allow_photos, child.vaccinated, child.shirt_size, child.location_id, location.location_name, location.location_address, location.start_date, location.end_date, location.location_email, location.location_number, location.weeks, location.price " +
+                        "FROM child INNER JOIN location ON child.location_id = location.location_id WHERE child.child_id=@id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                child.child_id = Convert.ToInt32(sdr["child_id"]);
+                                child.name = Convert.ToString(sdr["name"]);
+                                child.comment = Convert.ToString(sdr["comment"]);
+                                child.can_swim = Convert.ToBoolean(sdr["can_swim"]);
+                                child.birth_date = Convert.ToDateTime(sdr["birth_date"]);
+                                child.allow_photos = Convert.ToBoolean(sdr["allow_photos"]);
+                                child.vaccinated = Convert.ToBoolean(sdr["vaccinated"]);
+                                child.shirt_size = Convert.ToString(sdr["shirt_size"]);
+                                child.location_id = Convert.ToInt32(sdr["location_id"]);
+                                child.location_name = Convert.ToString(sdr["location_name"]);
+                                child.location_adress = Convert.ToString(sdr["location_address"]);
+                                child.start_date = Convert.ToDateTime(sdr["start_date"]);
+                                child.end_date = Convert.ToDateTime(sdr["end_date"]);
+                                child.location_email = Convert.ToString(sdr["location_email"]);
+                                child.location_number = Convert.ToInt32(sdr["location_number"]);
+                                child.weeks = Convert.ToString(sdr["weeks"]);
+                                child.price = Convert.ToInt32(sdr["price"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                if (child == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(child);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditChild([Bind(Include = "caretaker_id,caretaker_name,caretaker_number,caretaker_email,adress,alternative_name,alternative_number,debt")] caretaker caretaker)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "UPDATE caretaker SET caretaker_name = @caretaker_name, caretaker_number = @caretaker_number, caretaker_email = @caretaker_email, address = @address, alternative_name = @alternative_name, alternative_number = @alternative_number, debt = @debt WHERE caretaker_id = @id;";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", caretaker.caretaker_id);
+                        cmd.Parameters.AddWithValue("@caretaker_name", caretaker.caretaker_name);
+                        cmd.Parameters.AddWithValue("@caretaker_number", caretaker.caretaker_number);
+                        cmd.Parameters.AddWithValue("@caretaker_email", caretaker.caretaker_email);
+                        cmd.Parameters.AddWithValue("@address", caretaker.adress);
+                        cmd.Parameters.AddWithValue("@alternative_name", caretaker.alternative_name);
+                        cmd.Parameters.AddWithValue("@alternative_number", caretaker.alternative_number);
+                        cmd.Parameters.AddWithValue("@debt", caretaker.debt);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                        }
+                        con.Close();
+                    }
+                }
+                return RedirectToAction("Caretaker");
+            }
+            return View(caretaker);
+        }
+        public ActionResult DetailsChild(int? id)
+        {
+            if (Session["employe_id"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT child.name, child.birth_date, child.comment, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
+                        "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id INNER JOIN location on child.location_id = location.location_id WHERE child.child_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                childDetails.name = Convert.ToString(sdr["name"]);
+                                childDetails.birth_date = Convert.ToDateTime(sdr["birth_date"]);
+                                childDetails.comment = Convert.ToString(sdr["comment"]);
+                                childDetails.caretaker_name = Convert.ToString(sdr["caretaker_name"]);
+                                childDetails.caretaker_number = Convert.ToInt32(sdr["caretaker_number"]);
+                                childDetails.caretaker_email = Convert.ToString(sdr["caretaker_email"]);
+                                childDetails.alternative_name = Convert.ToString(sdr["alternative_name"]);
+                                childDetails.alternative_number = Convert.ToInt32(sdr["alternative_number"]);
+                                childDetails.adress = Convert.ToString(sdr["address"]);
+                                childDetails.debt = Convert.ToDouble(sdr["debt"]);
+                                childDetails.location_name = Convert.ToString(sdr["location_name"]);
+                                childDetails.location_adress = Convert.ToString(sdr["location_address"]);
+                                childDetails.start_date = Convert.ToDateTime(sdr["start_date"]);
+                                childDetails.end_date = Convert.ToDateTime(sdr["end_date"]);
+                                childDetails.weeks = Convert.ToString(sdr["weeks"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                if (childDetails == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(childDetails);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

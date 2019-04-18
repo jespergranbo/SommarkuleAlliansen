@@ -80,41 +80,10 @@ namespace SommarkuleAlliansen.Controllers
                         }
                         con.Close();
                     }
-                    query = "SELECT * FROM location WHERE location_id = @location_id";
-                    using (MySqlCommand cmd = new MySqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@location_id", location_id);
-                        con.Open();
-                        using (MySqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            while (sdr.Read())
-                            {
-                                price = Convert.ToInt32(sdr["price"]);
-                                start_date = Convert.ToDateTime(sdr["start_date"]);
-                                end_date = Convert.ToDateTime(sdr["end_date"]);
-                                location_name = Convert.ToString(sdr["location_name"]);
-                            }
-                        }
-                        con.Close();
-                    }
+                    location selectedLocation = GetLocationInformation(location_id);
                     if (caretaker_id != 0)
                     {
-                        query = "UPDATE caretaker SET debt = @debt WHERE caretaker_id = @caretaker_id;";
-                        using (MySqlCommand cmd = new MySqlCommand(query))
-                        {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
-                            cmd.Parameters.AddWithValue("@debt", price);
-                            con.Open();
-                            using (MySqlDataReader sdr = cmd.ExecuteReader())
-                            {
-                                while (sdr.Read())
-                                {
-                                }
-                            }
-                            con.Close();
-                        }
+                        UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
                     }
                     if (caretaker_id == 0)
                     {
@@ -128,7 +97,7 @@ namespace SommarkuleAlliansen.Controllers
                             cmd.Parameters.AddWithValue("@address", caretakerAddress);
                             cmd.Parameters.AddWithValue("@alternative_name", altName);
                             cmd.Parameters.AddWithValue("@alternative_number", altNumber);
-                            cmd.Parameters.AddWithValue("@debt", price);
+                            cmd.Parameters.AddWithValue("@debt", selectedLocation.price);
                             con.Open();
                             using (MySqlDataReader sdr = cmd.ExecuteReader())
                             {
@@ -160,6 +129,54 @@ namespace SommarkuleAlliansen.Controllers
                 }
             }
             return View();
+        }
+        private void UpdateCaretakerDebt(long caretaker_id, int price)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE caretaker SET debt = debt + @debt WHERE caretaker_id = @caretaker_id;";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
+                    cmd.Parameters.AddWithValue("@debt", price);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                        }
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public location GetLocationInformation(int location_id)
+        {
+            location selectedLocation = new location();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM location WHERE location_id = @location_id";
+                
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@location_id", location_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            selectedLocation.price = Convert.ToInt32(sdr["price"]);
+                            selectedLocation.start_date = Convert.ToDateTime(sdr["start_date"]);
+                            selectedLocation.end_date = Convert.ToDateTime(sdr["end_date"]);
+                            selectedLocation.location_name = Convert.ToString(sdr["location_name"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return selectedLocation;
         }
         public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name)
         {
