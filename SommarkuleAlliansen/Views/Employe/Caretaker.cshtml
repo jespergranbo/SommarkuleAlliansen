@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Caretaker";
 }
+@{bool justSentMessage = false; }
 <div  style="border-radius:5px; background-color:white; padding:10px; margin-top:5%;">
     <table class="table">
         <tr>
@@ -68,7 +69,7 @@
                 @Html.DisplayFor(modelItem => item.debt):-
             </td>
             <td>
-                @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
+                @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
             </td>
         </tr>
         }

@@ -219,7 +219,7 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View(caretaker);
         }
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, bool justSentMessage)
         {
             if (Session["employe_id"] != null)
             {
@@ -268,6 +268,10 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return HttpNotFound();
                 }
+                if (justSentMessage == true)
+                {
+                    ViewData["error"] = "Betalningspåminnelsen har skickats!";
+                }
                 return View(caretakerDetails);
             }
             else
@@ -277,13 +281,13 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Details(ChildCaretakerLocationVM childCaretakerVM)
+        public async Task<ActionResult> Details(string caretaker_name, string caretaker_email, int debt, int caretaker_id)
         {
             if (ModelState.IsValid)
             {
-                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var body = "Hej " + caretaker_name + "! Du har fortfarande inte betalat din skuld på " + debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
                 var message = new MailMessage();
-                message.To.Add(new MailAddress("sommarkulan@outlook.com"));  // replace with valid value 
+                message.To.Add(new MailAddress(caretaker_email));  // replace with valid value 
                 message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
                 message.Subject = "Betalningspåminnelse";
                 message.Body = string.Format(body);
@@ -292,7 +296,8 @@ namespace SommarkuleAlliansen.Controllers
                 using (var smtp = new SmtpClient())
                 {
                     await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
+                    bool justSentMessage = true;
+                    return RedirectToAction("Details", "Employe", new { caretaker_id = caretaker_id, justSentMessage = justSentMessage});
                 }
             }
             return View();

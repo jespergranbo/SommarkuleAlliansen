@@ -1,10 +1,10 @@
-﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildCaretakerVM>
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildCaretakerLocationVM>
 
 @{
     ViewBag.Title = "Details";
 }
 <div style="margin-top: 25px; overflow:auto;">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Details", "Employe", new {caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
     <div style="border-radius: 5px; float:left; width:400px; background-color:white; padding-left: 1%;">
@@ -14,7 +14,7 @@
         <b style="margin-bottom: 0px;">Nummer:</b>
         <p>@Model.ElementAt(0).caretaker_number</p>
         <b style="margin-bottom: 0px;">Email:</b>
-        <p>@Model.ElementAt(0).caretaker_email</p>*@
+        <p>@Model.ElementAt(0).caretaker_email</p>
         <b style="margin-bottom: 0px;">Adress:</b>
         <p>@Model.ElementAt(0).adress</p>
         <b style="margin-bottom: 0px;">Skuld:</b>
@@ -24,6 +24,8 @@
         <b style="margin-bottom: 0px;">Alternativ kontaktnummer:</b>
         <p>@Model.ElementAt(0).alternative_number</p>
         <input type="submit" value="Skicka betalningspåmminelse" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
+        <br />
+        <div style="padding-bottom: 2%; color:green;">@ViewData["error"]</div>
     </div>
     }
     <div style="border-radius: 5px; float:right; width: 550px; background-color: white;">
