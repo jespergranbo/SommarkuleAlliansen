@@ -12,7 +12,43 @@
         margin-bottom: 16px;
         resize: vertical;
     }
+    .form-radio-css {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: inline-block;
+        position: relative;
+        background-color: #f1f1f1;
+        color: #666;
+        top: 10px;
+        height: 30px;
+        width: 30px;
+        border: 0;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-right: 7px;
+        outline: none;
+    }
 
+    .form-radio-css:checked::before {
+        position: absolute;
+        font: 13px/1 'Open Sans', sans-serif;
+        left: 11px;
+        top: 7px;
+        content: '\02143';
+        transform: rotate(40deg);
+    }
+
+    .form-radio-css:hover {
+        background-color: #f7f7f7;
+    }
+
+    .form-radio-css:checked {
+        background-color: #f1f1f1;
+    }
+    
+    #childBirth{
+        
+    }
 </style>
 <h1>Anmälningsformulär för Sommarkulan 2019</h1>
 <div style="border-radius:5px; background-color:white; padding:10px;">
@@ -55,22 +91,22 @@
                             <label style="margin-right: 20%;">
                                 Simkunnig: <br />
                                 <center>
-                                    <input type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja
-                                    <input type="radio" id="swimFalse" value="false" name="canSwim" /> Nej
+                                    <input class="form-radio-css" type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja
+                                    <input class="form-radio-css" type="radio" id="swimFalse" value="false" name="canSwim" /> Nej
                                 </center>
                             </label>
                             <label style="margin-right: 20%;">
                                 Tillåt att barnet är med på foton: <br />
                                 <center>
-                                    <input type="radio" id="photoTrue" value="true" name="allowPhoto" required /> Ja
-                                    <input type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej
+                                    <input class="form-radio-css" type="radio" id="photoTrue" value="true" name="allowPhoto" required /> Ja
+                                    <input class="form-radio-css" type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej
                                 </center>
                             </label>
                             <label>
                                 Barnet vaccinerat mot stelkramp: <br />
                                 <center>
-                                    <input type="radio" id="vaccineTrue" value="true" name="isVaccinated" required /> Ja
-                                    <input type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej
+                                    <input class="form-radio-css" type="radio" id="vaccineTrue" value="true" name="isVaccinated" required /> Ja
+                                    <input class="form-radio-css" type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej
                                 </center>
                             </label>
                           </div>
