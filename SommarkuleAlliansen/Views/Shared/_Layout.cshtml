@@ -5,6 +5,11 @@
         .hidden {
             display: none;
         }
+        .bg-fixes {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
     </style>
 }
 <html>
@@ -15,7 +20,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
-<body background="~/Content/images/footballfield.jpg">
+<body class="bg-fixes" background="~/Content/images/footballfield.jpg">
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
         <div class="container">
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +49,7 @@
                     <p style="margin-bottom: 1px;">kansli@hagastromssk.se</p>
                     <a style="margin-bottom: 1px;" href="http://www.hagastromssk.se">Till HSK hemsida</a>
                 </div>
-                <div style="float: right">
+                <div style="margin-bottom: 5%; float: right">
                     <p style="margin-bottom: 1px;">Strömsbro</p>
                     <p style="margin-bottom: 1px;">Testebovallen, Hillevägen 14</p>
                     <p style="margin-bottom: 1px;">kansli@stromsbroif.se</p>

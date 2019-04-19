@@ -3,212 +3,55 @@
 @{
     ViewBag.Title = "DetailsChild";
 }
-
-<h2>DetailsChild</h2>
-
 <div>
     <h4>ChildCaretakerLocationVM</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.caretaker_id)
-        </dt>
+        <div style="border-radius: 5px;background-color:white; padding-left: 1%; width: 33%;">
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.name)</p>
+            <b style="margin-bottom: 0px;">Födelsedatum:</b>
+            <p>@Html.DisplayFor(model => model.birth_date)</p>
+            <b style="margin-bottom: 0px;">Tröjstorlek:</b>
+            <p>@Html.DisplayFor(model => model.shirt_size)</p>
+            <b style="margin-bottom: 0px;">Egen kommentar:</b>
+            <p>@Html.DisplayFor(model => model.comment)</p>
+            <b style="margin-bottom: 0px;">Simmkunnighet:</b>
+            <p>@Html.DisplayFor(model => model.can_swim)</p>
+            <b style="margin-bottom: 0px;">Tillåt att barnet är med på foton:</b>
+            <p>@Html.DisplayFor(model => model.allow_photos)</p>
+            <b style="margin-bottom: 0px;">Barnet vaccinerat mot stelkramp:</b>
+            <p>@Html.DisplayFor(model => model.vaccinated)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.caretaker_id)
-        </dd>
+        </div>
+        <div style="border-radius: 5px; background-color:white; padding-left: 1%; width: 33%;">
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.location_name)</p>
+            <b style="margin-bottom: 0px;">Adress:</b>
+            <p>@Html.DisplayFor(model => model.location_adress)</p>
+            <b style="margin-bottom: 0px;">Email:</b>
+            <p>@Html.DisplayFor(model => model.location_email)</p>
+            <b style="margin-bottom: 0px;">Nummer:</b>
+            <p>@Html.DisplayFor(model => model.location_number)</p>
+            <b style="margin-bottom: 0px;">Antal veckor:</b>
+            <p>@Html.DisplayFor(model => model.weeks)</p>
+            <b style="margin-bottom: 0px;">Pris:</b>
+            <p>@Html.DisplayFor(model => model.price)</p>
+        </div>
+        <div style="border-radius: 5px; background-color:white; padding-left: 1%; width: 33%;">
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.caretaker_name)</p>
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.caretaker_number)</p>
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.caretaker_email)</p>
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.adress)</p>
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.alternative_name)</p>
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Html.DisplayFor(model => model.alternative_number)</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.caretaker_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.caretaker_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.caretaker_number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.caretaker_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.caretaker_email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.caretaker_email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.adress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.alternative_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.alternative_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.alternative_number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.alternative_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.debt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.debt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.child_id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.child_id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.comment)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.comment)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.can_swim)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.can_swim)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.birth_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.birth_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.allow_photos)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.allow_photos)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.vaccinated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.vaccinated)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.shirt_size)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.shirt_size)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.location_id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location_id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.location_name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location_name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.location_adress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location_adress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.location_email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location_email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.location_number)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.location_number)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.start_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.start_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.end_date)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.end_date)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.weeks)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.weeks)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.price)
-        </dd>
-
+        </div>
     </dl>
 </div>

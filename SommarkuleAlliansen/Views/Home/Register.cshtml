@@ -51,7 +51,7 @@
     }
 </style>
 <h1>Anmälningsformulär för Sommarkulan 2019</h1>
-<div style="border-radius:5px; background-color:white; padding:10px;">
+<div style="border-radius:5px; background-color:white; padding:10px; opacity: 0.9;">
     @using (Html.BeginForm())
     {
         <form action="Register()" method="post">
@@ -64,7 +64,7 @@
                     }
                 </select>
             </div>
-            <h3>Barnets Uppgifter</h3>
+            <h3 style="margin-top:5%;">Barnets Uppgifter</h3>
             <div style="border-radius:5px; background-color:lightblue; padding:10px;">
                 <label>Barnets Namn:</label> <br />
                 <input type="text" id="childName" name="child_name" required /> <br />
