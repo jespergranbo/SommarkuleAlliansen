@@ -3,55 +3,77 @@
 @{
     ViewBag.Title = "DetailsChild";
 }
+<style>
+        * {
+        box-sizing: border-box;
+    }
+
+    .box {
+        float: left;
+        width: 33.33%;
+        padding: 20px;
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
 <div>
-    <h4>ChildCaretakerLocationVM</h4>
-    <hr />
     <dl class="dl-horizontal">
-        <div style="border-radius: 5px;background-color:white; padding-left: 1%; width: 33%;">
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.name)</p>
-            <b style="margin-bottom: 0px;">Födelsedatum:</b>
-            <p>@Html.DisplayFor(model => model.birth_date)</p>
-            <b style="margin-bottom: 0px;">Tröjstorlek:</b>
-            <p>@Html.DisplayFor(model => model.shirt_size)</p>
-            <b style="margin-bottom: 0px;">Egen kommentar:</b>
-            <p>@Html.DisplayFor(model => model.comment)</p>
-            <b style="margin-bottom: 0px;">Simmkunnighet:</b>
-            <p>@Html.DisplayFor(model => model.can_swim)</p>
-            <b style="margin-bottom: 0px;">Tillåt att barnet är med på foton:</b>
-            <p>@Html.DisplayFor(model => model.allow_photos)</p>
-            <b style="margin-bottom: 0px;">Barnet vaccinerat mot stelkramp:</b>
-            <p>@Html.DisplayFor(model => model.vaccinated)</p>
+        <div style="margin-top: 5%;" class="clearfix">
+            <div class="box" style="border-radius: 5px; background-color:white; margin-right:2%; width: 32%;">
+                <h4>Vårdnadshavare</h4>
+                <hr />
+                <b style="margin-bottom: 0px;">Namn:</b>
+                <p>@Html.DisplayFor(model => model.caretaker_name)</p>
+                <b style="margin-bottom: 0px;">Nummer:</b>
+                <p>@Html.DisplayFor(model => model.caretaker_number)</p>
+                <b style="margin-bottom: 0px;">Email:</b>
+                <p>@Html.DisplayFor(model => model.caretaker_email)</p>
+                <b style="margin-bottom: 0px;">Adress:</b>
+                <p>@Html.DisplayFor(model => model.adress)</p>
+                <b style="margin-bottom: 0px;">Alternativt Namn:</b>
+                <p>@Html.DisplayFor(model => model.alternative_name)</p>
+                <b style="margin-bottom: 0px;">Alternativt Nummer:</b>
+                <p>@Html.DisplayFor(model => model.alternative_number)</p>
+            </div>
+            <div class="box" style="border-radius: 5px;background-color:white; margin-right: 2%; width: 32%;">
+                <h4>Barn</h4>
+                <hr />
+                <b style="margin-bottom: 0px;">Namn:</b>
+                <p>@Html.DisplayFor(model => model.name)</p>
+                <b style="margin-bottom: 0px;">Födelsedatum:</b>
+                <p>@Html.DisplayFor(model => model.birth_date)</p>
+                <b style="margin-bottom: 0px;">Tröjstorlek:</b>
+                <p>@Html.DisplayFor(model => model.shirt_size)</p>
+                <b style="margin-bottom: 0px;">Egen kommentar:</b>
+                <p>@Html.DisplayFor(model => model.comment)</p>
+                <b style="margin-bottom: 0px;">Simmkunnighet:</b>
+                <p>@Html.DisplayFor(model => model.can_swim)</p>
+                <b style="margin-bottom: 0px;">Tillåt att barnet är med på foton:</b>
+                <p>@Html.DisplayFor(model => model.allow_photos)</p>
+                <b style="margin-bottom: 0px;">Barnet vaccinerat mot stelkramp:</b>
+                <p>@Html.DisplayFor(model => model.vaccinated)</p>
 
-        </div>
-        <div style="border-radius: 5px; background-color:white; padding-left: 1%; width: 33%;">
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.location_name)</p>
-            <b style="margin-bottom: 0px;">Adress:</b>
-            <p>@Html.DisplayFor(model => model.location_adress)</p>
-            <b style="margin-bottom: 0px;">Email:</b>
-            <p>@Html.DisplayFor(model => model.location_email)</p>
-            <b style="margin-bottom: 0px;">Nummer:</b>
-            <p>@Html.DisplayFor(model => model.location_number)</p>
-            <b style="margin-bottom: 0px;">Antal veckor:</b>
-            <p>@Html.DisplayFor(model => model.weeks)</p>
-            <b style="margin-bottom: 0px;">Pris:</b>
-            <p>@Html.DisplayFor(model => model.price)</p>
-        </div>
-        <div style="border-radius: 5px; background-color:white; padding-left: 1%; width: 33%;">
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.caretaker_name)</p>
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.caretaker_number)</p>
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.caretaker_email)</p>
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.adress)</p>
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.alternative_name)</p>
-            <b style="margin-bottom: 0px;">Namn:</b>
-            <p>@Html.DisplayFor(model => model.alternative_number)</p>
-
+            </div>
+            <div class="box" style="border-radius: 5px; background-color:white; width: 32%;">
+                <h4>Förening och veckor</h4>
+                <hr />
+                <b style="margin-bottom: 0px;">Namn:</b>
+                <p>@Html.DisplayFor(model => model.location_name)</p>
+                <b style="margin-bottom: 0px;">Adress:</b>
+                <p>@Html.DisplayFor(model => model.location_adress)</p>
+                <b style="margin-bottom: 0px;">Email:</b>
+                <p>@Html.DisplayFor(model => model.location_email)</p>
+                <b style="margin-bottom: 0px;">Nummer:</b>
+                <p>@Html.DisplayFor(model => model.location_number)</p>
+                <b style="margin-bottom: 0px;">Antal veckor:</b>
+                <p>@Html.DisplayFor(model => model.weeks)</p>
+                <b style="margin-bottom: 0px;">Pris:</b>
+                <p>@Html.DisplayFor(model => model.price)</p>
+            </div>
         </div>
     </dl>
 </div>

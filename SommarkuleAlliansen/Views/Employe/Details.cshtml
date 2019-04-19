@@ -7,8 +7,9 @@
     @using (Html.BeginForm("Details", "Employe", new {caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-    <div style="border-radius: 5px; float:left; width:400px; background-color:white; padding-left: 1%;">
+    <div style="border-radius: 5px; float:left; width:30%; background-color:white; padding-left: 1%;">
         <h4>Vårdnadshavare</h4>
+        <hr />
         <b style="margin-bottom: 0px;">Namn:</b>
         <p>@Model.ElementAt(0).caretaker_name</p>
         <b style="margin-bottom: 0px;">Nummer:</b>
@@ -28,11 +29,11 @@
         <div style="padding-bottom: 2%; color:green;">@ViewData["error"]</div>
     </div>
     }
-    <div style="border-radius: 5px; float:right; width: 550px; background-color: white;">
+    <div style="border-radius: 5px; float:right; width: 50%; background-color: white;">
         <h4 style="border-radius: 5px; background-color: white; margin-bottom: 8px; padding-left:1%;">Barn</h4>
         @foreach (var item in Model)
         {
-
+            <hr />
             <div style="border-bottom:2px solid grey; padding-left:1%;">
                 <b style="margin-bottom: 0px;">Namn:</b>
                 <p>@item.name</p>
