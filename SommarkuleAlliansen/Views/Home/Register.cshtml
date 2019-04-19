@@ -45,13 +45,9 @@
     .form-radio-css:checked {
         background-color: #f1f1f1;
     }
-    
-    #childBirth{
-        
-    }
 </style>
-<h1>Anmälningsformulär för Sommarkulan 2019</h1>
-<div style="border-radius:5px; background-color:white; padding:10px; opacity: 0.9;">
+<div style="border-radius:5px; background-color:white; margin-top:5%; padding:10px; opacity: 0.9;">
+    <h1>Anmälningsformulär för Sommarkulan 2019</h1>
     @using (Html.BeginForm())
     {
         <form action="Register()" method="post">
@@ -87,33 +83,33 @@
                         }
                     }
                 </select> <br />
-                          <div>
-                            <label style="margin-right: 20%;">
-                                Simkunnig: <br />
-                                <center>
-                                    <label style=""><input class="form-radio-css" type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja</label>
-                                    <label><input class="form-radio-css" type="radio" id="swimFalse" value="false" name="canSwim" /> Nej</label>
-                                </center>
-                            </label>
-                            <label style="margin-right: 20%;">
-                                Tillåt att barnet är med på foton: <br />
-                                <center>
-                                    <input class="form-radio-css" type="radio" id="photoTrue" value="true" name="allowPhoto" required /> Ja
-                                    <input class="form-radio-css" type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej
-                                </center>
-                            </label>
-                            <label>
-                                Barnet vaccinerat mot stelkramp: <br />
-                                <center>
-                                    <input class="form-radio-css" type="radio" id="vaccineTrue" value="true" name="isVaccinated" required /> Ja
-                                    <input class="form-radio-css" type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej
-                                </center>
-                            </label>
-                          </div>
-                          <label style="margin-top: 3%;">
-                              Annan information som kan vara nödvändig för sommarkulans ledare:
-                              <textarea id="childComment" name="comment" style="width: 100%;"></textarea>
-                          </label>
+                <div>
+                    <label style="margin-right: 20%;">
+                        Simkunnig: <br />
+                        <center>
+                            <label style=""><input class="form-radio-css" type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja</label>
+                            <label><input class="form-radio-css" type="radio" id="swimFalse" value="false" name="canSwim" /> Nej</label>
+                        </center>
+                    </label>
+                    <label style="margin-right: 20%;">
+                        Tillåt att barnet är med på foton: <br />
+                        <center>
+                            <input class="form-radio-css" type="radio" id="photoTrue" value="true" name="allowPhoto" required /> Ja
+                            <input class="form-radio-css" type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej
+                        </center>
+                    </label>
+                    <label>
+                        Barnet vaccinerat mot stelkramp: <br />
+                        <center>
+                            <input class="form-radio-css" type="radio" id="vaccineTrue" value="true" name="isVaccinated" required /> Ja
+                            <input class="form-radio-css" type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej
+                        </center>
+                    </label>
+                </div>
+                <label style="margin-top: 3%;">
+                    Annan information som kan vara nödvändig för sommarkulans ledare:
+                    <textarea id="childComment" name="comment" style="width: 100%;"></textarea>
+                </label>
             </div>
             <h3 style="margin-top:5%;">Vårdnadshavarens Uppgifter</h3>
             <div style="border-radius:5px; background-color:lightblue; padding:10px;">
