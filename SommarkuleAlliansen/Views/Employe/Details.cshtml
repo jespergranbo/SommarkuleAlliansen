@@ -31,14 +31,14 @@
     }
     <div style="border-radius: 5px; float:right; width: 50%; background-color: white;">
         <h4 style="border-radius: 5px; background-color: white; margin-bottom: 8px; padding-left:1%;">Barn</h4>
+        <hr />
         @foreach (var item in Model)
         {
-            <hr />
             <div style="border-bottom:2px solid grey; padding-left:1%;">
                 <b style="margin-bottom: 0px;">Namn:</b>
                 <p>@item.name</p>
                 <b style="margin-bottom: 0px;">Födelsedatum:</b>
-                <p>@String.Format("{0:yyy/M/d}", item.birth_date)</p>
+                <p>@String.Format("{0:yyy/MM/dd}", item.birth_date)</p>
                 @if (item.comment != "")
                 {
                     <b style="margin-bottom: 0px;">Kommentar:</b>

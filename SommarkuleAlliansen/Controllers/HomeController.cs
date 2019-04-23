@@ -210,7 +210,7 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var body = "<p>Email From: {0} ({1})</p><p>Message: {2}</p>";
                 var message = new MailMessage();
                 message.To.Add(new MailAddress("sommarkulan@outlook.com"));  // replace with valid value 
                 message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value

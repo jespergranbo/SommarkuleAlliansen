@@ -399,7 +399,7 @@ namespace SommarkuleAlliansen.Controllers
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.name, child.birth_date, child.comment, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
+                    string query = "SELECT child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
                         "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id INNER JOIN location on child.location_id = location.location_id WHERE child.child_id = @id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
@@ -412,7 +412,11 @@ namespace SommarkuleAlliansen.Controllers
                             {
                                 childDetails.name = Convert.ToString(sdr["name"]);
                                 childDetails.birth_date = Convert.ToDateTime(sdr["birth_date"]);
+                                childDetails.shirt_size = Convert.ToString(sdr["shirt_size"]);
                                 childDetails.comment = Convert.ToString(sdr["comment"]);
+                                childDetails.can_swim = Convert.ToBoolean(sdr["can_swim"]);
+                                childDetails.allow_photos = Convert.ToBoolean(sdr["allow_photos"]);
+                                childDetails.vaccinated = Convert.ToBoolean(sdr["vaccinated"]);
                                 childDetails.caretaker_name = Convert.ToString(sdr["caretaker_name"]);
                                 childDetails.caretaker_number = Convert.ToInt32(sdr["caretaker_number"]);
                                 childDetails.caretaker_email = Convert.ToString(sdr["caretaker_email"]);
