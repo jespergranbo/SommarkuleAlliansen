@@ -10,7 +10,7 @@
 
     .box {
         float: left;
-        width: 33.33%;
+        width: 30%;
         padding: 20px;
     }
 
@@ -20,11 +20,11 @@
         display: table;
     }
 </style>
-<div  style="margin-top: 5%;" class="clearfix">
+<div  style="margin-top: 5%; opacity: 0.9;" class="clearfix">
     @using (Html.BeginForm("Details", "Employe", new { caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-        <div  class="box" style="border-radius: 5px; background-color:white; margin-right:2%; width: 32%;">
+        <div  class="box" style="border-radius: 5px; background-color:white; margin-right:2%;">
             <h4>Vårdnadshavare</h4>
             <hr />
             <b style="margin-bottom: 0px;">Namn:</b>
@@ -48,7 +48,7 @@
     }
     @foreach (var item in Model)
     {
-        <div  class="box" style="border-radius: 5px;background-color:white; margin-right: 2%; width: 32%; margin-bottom: 1%;">
+        <div  class="box" style="border-radius: 5px; background-color:white; margin-right: 2%; margin-bottom: 1%;">
             <h4>Barn</h4>
             <hr />
             <b style="margin-bottom: 0px;">Namn:</b>

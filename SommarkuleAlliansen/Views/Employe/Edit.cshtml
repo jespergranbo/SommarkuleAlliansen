@@ -7,7 +7,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div  style="border-radius:5px; background-color:white; padding:10px; margin-top:5%;">
+<div  style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
     <div class="form-horizontal">
         <div style="display:none">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
