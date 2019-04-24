@@ -19,12 +19,12 @@
             <th style="border:none;">
                 Adress
             </th>
-            <th style="border:none;">
+            @*<th style="border:none;">
                 Kontaktperson
             </th>
             <th style="border:none;">
                 Kontaktnmr
-            </th>
+            </th>*@
             <th style="border:none;">
                 Betalt
             </th>
@@ -50,14 +50,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.adress)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.alternative_name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.alternative_number)
-            </td>
+            </td>*@
             <td>
-                <input size="1" type="text" name="Payment"/>
+                <input size="2" type="text" name="Payment"/>
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.debt):-

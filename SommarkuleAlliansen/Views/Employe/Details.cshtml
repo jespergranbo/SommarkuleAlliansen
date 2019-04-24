@@ -3,54 +3,69 @@
 @{
     ViewBag.Title = "Details";
 }
-<div style="margin-top: 25px; overflow:auto;">
-    @using (Html.BeginForm("Details", "Employe", new {caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .box {
+        float: left;
+        width: 33.33%;
+        padding: 20px;
+    }
+
+    .clearfix::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
+<div  style="margin-top: 5%;" class="clearfix">
+    @using (Html.BeginForm("Details", "Employe", new { caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-    <div style="border-radius: 5px; float:left; width:30%; background-color:white; padding-left: 1%;">
-        <h4>Vårdnadshavare</h4>
-        <hr />
-        <b style="margin-bottom: 0px;">Namn:</b>
-        <p>@Model.ElementAt(0).caretaker_name</p>
-        <b style="margin-bottom: 0px;">Nummer:</b>
-        <p>@Model.ElementAt(0).caretaker_number</p>
-        <b style="margin-bottom: 0px;">Email:</b>
-        <p>@Model.ElementAt(0).caretaker_email</p>
-        <b style="margin-bottom: 0px;">Adress:</b>
-        <p>@Model.ElementAt(0).adress</p>
-        <b style="margin-bottom: 0px;">Skuld:</b>
-        <p>@Model.ElementAt(0).debt</p>
-        <b style="margin-bottom: 0px;">Alternativ kontaktperson:</b>
-        <p>@Model.ElementAt(0).alternative_name</p>
-        <b style="margin-bottom: 0px;">Alternativ kontaktnummer:</b>
-        <p>@Model.ElementAt(0).alternative_number</p>
-        <input type="submit" value="Skicka betalningspåmminelse" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
-        <br />
-        <div style="padding-bottom: 2%; color:green;">@ViewData["error"]</div>
-    </div>
+        <div  class="box" style="border-radius: 5px; background-color:white; margin-right:2%; width: 32%;">
+            <h4>Vårdnadshavare</h4>
+            <hr />
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@Model.ElementAt(0).caretaker_name</p>
+            <b style="margin-bottom: 0px;">Nummer:</b>
+            <p>@Model.ElementAt(0).caretaker_number</p>
+            <b style="margin-bottom: 0px;">Email:</b>
+            <p>@Model.ElementAt(0).caretaker_email</p>
+            <b style="margin-bottom: 0px;">Adress:</b>
+            <p>@Model.ElementAt(0).adress</p>
+            <b style="margin-bottom: 0px;">Skuld:</b>
+            <p>@Model.ElementAt(0).debt</p>
+            <b style="margin-bottom: 0px;">Alternativ kontaktperson:</b>
+            <p>@Model.ElementAt(0).alternative_name</p>
+            <b style="margin-bottom: 0px;">Alternativ kontaktnummer:</b>
+            <p>@Model.ElementAt(0).alternative_number</p>
+            <input type="submit" value="Skicka betalningspåmminelse" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
+            <br />
+            <div style="padding-bottom: 2%; color:green;">@ViewData["error"]</div>
+        </div>
     }
-    <div style="border-radius: 5px; float:right; width: 50%; background-color: white;">
-        <h4 style="border-radius: 5px; background-color: white; margin-bottom: 8px; padding-left:1%;">Barn</h4>
-        <hr />
-        @foreach (var item in Model)
-        {
-            <div style="border-bottom:2px solid grey; padding-left:1%;">
-                <b style="margin-bottom: 0px;">Namn:</b>
-                <p>@item.name</p>
-                <b style="margin-bottom: 0px;">Födelsedatum:</b>
-                <p>@String.Format("{0:yyy/MM/dd}", item.birth_date)</p>
-                @if (item.comment != "")
-                {
-                    <b style="margin-bottom: 0px;">Kommentar:</b>
-                    <p>@item.comment</p>
-                }
-                <b style="margin-bottom: 0px;">Start datum:</b>
-                <p>@String.Format("{0:MM/dd}", item.start_date)</p>
-                <b style="margin-bottom: 0px;">Slut datum:</b>
-                <p>@String.Format("{0:MM/dd}", item.end_date)</p>
-                <b style="margin-bottom: 0px;">Anmäld för period:</b>
-                <p>@item.weeks</p>
-            </div>
-        }
+    @foreach (var item in Model)
+    {
+        <div  class="box" style="border-radius: 5px;background-color:white; margin-right: 2%; width: 32%; margin-bottom: 1%;">
+            <h4>Barn</h4>
+            <hr />
+            <b style="margin-bottom: 0px;">Namn:</b>
+            <p>@item.name</p>
+            <b style="margin-bottom: 0px;">Födelsedatum:</b>
+            <p>@String.Format("{0:yyy/MM/dd}", item.birth_date)</p>
+            @if (item.comment != "")
+            {
+                <b style="margin-bottom: 0px;">Kommentar:</b>
+                <p>@item.comment</p>
+            }
+            <b style="margin-bottom: 0px;">Start datum:</b>
+            <p>@String.Format("{0:MM/dd}", item.start_date)</p>
+            <b style="margin-bottom: 0px;">Slut datum:</b>
+            <p>@String.Format("{0:MM/dd}", item.end_date)</p>
+            <b style="margin-bottom: 0px;">Anmäld för period:</b>
+            <p>@item.weeks</p>
+        </div>
+            }
     </div>
-</div>
