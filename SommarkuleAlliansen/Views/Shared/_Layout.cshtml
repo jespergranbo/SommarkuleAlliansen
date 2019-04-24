@@ -1,19 +1,22 @@
 ﻿<!DOCTYPE html>
+<style>
+    * {
+        font-family: 'Open Sans', sans-serif;
+    }
+    .bg-fixes {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 @if (Session["employe_type"] == null)
 {
-    <style>
-        * {
-            font-family: 'Open Sans', sans-serif;
-        }
-        .hidden {
-            display: none;
-        }
-        .bg-fixes {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-    </style>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 }
 <html>
 <head>
@@ -22,7 +25,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 </head>
 <body class="bg-fixes" background="~/Content/images/footballfield.jpg">
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
