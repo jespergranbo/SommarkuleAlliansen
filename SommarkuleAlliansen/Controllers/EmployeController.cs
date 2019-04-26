@@ -392,7 +392,7 @@ namespace SommarkuleAlliansen.Controllers
                 List<groups> groups = new List<groups>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT groups.group_id, groups.birth_year, location.weeks, count(*) FROM groups INNER JOIN location ON groups.location_id = location.location_id GROUP BY group_id";
+                    string query = "SELECT child.group_id, groups.birth_year, location.weeks, count(*) FROM child INNER JOIN location ON child.location_id = location.location_id INNER JOIN groups ON child.group_id = groups.group_id GROUP BY group_id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
@@ -425,14 +425,23 @@ namespace SommarkuleAlliansen.Controllers
             if (Session["employe_id"] != null)
             {
                 List<ChildGroupVM> children = new List<ChildGroupVM>();
+                int secondID = 0;
+                if (id == 3 || id == 4)
+                {
+                    secondID = 5;
+                }
+                else if (id == 6 || id == 7)
+                {
+                    secondID = 8;
+                }
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, child.group_id, groups.birth_year, child.present " +
-                        "FROM child INNER JOIN groups ON child.group_id = groups.group_id WHERE child.group_id = @id";
+                    string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, child.group_id, groups.birth_year, child.present FROM child INNER JOIN groups ON child.group_id = groups.group_id WHERE child.group_id = @id OR child.group_id = @secondID";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
                         cmd.Parameters.AddWithValue("@id", id);
+                        cmd.Parameters.AddWithValue("@secondID", secondID);
                         con.Open();
                         using (MySqlDataReader sdr = cmd.ExecuteReader())
                         {

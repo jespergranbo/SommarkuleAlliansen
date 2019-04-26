@@ -58,6 +58,7 @@ namespace SommarkuleAlliansen.Controllers
         {
             long caretaker_id = 0;
             int price = 0;
+            long groupId = 0;
             DateTime start_date = DateTime.Now;
             DateTime end_date = DateTime.Now;
             string location_name = "";
@@ -81,6 +82,22 @@ namespace SommarkuleAlliansen.Controllers
                         con.Close();
                     }
                     location selectedLocation = GetLocationInformation(location_id);
+                    query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = @location_id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@birth_year", birth.Year.ToString());
+                        cmd.Parameters.AddWithValue("@location_id", location_id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                groupId = Convert.ToInt32(sdr["group_id"]);
+                            }
+                        }
+                        con.Close();
+                    }
                     if (caretaker_id != 0)
                     {
                         UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
@@ -106,9 +123,10 @@ namespace SommarkuleAlliansen.Controllers
                             con.Close();
                         }
                     }
-                    query = "INSERT INTO child (child_id, name, comment, caretaker_id, can_swim, birth_date, allow_photos, vaccinated, shirt_size, location_id) VALUES (NULL, @name, @comment, @caretaker_id, @can_swim, @birth_date, @allow_photos, @vaccinated, @shirt_size, @location_id);";
+                    query = "INSERT INTO child (child_id, name, comment, caretaker_id, can_swim, birth_date, allow_photos, vaccinated, shirt_size, location_id, group_id, present) VALUES (NULL, @name, @comment, @caretaker_id, @can_swim, @birth_date, @allow_photos, @vaccinated, @shirt_size, @location_id, @group_id, @present);";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
+                        bool present = false;
                         cmd.Connection = con;
                         cmd.Parameters.AddWithValue("@name", child_name);
                         cmd.Parameters.AddWithValue("@comment", comment);
@@ -119,6 +137,8 @@ namespace SommarkuleAlliansen.Controllers
                         cmd.Parameters.AddWithValue("@vaccinated", isVaccinated);
                         cmd.Parameters.AddWithValue("@shirt_size", shirtSize);
                         cmd.Parameters.AddWithValue("@location_id", location_id);
+                        cmd.Parameters.AddWithValue("@group_id", groupId);
+                        cmd.Parameters.AddWithValue("@present", present);
                         con.Open();
                         using (MySqlDataReader sdr = cmd.ExecuteReader())
                         {
