@@ -34,12 +34,13 @@
             </button>
             @Html.ActionLink("Sommarkulan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             <div class="navbar-collapse collapse" id="navbarSupportedContent">
-
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item">@Html.ActionLink("Hem", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Anmälan", "Register", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Kontakt", "Contact", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item hidden">@Html.ActionLink("Adminsida", "Caretaker", "Employe", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item hidden">@Html.ActionLink("Anställd", "EmployePage", "Employe", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Logga ut", "LogOut", "Employe", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>

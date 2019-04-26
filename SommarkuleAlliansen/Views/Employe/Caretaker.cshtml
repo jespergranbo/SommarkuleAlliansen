@@ -28,47 +28,47 @@
             <td style="border:none;">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
 
         </tr>
-        @foreach (var item in Model)
+        @for (int i = 0; i < Model.Count(); i++)
         {
-            if (item.debt > 1)
-            {
-                <style>
-                    .bg_color {
-                        background-color: #ff8080;
-                    }
-                </style>
-            }
-            else
-            {
-                <style>
-                    .bg_color {
-                        background-color: #4dff4d;
-                    }
-                </style>
-            }
             <tr>
-                <td class="bg_color">
-                    @Html.DisplayFor(modelItem => item.caretaker_name)
+                <td id="@i">
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).caretaker_name)
                 </td>
-                <td class="bg_color">
-                    @Html.DisplayFor(modelItem => item.caretaker_number)
+                <td id="@i">
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).caretaker_number)
                 </td>
-                <td class="bg_color">
-                    @Html.DisplayFor(modelItem => item.caretaker_email)
+                <td id="@i">
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).caretaker_email)
                 </td>
-                <td class="bg_color">
-                    @Html.DisplayFor(modelItem => item.adress)
+                <td id="@i">
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).adress)
                 </td>
-                <td class="bg_color">
+                <td id="@i">
                     <input size="2" type="text" name="Payment" />
                 </td>
-                <td class="bg_color">
-                    @Html.DisplayFor(modelItem => item.debt):-
+                <td id="@i">
+                    @Html.DisplayFor(modelItem => Model.ElementAt(i).debt):-
                 </td>
-                <td class="bg_color">
-                    @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
+                <td id="@i">
+                    @Html.ActionLink("Visa mer", "Details", new { id = Model.ElementAt(i).caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
                 </td>
             </tr>
         }
     </table>
+    <p onload="changeBackgroundColor()"></p>
 </div>
+<script>
+    function changeBackgroundColor()
+    {
+        for (var i = 0; i < Model.Count(); i++) {
+            if (Model.ElementAt(i).debt > 1) {
+                document.getElementById(k).style.backgroundColor = "#578c57";
+                document.getElementById(k).style.color = "#ff6666";
+            }
+            else {
+                document.getElementById(k).style.backgroundColor = "#578c57";
+                document.getElementById(k).style.color = "#ff6666";
+            }
+        }
+    }
+</script>

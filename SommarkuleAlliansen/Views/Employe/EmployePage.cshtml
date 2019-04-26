@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SommarkuleAlliansen.Models.groups>
+
+@{
+    ViewBag.Title = "EmployePage";
+}
+<table class="table">
+    <tr>
+        <th>
+            Gruppnummer
+        </th>
+        <th>
+            Antal barn i gruppen
+        </th>
+        <th>
+            Åldersgrupp
+        </th>
+        <th>
+            Period
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.group_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.count)
+        </td>
+        <td>@Html.DisplayFor(modelItem => item.birth_year)</td>
+        <td>@Html.DisplayFor(modelItem => item.weeks)</td>
+        <td>
+            @Html.ActionLink("Visa grupp", "GroupDetails", new { id=item.group_id })
+        </td>
+    </tr>
+}
+
+</table>

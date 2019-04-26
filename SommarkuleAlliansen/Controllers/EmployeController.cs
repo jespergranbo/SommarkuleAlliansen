@@ -23,46 +23,43 @@ namespace SommarkuleAlliansen.Controllers
         [HttpPost]
         public ActionResult Login(employe account)
         {
-            List<employe> employes = new List<employe>();
+            employe user = new employe();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT * FROM employe";
+                string query = "SELECT * FROM employe WHERE name = @name AND password = @password";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@name", account.name);
+                    cmd.Parameters.AddWithValue("@password", account.password);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
                         while (sdr.Read())
                         {
-                            employes.Add(new employe
-                            {
-                                employe_id = Convert.ToInt32(sdr["employe_id"]),
-                                employe_type = Convert.ToInt32(sdr["employe_type"]),
-                                name = sdr["name"].ToString(),
-                                number = Convert.ToInt32(sdr["number"]),
-                                password = sdr["password"].ToString()
-                            });
-                        }
-                        foreach (employe emp in employes)
-                        {
-                            if (emp.name == account.name && emp.password == account.password)
-                            {
-                                Session["employe_id"] = emp.employe_id.ToString();
-                                Session["name"] = emp.name.ToString();
-                                Session["employe_type"] = emp.employe_type.ToString();
-                                return RedirectToAction("Index", "Home");
-                            }
-                            else
-                            {
-                                ModelState.AddModelError("", "Användarnamnet eller lösenordet är fel");
-                            }
+                            user.employe_id = Convert.ToInt32(sdr["employe_id"]);
+                            user.employe_type = Convert.ToInt32(sdr["employe_type"]);
+                            user.name = sdr["name"].ToString();
+                            user.number = Convert.ToInt32(sdr["number"]);
+                            user.password = sdr["password"].ToString();
+                            Session["employe_id"] = user.employe_id.ToString();
+                            Session["name"] = user.name.ToString();
+                            Session["employe_type"] = user.employe_type.ToString();
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                     con.Close();
+                    ModelState.AddModelError("", "Användarnamnet eller lösenordet är fel");
                 }
             }
           return View();
+        }
+        public ActionResult LogOut()
+        {
+            Session["employe_id"] = null;
+            Session["name"] = null;
+            Session["employe_type"] = null;
+            return RedirectToAction("Index", "Home");
         }
         public ActionResult Caretaker()
         {
@@ -387,6 +384,85 @@ namespace SommarkuleAlliansen.Controllers
                 return RedirectToAction("Caretaker");
             }
             return View(caretaker);
+        }
+        public ActionResult EmployePage()
+        {
+            if (Session["employe_id"] != null)
+            {
+                List<groups> groups = new List<groups>();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT groups.group_id, groups.birth_year, location.weeks, count(*) FROM groups INNER JOIN location ON groups.location_id = location.location_id GROUP BY group_id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                groups.Add(new groups
+                                {
+                                    group_id = Convert.ToInt32(sdr["group_id"]),
+                                    birth_year = Convert.ToInt32(sdr["birth_year"]),
+                                    weeks = Convert.ToString(sdr["weeks"]),
+                                    count = Convert.ToInt32(sdr["count(*)"])
+                                });
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return View(groups);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        public ActionResult GroupDetails(int? id)
+        {
+            if (Session["employe_id"] != null)
+            {
+                List<ChildGroupVM> children = new List<ChildGroupVM>();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, child.group_id, groups.birth_year, child.present " +
+                        "FROM child INNER JOIN groups ON child.group_id = groups.group_id WHERE child.group_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                children.Add(new ChildGroupVM
+                                {
+                                    child_id = Convert.ToInt32(sdr["child_id"]),
+                                    name = Convert.ToString(sdr["name"]),
+                                    comment = Convert.ToString(sdr["comment"]),
+                                    can_swim = Convert.ToBoolean(sdr["can_swim"]),
+                                    birth_date = Convert.ToDateTime(sdr["birth_date"]),
+                                    allow_photos = Convert.ToBoolean(sdr["allow_photos"]),
+                                    vaccinated = Convert.ToBoolean(sdr["vaccinated"]),
+                                    shirt_size = Convert.ToString(sdr["shirt_size"]),
+                                    group_id = Convert.ToInt32(sdr["group_id"]),
+                                    birth_year = Convert.ToInt32(sdr["birth_year"]),
+                                    present = Convert.ToBoolean(sdr["present"])
+                                });
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return View(children);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         public ActionResult DetailsChild(int? id)
         {

@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "LogIn";
 }
+<style>
+    .help-block ul {
+        list-style-type: none;
+    }
+</style>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -27,7 +32,9 @@
                     <input type="submit" value="Logga in" class="btn btn-outline-secondary" />
                 </div>
             </div>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <span class="help-block">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </span>
         </div>
     </center>
 }

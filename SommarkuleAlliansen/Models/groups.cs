@@ -8,8 +8,9 @@ namespace SommarkuleAlliansen.Models
     public class groups
     {
         public int group_id { get; set; }
-        public int child_id { get; set; }
-        public int group_number { get; set; }
-        public bool present { get; set; }
+        public int location_id { get; set; }
+        public int birth_year { get; set; }
+        public string weeks { get; set; }
+        public int count { get; set; }
     }
 }

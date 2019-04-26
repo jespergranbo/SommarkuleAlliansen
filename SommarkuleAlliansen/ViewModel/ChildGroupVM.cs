@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SommarkuleAlliansen.Models
+namespace SommarkuleAlliansen.ViewModel
 {
-    public class child
+    public class ChildGroupVM
     {
         public int child_id { get; set; }
         public string name { get; set; }
@@ -18,10 +18,10 @@ namespace SommarkuleAlliansen.Models
         public string shirt_size { get; set; }
         public int group_id { get; set; }
         public bool present { get; set; }
-
+        
         public int location_id { get; set; }
-        public string caretaker_name { get; set; }
-        public string location_name { get; set; }
         public string weeks { get; set; }
+        public int birth_year { get; set; }
+        public int count { get; set; }
     }
 }
