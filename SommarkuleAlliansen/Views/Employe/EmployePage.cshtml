@@ -3,36 +3,41 @@
 @{
     ViewBag.Title = "EmployePage";
 }
-<table class="table">
-    <tr>
-        <th>
-            Gruppnummer
-        </th>
-        <th>
-            Antal barn i gruppen
-        </th>
-        <th>
-            Åldersgrupp
-        </th>
-        <th>
-            Period
-        </th>
-        <th></th>
-    </tr>
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.group_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.count)
-        </td>
-        <td>@Html.DisplayFor(modelItem => item.birth_year)</td>
-        <td>@Html.DisplayFor(modelItem => item.weeks)</td>
-        <td>
-            @Html.ActionLink("Visa grupp", "GroupDetails", new { id = item.group_id })
-        </td>
-    </tr>
-}
+<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+    <table class="table">
+        <tr>
+            <th style="border:none;">
+                Gruppnummer
+            </th>
+            <th style="border:none;">
+                Antal barn i gruppen
+            </th>
+            <th style="border:none;">
+                Åldersgrupp
+            </th>
+            <th style="border:none;">
+                Period
+            </th>
+            <th style="border:none;"></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.group_id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.count)
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.birth_year)</td>
+                <td>@Html.DisplayFor(modelItem => item.weeks)</td>
+                <td>
+                    @Html.ActionLink("Visa grupp", "GroupDetails", new { id = item.group_id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

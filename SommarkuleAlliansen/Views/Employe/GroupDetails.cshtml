@@ -3,62 +3,65 @@
 @{
     ViewBag.Title = "GroupDetails";
 }
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.comment)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.can_swim)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.birth_date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.allow_photos)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.vaccinated)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.shirt_size)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.present)
-        </th>
-        <th></th>
-    </tr>
+<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+    <table class="table">
+        <tr>
+            <th style="border:none;">
+                För- och Efternamn
+            </th>
+            <th style="border:none;">
+                Kommentar
+            </th>
+            <th style="border:none;">
+                Simkunnig
+            </th>
+            <th style="border:none;">
+                Födelsedatum
+            </th>
+            <th style="border:none;">
+                Tillåt foto
+            </th>
+            <th style="border:none;">
+                Vacinerad
+            </th>
+            <th style="border:none;">
+                Tröjstorlek
+            </th>
+            <th style="border:none;">
+                Närvaro
+            </th>
+            <th style="border:none;"></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.comment)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.can_swim)
-        </td>
-        <td>
-            @String.Format("{0:yyyy/MM/dd}", item.birth_date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.allow_photos)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.vaccinated)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.shirt_size)
-        </td>
-        <td>
-            @Html.EditorFor(modelItem => item.present)
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.comment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.can_swim)
+                </td>
+                <td>
+                    @String.Format("{0:yyyy/MM/dd}", item.birth_date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.allow_photos)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.vaccinated)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.shirt_size)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.present)
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
