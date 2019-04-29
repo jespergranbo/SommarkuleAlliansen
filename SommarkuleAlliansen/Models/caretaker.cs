@@ -15,5 +15,6 @@ namespace SommarkuleAlliansen.Models
         public string alternative_name { get; set; }
         public int alternative_number { get; set; }
         public double debt { get; set; }
+        public double paid { get; set; }
     }
 }

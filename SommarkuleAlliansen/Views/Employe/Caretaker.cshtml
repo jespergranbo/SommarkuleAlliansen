@@ -3,72 +3,84 @@
 @{
     ViewBag.Title = "Caretaker";
 }
-@{bool justSentMessage = false; }
-<div  style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
-    <table class="table">
-        <tr>
-            <th style="border:none;">
-                Namn
-            </th>
-            <th style="border:none;">
-                Nummer
-            </th>
-            <th style="border:none;">
-                Mail
-            </th>
-            <th style="border:none;">
-                Adress
-            </th>
-            <th style="border:none;">
-                Betalt
-            </th>
-            <th style="border:none;">
-                Betala
-            </th>
-            <td style="border:none;">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
-
-        </tr>
-        @for (int i = 0; i < Model.Count(); i++)
-        {
+@{bool justSentMessage = false;}
+    @Html.AntiForgeryToken()
+    <div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+        <table class="table">
             <tr>
-                <td id="@i">
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).caretaker_name)
-                </td>
-                <td id="@i">
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).caretaker_number)
-                </td>
-                <td id="@i">
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).caretaker_email)
-                </td>
-                <td id="@i">
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).adress)
-                </td>
-                <td id="@i">
-                    <input size="2" type="text" name="Payment" />
-                </td>
-                <td id="@i">
-                    @Html.DisplayFor(modelItem => Model.ElementAt(i).debt):-
-                </td>
-                <td id="@i">
-                    @Html.ActionLink("Visa mer", "Details", new { id = Model.ElementAt(i).caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
-                </td>
+                <th style="border:none;">
+                    Namn
+                </th>
+                <th style="border:none;">
+                    Nummer
+                </th>
+                <th style="border:none;">
+                    Mail
+                </th>
+                <th style="border:none;">
+                    Adress
+                </th>
+                <th style="border:none;">
+                    Betalt
+                </th>
+                <th style="border:none;">
+                    Betala
+                </th>
+                <td style="border:none;">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
+
             </tr>
-        }
-    </table>
-    <p onload="changeBackgroundColor()"></p>
-</div>
-<script>
-    function changeBackgroundColor()
-    {
-        for (var i = 0; i < Model.Count(); i++) {
-            if (Model.ElementAt(i).debt > 1) {
-                document.getElementById(k).style.backgroundColor = "#578c57";
-                document.getElementById(k).style.color = "#ff6666";
+            @foreach (var item in Model)
+            {
+            <tr>
+                @if (item.debt != 0)
+                {
+                    <td style="background-color: #ff8080">
+                        @Html.DisplayFor(modelItem => item.caretaker_name)
+                    </td>
+                    <td style="background-color: #ff8080">
+                        @Html.DisplayFor(modelItem => item.caretaker_number)
+                    </td>
+                    <td style="background-color: #ff8080">
+                        @Html.DisplayFor(modelItem => item.caretaker_email)
+                    </td>
+                    <td style="background-color: #ff8080">
+                        @Html.DisplayFor(modelItem => item.adress)
+                    </td>
+                    <td style="background-color: #ff8080">
+                        @Html.TextBoxFor(modelItem => item.paid, new { @class = "form-control", @style = "width: 35px;" })
+                    </td>
+                    <td style="background-color: #ff8080">
+                        @Html.DisplayFor(modelItem => item.debt):-
+                    </td>
+                    <td style="background-color: #ff8080">
+                        @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
+                    </td>
+                }
+                else
+                {
+                <td style="background-color: #53c653">
+                    @Html.DisplayFor(modelItem => item.caretaker_name)
+                </td>
+                <td style="background-color: #53c653">
+                    @Html.DisplayFor(modelItem => item.caretaker_number)
+                </td>
+                <td style="background-color: #53c653">
+                    @Html.DisplayFor(modelItem => item.caretaker_email)
+                </td>
+                <td style="background-color: #53c653">
+                    @Html.DisplayFor(modelItem => item.adress)
+                </td>
+                <td style="background-color: #53c653">
+                    @Html.TextBoxFor(modelItem => item.paid, new { @class = "form-control", @style = "width: 35px;" })
+                </td>
+                <td style="background-color: #53c653">
+                    @Html.DisplayFor(modelItem => item.debt):-
+                </td>
+                <td style="background-color: #53c653">
+                    @Html.ActionLink("Visa mer", "Details", new { id = item.caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = item.caretaker_id })
+                </td>
+                }
+            </tr>
             }
-            else {
-                document.getElementById(k).style.backgroundColor = "#578c57";
-                document.getElementById(k).style.color = "#ff6666";
-            }
-        }
-    }
-</script>
+        </table>
+    </div>

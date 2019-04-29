@@ -144,41 +144,41 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            caretaker caretaker = new caretaker();
-            using (MySqlConnection con = new MySqlConnection(constr))
-            {
-                string query = "SELECT * FROM caretaker WHERE caretaker_id = @id";
-                using (MySqlCommand cmd = new MySqlCommand(query))
+                if (id == null)
                 {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@id", id);
-                    con.Open();
-                    using (MySqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                            caretaker.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
-                            caretaker.caretaker_name = Convert.ToString(sdr["caretaker_name"]);
-                            caretaker.caretaker_number = Convert.ToInt32(sdr["caretaker_number"]);
-                            caretaker.caretaker_email = Convert.ToString(sdr["caretaker_email"]);
-                            caretaker.adress = Convert.ToString(sdr["address"]);
-                            caretaker.alternative_name = Convert.ToString(sdr["alternative_name"]);
-                            caretaker.alternative_number = Convert.ToInt32(sdr["alternative_number"]);
-                            caretaker.debt = Convert.ToDouble(sdr["debt"]);
-                        }
-                    }
-                    con.Close();
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-            }
+                caretaker caretaker = new caretaker();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT * FROM caretaker WHERE caretaker_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                caretaker.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
+                                caretaker.caretaker_name = Convert.ToString(sdr["caretaker_name"]);
+                                caretaker.caretaker_number = Convert.ToInt32(sdr["caretaker_number"]);
+                                caretaker.caretaker_email = Convert.ToString(sdr["caretaker_email"]);
+                                caretaker.adress = Convert.ToString(sdr["address"]);
+                                caretaker.alternative_name = Convert.ToString(sdr["alternative_name"]);
+                                caretaker.alternative_number = Convert.ToInt32(sdr["alternative_number"]);
+                                caretaker.debt = Convert.ToDouble(sdr["debt"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
                 if (caretaker == null)
                 {
                     return HttpNotFound();
                 }
-            return View(caretaker);
+                return View(caretaker);
             }
             else
             {
@@ -284,8 +284,8 @@ namespace SommarkuleAlliansen.Controllers
             {
                 var body = "Hej " + caretaker_name + "! Du har fortfarande inte betalat din skuld på " + debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
                 var message = new MailMessage();
-                message.To.Add(new MailAddress(caretaker_email));  // replace with valid value 
-                message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
+                message.To.Add(new MailAddress(caretaker_email));
+                message.From = new MailAddress("sommarkulan@outlook.com");
                 message.Subject = "Betalningspåminnelse";
                 message.Body = string.Format(body);
                 message.IsBodyHtml = true;

@@ -204,8 +204,8 @@ namespace SommarkuleAlliansen.Controllers
             {
                 var body = "Tack för anmälan " + caretakerName + " ditt barn " + child_name + " är anmäld för perioden " + String.Format("{0:MM/dd}", start_date) + " - " + String.Format("{0:MM/dd}", end_date) + " i föreningen " + location_name + ". Du ska betala " + price + ":- inom 2 veckor.";
                 var message = new MailMessage();
-                message.To.Add(new MailAddress(caretakerEmail));  // replace with valid value 
-                message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
+                message.To.Add(new MailAddress(caretakerEmail));
+                message.From = new MailAddress("sommarkulan@outlook.com");
                 message.Subject = "Orderbekräftelse";
                 message.Body = string.Format(body);
                 message.IsBodyHtml = true;
@@ -230,10 +230,10 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                var body = "<p>Email From: {0} ({1})</p><p>Message: {2}</p>";
+                var body = "<p>Email Från: {0} ({1})</p><p>Meddelande: {2}</p>";
                 var message = new MailMessage();
-                message.To.Add(new MailAddress("sommarkulan@outlook.com"));  // replace with valid value 
-                message.From = new MailAddress("sommarkulan@outlook.com");  // replace with valid value
+                message.To.Add(new MailAddress("sommarkulan@outlook.com"));
+                message.From = new MailAddress("sommarkulan@outlook.com");
                 message.Subject = email.Subject;
                 message.Body = string.Format(body, email.FromName, email.FromEmail, email.Message);
                 message.IsBodyHtml = true;
