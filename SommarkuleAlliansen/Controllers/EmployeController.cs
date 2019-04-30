@@ -104,7 +104,7 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-                List<child> children = new List<child>();
+                List<ChildCaretakerLocationVM> children = new List<ChildCaretakerLocationVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
                     string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, caretaker.caretaker_name, location.location_name, location.weeks FROM child " +
@@ -118,7 +118,7 @@ namespace SommarkuleAlliansen.Controllers
                         {
                             while (sdr.Read())
                             {
-                                children.Add(new child
+                                children.Add(new ChildCaretakerLocationVM
                                 {
                                     child_id = Convert.ToInt32(sdr["child_id"]),
                                     name = Convert.ToString(sdr["name"]),
@@ -389,10 +389,11 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-                List<groups> groups = new List<groups>();
+                List<GroupLocationVM> groups = new List<GroupLocationVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.group_id, groups.birth_year, location.weeks, count(*) FROM child INNER JOIN location ON child.location_id = location.location_id INNER JOIN groups ON child.group_id = groups.group_id GROUP BY group_id";
+                    string query = "SELECT childgrouprelation.group_id, groups.birth_year, location.weeks, count(*) FROM childgrouprelation " +
+                        "INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN location ON groups.location_id = location.location_id GROUP BY group_id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
@@ -401,7 +402,7 @@ namespace SommarkuleAlliansen.Controllers
                         {
                             while (sdr.Read())
                             {
-                                groups.Add(new groups
+                                groups.Add(new GroupLocationVM
                                 {
                                     group_id = Convert.ToInt32(sdr["group_id"]),
                                     birth_year = Convert.ToInt32(sdr["birth_year"]),
@@ -425,23 +426,14 @@ namespace SommarkuleAlliansen.Controllers
             if (Session["employe_id"] != null)
             {
                 List<ChildGroupVM> children = new List<ChildGroupVM>();
-                int secondID = 0;
-                if (id == 3 || id == 4)
-                {
-                    secondID = 5;
-                }
-                else if (id == 6 || id == 7)
-                {
-                    secondID = 8;
-                }
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, child.group_id, groups.birth_year, child.present FROM child INNER JOIN groups ON child.group_id = groups.group_id WHERE child.group_id = @id OR child.group_id = @secondID";
+                    string query = "SELECT childgrouprelation.child_id, child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, childgrouprelation.group_id, groups.birth_year, child.present " +
+                        "FROM childgrouprelation INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN child ON childgrouprelation.child_id = child.child_id WHERE childgrouprelation.group_id = @id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
                         cmd.Parameters.AddWithValue("@id", id);
-                        cmd.Parameters.AddWithValue("@secondID", secondID);
                         con.Open();
                         using (MySqlDataReader sdr = cmd.ExecuteReader())
                         {

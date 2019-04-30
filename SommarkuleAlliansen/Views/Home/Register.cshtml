@@ -66,6 +66,7 @@
                 <input type="text" id="childName" name="child_name" required /> <br />
                 <label>Födelsedatum:</label> <br />
                 <input type="date" id="childBirth" name="birth" required /> <br />
+                <p class="text-danger" id="errorMessage" style="visibility:hidden">Födelseåret får bara vara mellan 2007 - 2012.</p>
                 <label>Tröjstorlek:</label> <br />
                 <select name="shirtSize" required>
                     @for (int i = 0; i < 5; i++)
@@ -126,8 +127,22 @@
                 <label>Telenr till alternativ kontaktperson:</label> <br />
                 <input type="number" id="alternativeNumber" name="altNumber" required/> <br />
                 <h4>Informationen kommer att skickas som en bekräftelse till din mail.</h4>
-                <input type="submit" value="Skicka" class="btn btn-outline-secondary" />
+                <input type="submit" value="Skicka" id="register" class="btn btn-outline-secondary" />
             </div>
         </form>
     }
 </div>
+<script>
+    document.getElementById("childBirth").addEventListener("change", function () {
+        var input = this.value;
+        var dateEntered = new Date(input);
+        if (dateEntered.getFullYear() > 2012 || dateEntered.getFullYear() < 2007) {
+            document.getElementById("errorMessage").style.visibility = "visible";
+            document.getElementById("register").disabled = true;
+        }
+        else {
+            document.getElementById("errorMessage").style.visibility = "hidden";
+            document.getElementById("register").disabled = false;
+        }
+    });
+</script>
