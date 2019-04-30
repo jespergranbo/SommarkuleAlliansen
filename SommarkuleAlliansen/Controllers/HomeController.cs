@@ -83,17 +83,18 @@ namespace SommarkuleAlliansen.Controllers
                         con.Close();
                     }
                     location selectedLocation = GetLocationInformation(location_id);
+                    query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = ";
                     if (location_id == 3)
                     {
-                        query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = 1 OR location_id = 2";
+                        query += "1 OR location_id = 2";
                     }
                     else if (location_id == 6)
                     {
-                        query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = 4 OR location_id = 5";
+                        query += "4 OR location_id = 5";
                     }
                     else
                     {
-                        query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = @location_id";
+                        query += "@location_id";
                     }
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
@@ -159,13 +160,10 @@ namespace SommarkuleAlliansen.Controllers
                         }
                         con.Close();
                     }
+                    query = "INSERT INTO childgrouprelation (child_group_relation_id, child_id, group_id) VALUES (null, @child_id, @group_id1)";
                     if (groups.Count > 1)
                     {
-                        query = "INSERT INTO childgrouprelation (child_group_relation_id, child_id, group_id) VALUES (null, @child_id, @group_id1), (null, @child_id, @group_id2)";
-                    }
-                    else
-                    {
-                        query = "INSERT INTO childgrouprelation (child_group_relation_id, child_id, group_id) VALUES (null, @child_id, @group_id1)";
+                        query += ", (null, @child_id, @group_id2)";
                     }
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
