@@ -42,9 +42,13 @@ namespace SommarkuleAlliansen.Controllers
                             user.name = sdr["name"].ToString();
                             user.number = Convert.ToInt32(sdr["number"]);
                             user.password = sdr["password"].ToString();
+                            user.group_id = Convert.ToInt32(sdr["group_id"]);
+                            user.location_id = Convert.ToInt32(sdr["group_id"]);
                             Session["employe_id"] = user.employe_id.ToString();
                             Session["name"] = user.name.ToString();
                             Session["employe_type"] = user.employe_type.ToString();
+                            Session["group_id"] = user.group_id.ToString();
+                            Session["location_id"] = user.group_id.ToString();
                             return RedirectToAction("Index", "Home");
                         }
                     }
@@ -392,8 +396,15 @@ namespace SommarkuleAlliansen.Controllers
                 List<GroupLocationVM> groups = new List<GroupLocationVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT childgrouprelation.group_id, groups.birth_year, location.weeks, count(*) FROM childgrouprelation " +
-                        "INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN location ON groups.location_id = location.location_id GROUP BY group_id";
+                    string query = "SELECT childgrouprelation.group_id, groups.birth_year, location.weeks, location.location_id, count(*) FROM childgrouprelation INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN location ON groups.location_id = location.location_id";
+                    if (Convert.ToInt32(Session["location_id"]) <= 3)
+                    {
+                        query += " WHERE location.location_id <= 3 GROUP BY group_id";
+                    }
+                    else if (Convert.ToInt32(Session["location_id"]) > 3)
+                    {
+                        query += " WHERE location.location_id > 3 GROUP BY group_id";
+                    }   
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;

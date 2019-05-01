@@ -13,5 +13,6 @@ namespace SommarkuleAlliansen.Models
         public int number { get; set; }
         public string password { get; set; }
         public int group_id { get; set; }
+        public int location_id { get; set; }
     }
 }
