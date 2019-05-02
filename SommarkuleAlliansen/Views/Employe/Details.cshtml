@@ -55,11 +55,8 @@
             <p>@item.name</p>
             <b style="margin-bottom: 0px;">Födelsedatum:</b>
             <p>@String.Format("{0:yyy/MM/dd}", item.birth_date)</p>
-            @if (item.comment != "")
-            {
-                <b style="margin-bottom: 0px;">Kommentar:</b>
-                <p>@item.comment</p>
-            }
+            <b style="margin-bottom: 0px;">Kommentar:</b>
+            <p>@item.comment <br \ ></p>
             <b style="margin-bottom: 0px;">Start datum:</b>
             <p>@String.Format("{0:MM/dd}", item.start_date)</p>
             <b style="margin-bottom: 0px;">Slut datum:</b>

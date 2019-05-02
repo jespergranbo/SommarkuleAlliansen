@@ -65,6 +65,45 @@ namespace SommarkuleAlliansen.Controllers
             Session["employe_type"] = null;
             return RedirectToAction("Index", "Home");
         }
+        public ActionResult Employe()
+        {
+            if (Session["employe_id"] != null)
+            {
+                List<EmployeLocationVM> employes = new List<EmployeLocationVM>();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT employe.employe_id, employe.employe_type, employe.name, employe.number, employe.group_id, location.location_id, location.location_name FROM employe" +
+                        " INNER JOIN location ON employe.location_id = location.location_id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                employes.Add(new EmployeLocationVM
+                                {
+                                    employe_id = Convert.ToInt32(sdr["employe_id"]),
+                                    employe_type = Convert.ToInt32(sdr["employe_type"]),
+                                    name = Convert.ToString(sdr["name"]),
+                                    number = Convert.ToInt32(sdr["number"]),
+                                    location_id = Convert.ToInt32(sdr["location_id"]),
+                                    group_id = Convert.ToInt32(sdr["group_id"]),
+                                    location_name = Convert.ToString(sdr["location_name"])
+                                });
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                return View(employes);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
         public ActionResult Caretaker()
         {
             if (Session["employe_id"] != null)
@@ -143,6 +182,228 @@ namespace SommarkuleAlliansen.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        public ActionResult EditEmploye(int? id)
+        {
+            if (Session["employe_id"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                employe employe = new employe();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT * FROM employe WHERE employe_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                employe.employe_id = Convert.ToInt32(sdr["employe_id"]);
+                                employe.employe_type = Convert.ToInt32(sdr["employe_type"]);
+                                employe.name = Convert.ToString(sdr["name"]);
+                                employe.number = Convert.ToInt32(sdr["number"]);
+                                employe.password = Convert.ToString(sdr["password"]);
+                                employe.group_id = Convert.ToInt32(sdr["group_id"]);
+                                employe.location_id = Convert.ToInt32(sdr["location_id"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                if (employe == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(employe);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditEmploye([Bind(Include = "employe_id,employe_type,name,number,password,group_id,location_id")] employe employe)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "UPDATE employe SET name = @name, employe_type = @employe_type, number = @number, password = @password, group_id = @group_id, location_id = @location_id WHERE employe_id = @id;";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", employe.employe_id);
+                        cmd.Parameters.AddWithValue("@name", employe.name);
+                        cmd.Parameters.AddWithValue("@employe_type", employe.employe_type);
+                        cmd.Parameters.AddWithValue("@number", employe.number);
+                        cmd.Parameters.AddWithValue("@password", employe.password);
+                        cmd.Parameters.AddWithValue("@group_id", employe.group_id);
+                        cmd.Parameters.AddWithValue("@location_id", employe.location_id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                        }
+                        con.Close();
+                    }
+                }
+                return RedirectToAction("Employe");
+            }
+            return View(employe);
+        }
+        public ActionResult DeleteEmploye(int? id)
+        {
+            if (Session["employe_id"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                employe employe = new employe();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT * FROM employe WHERE employe_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                employe.employe_id = Convert.ToInt32(sdr["employe_id"]);
+                                employe.employe_type = Convert.ToInt32(sdr["employe_type"]);
+                                employe.name = Convert.ToString(sdr["name"]);
+                                employe.number = Convert.ToInt32(sdr["number"]);
+                                employe.password = Convert.ToString(sdr["password"]);
+                                employe.group_id = Convert.ToInt32(sdr["group_id"]);
+                                employe.location_id = Convert.ToInt32(sdr["location_id"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                if (employe == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(employe);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteEmploye(int id)
+        {
+            employe employe = new employe();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM employe WHERE employe_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+            return RedirectToAction("Employe");
+        }
+        public ActionResult CreateEmploye()
+        {
+            if (Session["employe_id"] != null)
+            {
+                List<EmployeGroupLocation> locations = new List<EmployeGroupLocation>();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT groups.group_id, groups.location_id, groups.birth_year, location.location_name, location.weeks FROM groups INNER JOIN location ON groups.location_id = location.location_id ORDER BY group_id ASC";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                locations.Add(new EmployeGroupLocation
+                                {
+                                group_id = Convert.ToInt32(sdr["group_id"]),
+                                location_id = Convert.ToInt32(sdr["location_id"]),
+                                birth_year = Convert.ToInt32(sdr["birth_year"]),
+                                location_name = Convert.ToString(sdr["location_name"]),
+                                weeks = Convert.ToString(sdr["weeks"])
+                                });
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                if (locations == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(locations);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult CreateEmploye(int employe_type, string name, int number, string password, int group_id)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    long location_id = 0;
+                    string query = "SELECT location_id FROM groups WHERE group_id = @group_id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@group_id", group_id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while(sdr.Read())
+                            {
+                                location_id = Convert.ToInt32(sdr["location_id"]);
+                            }
+                        }
+                        con.Close();
+                    }
+                    query = "INSERT INTO employe (employe_id, name, employe_type, number, password, group_id, location_id) VALUES (NULL, @name, @employe_type, @number, @password, @group_id, @location_id)";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@name", name);
+                        cmd.Parameters.AddWithValue("@employe_type", employe_type);
+                        cmd.Parameters.AddWithValue("@number", number);
+                        cmd.Parameters.AddWithValue("@password", password);
+                        cmd.Parameters.AddWithValue("@group_id", group_id);
+                        cmd.Parameters.AddWithValue("@location_id", location_id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                        }
+                        con.Close();
+                    }
+                }
+                return RedirectToAction("Employe");
+            }
+            return View();
         }
         public ActionResult Edit(int? id)
         {
@@ -311,11 +572,10 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                ChildCaretakerLocationVM child = new ChildCaretakerLocationVM();
+                child child = new child();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.child_id, child.name, child.comment, child.can_swim, child.birth_date, child.allow_photos, child.vaccinated, child.shirt_size, child.location_id, location.location_name, location.location_address, location.start_date, location.end_date, location.location_email, location.location_number, location.weeks, location.price " +
-                        "FROM child INNER JOIN location ON child.location_id = location.location_id WHERE child.child_id=@id";
+                    string query = "SELECT * FROM child WHERE child_id = @id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
@@ -333,15 +593,6 @@ namespace SommarkuleAlliansen.Controllers
                                 child.allow_photos = Convert.ToBoolean(sdr["allow_photos"]);
                                 child.vaccinated = Convert.ToBoolean(sdr["vaccinated"]);
                                 child.shirt_size = Convert.ToString(sdr["shirt_size"]);
-                                child.location_id = Convert.ToInt32(sdr["location_id"]);
-                                child.location_name = Convert.ToString(sdr["location_name"]);
-                                child.location_adress = Convert.ToString(sdr["location_address"]);
-                                child.start_date = Convert.ToDateTime(sdr["start_date"]);
-                                child.end_date = Convert.ToDateTime(sdr["end_date"]);
-                                child.location_email = Convert.ToString(sdr["location_email"]);
-                                child.location_number = Convert.ToInt32(sdr["location_number"]);
-                                child.weeks = Convert.ToString(sdr["weeks"]);
-                                child.price = Convert.ToInt32(sdr["price"]);
                             }
                         }
                         con.Close();
@@ -360,24 +611,24 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditChild([Bind(Include = "caretaker_id,caretaker_name,caretaker_number,caretaker_email,adress,alternative_name,alternative_number,debt")] caretaker caretaker)
+        public ActionResult EditChild([Bind(Include = "child_id,name,comment,can_swim,birth_date,allow_photos,vaccinated,shirt_size")] child child)
         {
             if (ModelState.IsValid)
             {
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "UPDATE caretaker SET caretaker_name = @caretaker_name, caretaker_number = @caretaker_number, caretaker_email = @caretaker_email, address = @address, alternative_name = @alternative_name, alternative_number = @alternative_number, debt = @debt WHERE caretaker_id = @id;";
+                    string query = "UPDATE child SET name = @name, comment = @comment, can_swim = @can_swim, birth_date = @birth_date, allow_photos = @allow_photos, vaccinated = @vaccinated, shirt_size = @shirt_size WHERE child_id = @id;";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@id", caretaker.caretaker_id);
-                        cmd.Parameters.AddWithValue("@caretaker_name", caretaker.caretaker_name);
-                        cmd.Parameters.AddWithValue("@caretaker_number", caretaker.caretaker_number);
-                        cmd.Parameters.AddWithValue("@caretaker_email", caretaker.caretaker_email);
-                        cmd.Parameters.AddWithValue("@address", caretaker.adress);
-                        cmd.Parameters.AddWithValue("@alternative_name", caretaker.alternative_name);
-                        cmd.Parameters.AddWithValue("@alternative_number", caretaker.alternative_number);
-                        cmd.Parameters.AddWithValue("@debt", caretaker.debt);
+                        cmd.Parameters.AddWithValue("@id", child.child_id);
+                        cmd.Parameters.AddWithValue("@name", child.name);
+                        cmd.Parameters.AddWithValue("@comment", child.comment);
+                        cmd.Parameters.AddWithValue("@can_swim", child.can_swim);
+                        cmd.Parameters.AddWithValue("@birth_date", child.birth_date);
+                        cmd.Parameters.AddWithValue("@allow_photos", child.allow_photos);
+                        cmd.Parameters.AddWithValue("@vaccinated", child.vaccinated);
+                        cmd.Parameters.AddWithValue("@shirt_size", child.shirt_size);
                         con.Open();
                         using (MySqlDataReader sdr = cmd.ExecuteReader())
                         {
@@ -385,9 +636,9 @@ namespace SommarkuleAlliansen.Controllers
                         con.Close();
                     }
                 }
-                return RedirectToAction("Caretaker");
+                return RedirectToAction("Child");
             }
-            return View(caretaker);
+            return View(child);
         }
         public ActionResult EmployePage()
         {

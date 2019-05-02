@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.EmployeLocationVM>
+
+@{
+    ViewBag.Title = "Anställda";
+}
+<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+    <p>
+        @Html.ActionLink("Skapa ny användare", "CreateEmploye")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                Anställningstyp
+            </th>
+            <th>
+                Namn
+            </th>
+            <th>
+                Nummer
+            </th>
+            <th>
+                Anställningsplats
+            </th>
+            <th>
+                Ledare för grupp
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+        <tr>
+            @if (item.employe_type == 1)
+            {
+                <td>
+                    Admin
+                </td>
+            }
+            else
+            {
+                <td>
+                    Ledare
+                </td>
+            }
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.number)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.location_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.group_id)
+            </td>
+            <td>
+                @Html.ActionLink("Redigera", "EditEmploye", new { id = item.employe_id }) |
+                @Html.ActionLink("Ta bort", "DeleteEmploye", new { id = item.employe_id })
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>

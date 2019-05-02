@@ -1,0 +1,57 @@
+﻿@model SommarkuleAlliansen.Models.employe
+
+@{
+    ViewBag.Title = "DeleteEmploye";
+}
+<div style="border-radius:5px; background-color:white; margin-top:5%; padding:10px; opacity: 0.9;">
+    <h3>Är du säker på att du vill ta bort denna personen?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Anställningstyp:
+            </dt>
+            @if (Model.employe_type == 1)
+            {
+                <dd>Admin</dd>
+            }
+            else
+            {
+                <dd>Ledare</dd>
+            }
+            <dt>
+                Namn:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+
+            <dt>
+                Number:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.number)
+            </dd>
+
+            <dt>
+                Ledare för grupp:
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.group_id)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Ja" class="btn btn-outline-secondary" style="width: 45px;" />
+            </div>
+        }
+        @Html.ActionLink("Backa", "Employe")
+    </div>
+</div>
