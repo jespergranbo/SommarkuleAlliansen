@@ -533,5 +533,73 @@ namespace SommarkuleAlliansen.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        public ActionResult EditInformation(int? id)
+        {
+            id = 1;
+            if (Session["employe_id"] != null)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                information information = new information();
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "SELECT * FROM information WHERE information_id = @id";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@id", id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                            while (sdr.Read())
+                            {
+                                information.information_id = Convert.ToInt32(sdr["information_id"]);
+                                information.information_Title = Convert.ToString(sdr["information_Title"]);
+                                information.information_Text = Convert.ToString(sdr["information_Text"]);
+
+                            }
+                        }
+                        con.Close();
+                    }
+                }
+                if (information == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(information);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult EditInformation([Bind(Include = "information_id, information_Title, information_Text")] information information)
+        {
+            if (ModelState.IsValid)
+            {
+                using (MySqlConnection con = new MySqlConnection(constr))
+                {
+                    string query = "UPDATE information SET information_Title = @information_Title, information_Text = @information_Text";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@information_id", information.information_id);
+                        cmd.Parameters.AddWithValue("@information_Title", information.information_Title);
+                        cmd.Parameters.AddWithValue("@information_Text", information.information_Text);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                        }
+                        con.Close();
+                    }
+                }
+                return RedirectToAction("Index");
+            }
+            return View(information);
+        }
     }
 }
