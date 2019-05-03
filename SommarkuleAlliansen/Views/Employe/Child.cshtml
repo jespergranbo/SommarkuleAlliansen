@@ -1,30 +1,30 @@
 ﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildCaretakerLocationVM>
 
 @{
-    ViewBag.Title = "Child";
+    ViewBag.Title = "Barn";
 }
-<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+<div class="standardStyle">
     <table class="table">
         <tr>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Namn
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Födelsedatum
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Tröjstorlek
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Förening
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Period
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Vårdnadshavare
             </th>
-            <td style="border:none;">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
+            <td class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
         </tr>
 
         @foreach (var item in Model)

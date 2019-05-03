@@ -5,7 +5,7 @@ using System.Web;
 
 namespace SommarkuleAlliansen.ViewModel
 {
-    public class EmployeGroupLocation
+    public class EmployeGroupLocationVM
     {
         public int group_id { get; set; }
         public int birth_year { get; set; }

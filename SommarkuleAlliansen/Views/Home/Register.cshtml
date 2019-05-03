@@ -3,56 +3,14 @@
     ViewBag.Title = "Registrera";
     int shirtSizes = 80;
 }
-<style>
-    input, select, textarea {
-        width: auto;
-        padding: 5px;
-        border: 1px solid #ccc;
-        margin-top: 6px;
-        margin-bottom: 16px;
-        resize: vertical;
-    }
-    .form-radio-css {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        display: inline-block;
-        position: relative;
-        background-color: #f1f1f1;
-        color: #666;
-        top: 10px;
-        height: 30px;
-        width: 30px;
-        border: 0;
-        border-radius: 50px;
-        cursor: pointer;
-        margin-right: 7px;
-        outline: none;
-    }
 
-    .form-radio-css:checked::before {
-        position: absolute;
-        font: 13px/1 'Open Sans', sans-serif;
-        left: 11px;
-        top: 7px;
-        content: '\02143';
-        transform: rotate(40deg);
-    }
-
-    .form-radio-css:hover {
-        background-color: #f7f7f7;
-    }
-
-    .form-radio-css:checked {
-        background-color: #f1f1f1;
-    }
-</style>
-<div style="border-radius:5px; background-color:white; margin-top:5%; padding:10px; opacity: 0.9;">
+<div class="standardStyle">
     <h1>Anmälningsformulär för Sommarkulan 2019</h1>
     @using (Html.BeginForm())
     {
         <form action="Register()" method="post">
             <h4>Period</h4>
-            <div style="border-radius:5px; background-color:lightblue; padding:10px;">
+            <div class="registerStyle">
                 <select style="width: 100%;" name="location_id">
                     @foreach (var item in Model)
                     {
@@ -61,7 +19,7 @@
                 </select>
             </div>
             <h3 style="margin-top:5%;">Barnets Uppgifter</h3>
-            <div style="border-radius:5px; background-color:lightblue; padding:10px;">
+            <div class="registerStyle">
                 <label>Barnets Namn:</label> <br />
                 <input type="text" id="childName" name="child_name" required /> <br />
                 <label>Födelsedatum:</label> <br />
@@ -88,7 +46,7 @@
                     <label style="margin-right: 20%;">
                         Simkunnig: <br />
                         <center>
-                            <label style=""><input class="form-radio-css" type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja</label>
+                            <label><input class="form-radio-css" type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja</label>
                             <label><input class="form-radio-css" type="radio" id="swimFalse" value="false" name="canSwim" /> Nej</label>
                         </center>
                     </label>
@@ -113,7 +71,7 @@
                 </label>
             </div>
             <h3 style="margin-top:5%;">Vårdnadshavarens Uppgifter</h3>
-            <div style="border-radius:5px; background-color:lightblue; padding:10px;">
+            <div class="registerStyle">
                 <label>Namn:</label> <br />
                 <input type="text" id="caretakerName" name="caretakerName" required /> <br />
                 <label>Adress:</label> <br />

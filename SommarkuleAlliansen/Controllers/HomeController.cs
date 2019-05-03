@@ -86,11 +86,11 @@ namespace SommarkuleAlliansen.Controllers
                     query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = ";
                     if (location_id == 3)
                     {
-                        query += "1 OR location_id = 2";
+                        query += "1 OR birth_year = @birth_year AND location_id = 2";
                     }
                     else if (location_id == 6)
                     {
-                        query += "4 OR location_id = 5";
+                        query += "4 OR birth_year = @birth_year AND location_id = 5";
                     }
                     else
                     {

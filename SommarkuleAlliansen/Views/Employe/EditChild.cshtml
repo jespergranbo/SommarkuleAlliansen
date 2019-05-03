@@ -1,15 +1,15 @@
 ﻿@model SommarkuleAlliansen.Models.child
 
 @{
-    ViewBag.Title = "EditChild";
+    ViewBag.Title = "Redigera Barn";
 }
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+<div class="standardStyle">
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group" style="display:none;">
+        <div class="form-group removeDisplay">
             @Html.LabelFor(model => model.child_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.child_id, new { htmlAttributes = new { @class = "form-control" } })
@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Namn</label>
+            <label class="paddingLeft">Namn</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
@@ -26,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Födelsedatum</label>
+            <label class="paddingLeft">Födelsedatum</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.birth_date, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.birth_date, "", new { @class = "text-danger" })
@@ -34,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Tröjstorlek</label>
+            <label class="paddingLeft">Tröjstorlek</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.shirt_size, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.shirt_size, "", new { @class = "text-danger" })
@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Kommentar</label>
+            <label class="paddingLeft">Kommentar</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.comment, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Simmkunnig</label>
+            <label class="paddingLeft">Simmkunnig</label>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.can_swim)
@@ -60,7 +60,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Tillåt foto</label>
+            <label class="paddingLeft">Tillåt foto</label>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.allow_photos)
@@ -70,7 +70,7 @@
         </div>
 
         <div class="form-group">
-            <label style="padding-left:15px;">Vaccinerat</label>
+            <label class="paddingLeft">Vaccinerat</label>
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.vaccinated)

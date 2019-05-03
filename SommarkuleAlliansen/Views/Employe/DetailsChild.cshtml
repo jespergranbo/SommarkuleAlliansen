@@ -1,29 +1,12 @@
 ﻿@model SommarkuleAlliansen.ViewModel.ChildCaretakerLocationVM
 
 @{
-    ViewBag.Title = "DetailsChild";
+    ViewBag.Title = "Barn detaljer";
 }
-<style>
-        * {
-        box-sizing: border-box;
-    }
-
-    .box {
-        float: left;
-        width: 33.33%;
-        padding: 20px;
-    }
-
-    .clearfix::after {
-        content: "";
-        clear: both;
-        display: table;
-    }
-</style>
 <div>
     <dl class="dl-horizontal">
         <div style="margin-top: 5%; opacity: 0.9;" class="clearfix">
-            <div class="box" style="border-radius: 5px; background-color:white; margin-right:2%; width: 32%;">
+            <div class="box detailsChild">
                 <h4>Vårdnadshavare</h4>
                 <hr />
                 <b style="margin-bottom: 0px;">Namn:</b>
@@ -39,7 +22,7 @@
                 <b style="margin-bottom: 0px;">Alternativt Nummer:</b>
                 <p>@Html.DisplayFor(model => model.alternative_number)</p>
             </div>
-            <div class="box" style="border-radius: 5px;background-color:white; margin-right: 2%; width: 32%;">
+            <div class="box detailsChild">
                 <h4>Barn</h4>
                 <hr />
                 <b style="margin-bottom: 0px;">Namn:</b>

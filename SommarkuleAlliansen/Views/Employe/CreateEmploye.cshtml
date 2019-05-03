@@ -1,20 +1,15 @@
-﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.EmployeGroupLocation>
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.EmployeGroupLocationVM>
 
 @{
-    ViewBag.Title = "CreateEmploye";
+    ViewBag.Title = "Lägg till anställd";
 }
-<style>
-    .padding{
-        padding-left:15px;
-    }
-</style>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-<div style="border-radius:5px; background-color:white; margin-top:5%; padding:10px; opacity: 0.9;">
+<div class="standardStyle">
     <div class="form-horizontal">
-        <h4 class="padding">Lägg till en ny anställd</h4>
+        <h4 class="paddingLeft">Lägg till en ny anställd</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group" style="display:none">
@@ -26,7 +21,7 @@
         </div>
 
         <div class="form-group">
-            <label class="padding">Typ av anställd: 1 = admin, 2 = ledare</label>
+            <label class="paddingLeft">Typ av anställd: 1 = admin, 2 = ledare</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).employe_type, new { htmlAttributes = new { @class = "form-control", @name = "employe_type", @id = "employe_type", @required = "required" } })
                 <p class="text-danger" id="errorMessage" style="visibility:hidden">Det får bara vara mellan 1-2</p>
@@ -34,7 +29,7 @@
         </div>
 
         <div class="form-group">
-            <label class="padding">Namn</label>
+            <label class="paddingLeft">Namn</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).name, new { htmlAttributes = new { @class = "form-control", @name = "name", @required = "required" } })
                 @Html.ValidationMessageFor(model => Model.ElementAt(0).name, "", new { @class = "text-danger" })
@@ -42,7 +37,7 @@
         </div>
 
         <div class="form-group">
-            <label class="padding">Nummer</label>
+            <label class="paddingLeft">Nummer</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).number, new { htmlAttributes = new { @class = "form-control", @name = "number", @required = "required" } })
                 @Html.ValidationMessageFor(model => Model.ElementAt(0).number, "", new { @class = "text-danger" })
@@ -50,7 +45,7 @@
         </div>
 
         <div class="form-group">
-            <label class="padding">Lösenord</label>
+            <label class="paddingLeft">Lösenord</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).password, new { htmlAttributes = new { @class = "form-control", @name = "password", @required = "required" } })
                 @Html.ValidationMessageFor(model => Model.ElementAt(0).password, "", new { @class = "text-danger" })
@@ -58,7 +53,7 @@
         </div>
 
         <div class="form-group">
-            <label class="padding">Ledare för grupp och period</label>
+            <label class="paddingLeft">Ledare för grupp och period</label>
             <div class="col-md-10">
                 <select style="width: 100%;" name="group_id">
                     @foreach (var item in Model)

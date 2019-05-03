@@ -1,32 +1,32 @@
 ﻿@model IEnumerable<SommarkuleAlliansen.Models.caretaker>
 
 @{
-    ViewBag.Title = "Caretaker";
+    ViewBag.Title = "Vårdnadshavare";
 }
 @{bool justSentMessage = false;}
     @Html.AntiForgeryToken()
-    <div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+    <div class="standardStyle">
         <table class="table">
             <tr>
-                <th style="border:none;">
+                <th class="removeBorder">
                     Namn
                 </th>
-                <th style="border:none;">
+                <th class="removeBorder">
                     Nummer
                 </th>
-                <th style="border:none;">
+                <th class="removeBorder">
                     Mail
                 </th>
-                <th style="border:none;">
+                <th class="removeBorder">
                     Adress
                 </th>
-                <th style="border:none;">
+                <th class="removeBorder">
                     Betalt
                 </th>
-                <th style="border:none;">
+                <th class="removeBorder">
                     Betala
                 </th>
-                <td style="border:none;">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
+                <td class="removeBorder">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
 
             </tr>
             @foreach (var item in Model)

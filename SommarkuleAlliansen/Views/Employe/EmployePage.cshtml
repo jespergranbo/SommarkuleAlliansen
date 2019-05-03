@@ -1,24 +1,24 @@
 ﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.GroupLocationVM>
 
 @{
-    ViewBag.Title = "EmployePage";
+    ViewBag.Title = "Grupper";
 }
-<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+<div class="standardStyle">
     <table class="table">
         <tr>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Gruppnummer
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Antal barn i gruppen
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Åldersgrupp
             </th>
-            <th style="border:none;">
+            <th class="removeBorder">
                 Period
             </th>
-            <th style="border:none;"></th>
+            <th class="removeBorder"></th>
         </tr>
 
         @foreach (var item in Model)

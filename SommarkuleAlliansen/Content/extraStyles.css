@@ -1,0 +1,117 @@
+﻿* {
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+.bg-fixes {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.footerMargin {
+    margin-bottom: 1px;
+}
+.box {
+    float: left;
+    width: 33.33%;
+    padding: 20px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.standardStyle {
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    margin-top: 5%;
+    opacity: 0.9;
+}
+.detailsChild {
+    border-radius: 5px;
+    background-color: white;
+    margin-right: 2%;
+    width: 32%;
+}
+input, select, textarea {
+    width: auto;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+.form-radio-css {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    position: relative;
+    background-color: #f1f1f1;
+    color: #666;
+    top: 10px;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 7px;
+    outline: none;
+}
+.form-radio-css:checked::before {
+    position: absolute;
+    font: 13px/1 'Open Sans', sans-serif;
+    left: 11px;
+    top: 7px;
+    content: '\02143';
+    transform: rotate(40deg);
+}
+.form-radio-css:hover {
+    background-color: #f7f7f7;
+}
+.form-radio-css:checked {
+    background-color: #f1f1f1;
+}
+.registerStyle {
+    border-radius: 5px;
+    background-color: lightblue;
+    padding: 10px;
+}
+.contact {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+.Contactcontainer {
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    margin-top: 5%;
+}
+.column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.paddingLeft {
+    padding-left: 15px;
+}
+.removeBorder {
+    border: none;
+}
+.removeDisplay {
+    display: none;
+}
+.removeMarginBottom {
+    margin-bottom: 0px;
+}

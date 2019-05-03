@@ -325,7 +325,7 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-                List<EmployeGroupLocation> locations = new List<EmployeGroupLocation>();
+                List<EmployeGroupLocationVM> locations = new List<EmployeGroupLocationVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
                     string query = "SELECT groups.group_id, groups.location_id, groups.birth_year, location.location_name, location.weeks FROM groups INNER JOIN location ON groups.location_id = location.location_id ORDER BY group_id ASC";
@@ -337,7 +337,7 @@ namespace SommarkuleAlliansen.Controllers
                         {
                             while (sdr.Read())
                             {
-                                locations.Add(new EmployeGroupLocation
+                                locations.Add(new EmployeGroupLocationVM
                                 {
                                 group_id = Convert.ToInt32(sdr["group_id"]),
                                 location_id = Convert.ToInt32(sdr["location_id"]),

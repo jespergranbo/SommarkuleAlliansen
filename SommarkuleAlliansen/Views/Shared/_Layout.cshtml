@@ -1,15 +1,4 @@
 ﻿<!DOCTYPE html>
-<style>
-    * {
-        font-family: 'Open Sans', sans-serif;
-    }
-
-    .bg-fixes {
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-</style>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
 @if (Session["employe_type"] == null)
 {
@@ -26,6 +15,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/extraStyles.css")
 </head>
 <body class="bg-fixes" background="~/Content/images/footballfield.jpg">
     <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
@@ -52,16 +42,16 @@
         <footer>
             <div>
                 <div style="float: left">
-                    <p style="margin-bottom: 1px;">Hagaströms SK</p>
-                    <p style="margin-bottom: 1px;">Hagaströms IP, Basvägen 23</p>
-                    <p style="margin-bottom: 1px;">kansli@hagastromssk.se</p>
-                    <a style="margin-bottom: 1px;" href="http://www.hagastromssk.se">Till HSK hemsida</a>
+                    <p class="footerMargin">Hagaströms SK</p>
+                    <p class="footerMargin">Hagaströms IP, Basvägen 23</p>
+                    <p class="footerMargin">kansli@hagastromssk.se</p>
+                    <a class="footerMargin" href="http://www.hagastromssk.se">Till HSK hemsida</a>
                 </div>
                 <div style="margin-bottom: 5%; float: right">
-                    <p style="margin-bottom: 1px;">Strömsbro</p>
-                    <p style="margin-bottom: 1px;">Testebovallen, Hillevägen 14</p>
-                    <p style="margin-bottom: 1px;">kansli@stromsbroif.se</p>
-                    <a style="margin-bottom: 1px;" href="http://www.stromsbroif.se">Till SIF hemsida</a>
+                    <p class="footerMargin">Strömsbro</p>
+                    <p class="footerMargin">Testebovallen, Hillevägen 14</p>
+                    <p class="footerMargin">kansli@stromsbroif.se</p>
+                    <a class="footerMargin" href="http://www.stromsbroif.se">Till SIF hemsida</a>
                 </div>
             </div>
         </footer>
