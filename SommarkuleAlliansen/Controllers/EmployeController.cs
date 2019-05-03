@@ -481,7 +481,7 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View(caretaker);
         }
-        public ActionResult Details(int? id, bool justSentMessage)
+        public ActionResult Details(int? id, bool? justSentMessage)
         {
             if (Session["employe_id"] != null)
             {
