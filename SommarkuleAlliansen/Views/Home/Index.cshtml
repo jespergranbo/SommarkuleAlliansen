@@ -1,57 +1,64 @@
-﻿@{
+﻿@model IEnumerable<SommarkuleAlliansen.Models.information>
+@{
     ViewBag.Title = "Hem";
 }
-    <center>
-        <div style="position:relative;" class="standardStyle">
-            <h2>Årets Sommarkula 2019</h2>
-            <h4>Vecka 25 (17/6 - 20/6) och Vecka 26 (24/6 - 28/6)</h4>
-            <div style="padding-left:20%; padding-right:20%;">
-                <p style="border-top-style:solid; border-top-color: lightgrey;">
-                    Ett härligt sommarlovsäventyr med bad, lek och idrott för barn i årskurs 1-6! Du möter nya kompisar, har kul, massor av bad och får prova på olika aktiviteter!
-
-
-                    Tisdagar, onsdagar samt fredag 28/6 åker vi till Fjärran och badar. Nyhet för i år är att på torsdagar åker vi till DOME (https://www.thedome.se/) Ett materialpaket ingår till ALLA! Tiderna som gäller är 9.00-15.00 varje dag.Varje dag ingår en lättlunch som består av youghurt/kräm, smörgås eller varmkorv. Frukt och mjölk ingår i alla måltider. Sommarkulan är ett samarbete med Gävle Kommun och möjliggörs genom kommunalt stöd. Dock har stödet minskat vilket gör att avgiften har behövt höjas. Avgiften för 2019 är 700 kr för EN vecka eller 1.000 kr för TVÅ veckor.
-                </p>
-            </div>
+<center>
+    <div style="position:relative;" class="standardStyle">
+        <h2>
+            Sommarkulan 2019
+        </h2>
+        <h4>Vecka 25 (17/6 - 20/6) och Vecka 26 (24/6 - 28/6)</h4>
+        <div style="padding-left:20%; padding-right:20%;">
+            <p style="border-top-style:solid; border-top-color: lightgrey;">
+            </p>
+        </div>
+        <div>
+            <img src="~/Content/images/sisu.png" />
+            <img src="~/Content/images/Stromsbro-Logo.png" />
+            <img src="~/Content/images/HSK-logo.png" />
+            <img src="~/Content/images/gavle_kommun.png" />
+        </div>
+        <a class="hidden" href='@Url.Action("EditInformation", "Employe", new {id = "1"})'>
+            <img style="width: 20px; height: 20px; position:absolute; top:7px; right: 7px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+        </a>
+    </div>
+    <div class="clearfix standardStyle">
+        <h3>Viktiga Datum</h3>
+        <br />
+        <div class="box" style="position:relative;">
             <div>
-                <img src="~/Content/images/sisu.png" />
-                <img src="~/Content/images/Stromsbro-Logo.png" />
-                <img src="~/Content/images/HSK-logo.png" />
-                <img src="~/Content/images/gavle_kommun.png" />
+                <img src="~/Content/images/datepicture.png" />
             </div>
-            <a href="~/Views/Employe/EditInformation.cshtml"><img src="~/Content/images/Editingbtn.png" style=" width:20px; height:20px; position:absolute; top:5px; right: 5px;"/></a>
+            <h4>Sista anmälningsdatumet</h4>
+            <p>31 Maj, 2019</p>
+            <p>Du anmäler ditt barn till Sommarkulan genom vårt anmälningsformulär som du tar dig till via länken ovan.</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Employe", new {id = "2"})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
         </div>
-        <div class="clearfix standardStyle">
-            <h3>Viktiga Datum</h3>
-            <br />
-            <div class="box" style="position:relative;">
-                <div>
-                    <img src="~/Content/images/datepicture.png" />
-                </div>
-                <h4>Sista anmälningsdatumet</h4>
-                <p>31 Maj, 2019</p>
-                <p>Du anmäler ditt barn till Sommarkulan genom vårt anmälningsformulär som du tar dig till via länken ovan.</p>
-                <a href="~/Views/Employe/EditInformation.cshtml"><img src="~/Content/images/Editingbtn.png" style=" width:20px; height:20px; position:absolute; top:5px; right: 5px;" /></a>
-            </div>
 
-            <div class="box" style="position:relative;">
-                <div>
-                    <img src="~/Content/images/datepicture.png" />
-                </div>
-                <h4>Betala senast</h4>
-                <p>14 Juni, 2019</p>
-                <p>Avgiften till Sommarkulan betalar du till vårt bankgiro. Betalningsuppgifter hittar du i bekräftelsemailet som skickas efter din anmälan.</p>
-                <a href="~/Views/Employe/EditInformation.cshtml"><img src="~/Content/images/Editingbtn.png" style=" width:20px; height:20px; position:absolute; top:5px; right: 5px;" /></a>
+        <div class="box" style="position:relative;">
+            <div>
+                <img src="~/Content/images/datepicture.png" />
             </div>
-
-            <div class="box" style="position:relative;">
-                <div>
-                    <img src="~/Content/images/datepicture.png" />
-                </div>
-                <h4>Sista dag för avbokning</h4>
-                <p>14 Juni, 2019</p>
-                <p>Om ditt barn inte kan delta måste du avboka! Detta görs till respektive lokal förening senast 14/6!</p>
-                <a href="~/Views/Employe/EditInformation.cshtml"><img src="~/Content/images/Editingbtn.png" style=" width:20px; height:20px; position:absolute; top:5px; right: 5px;" /></a>
-            </div>
+            <h4>Betala senast</h4>
+            <p>14 Juni, 2019</p>
+            <p>Avgiften till Sommarkulan betalar du till vårt bankgiro. Betalningsuppgifter hittar du i bekräftelsemailet som skickas efter din anmälan.</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Employe", new {id = "3"})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
         </div>
-    </center>
+
+        <div class="box" style="position:relative;">
+            <div>
+                <img src="~/Content/images/datepicture.png" />
+            </div>
+            <h4>Sista dag för avbokning</h4>
+            <p>14 Juni, 2019</p>
+            <p>Om ditt barn inte kan delta måste du avboka! Detta görs till respektive lokal förening senast 14/6!</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Employe", new {id = "4"})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
+        </div>
+    </div>
+</center>

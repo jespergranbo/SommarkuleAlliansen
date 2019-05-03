@@ -786,7 +786,6 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditInformation(int? id)
         {
-            id = 1;
             if (Session["employe_id"] != null)
             {
                 if (id == null)
