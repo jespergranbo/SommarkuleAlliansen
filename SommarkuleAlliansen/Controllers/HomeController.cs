@@ -57,12 +57,10 @@ namespace SommarkuleAlliansen.Controllers
         public ActionResult Register(int location_id, string child_name, DateTime birth, string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string comment, string caretakerName, string caretakerAddress, string caretakerEmail, int caretakerNumber, string altName, int altNumber)
         {
             long caretaker_id = 0;
-            int price = 0;
             long child_id = 0;
             List<groups> groups = new List<groups>();
             DateTime start_date = DateTime.Now;
             DateTime end_date = DateTime.Now;
-            string location_name = "";
             if (ModelState.IsValid)
             {
                 using (MySqlConnection con = new MySqlConnection(constr))
@@ -180,7 +178,7 @@ namespace SommarkuleAlliansen.Controllers
                         }
                         con.Close();
                     }
-                    return RedirectToAction("OrderConfermation", new { caretakerEmail , caretakerName, child_name, price, start_date, end_date, location_name});
+                    return RedirectToAction("OrderConfermation", new { caretakerEmail , caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name });
                 }
             }
             return View();
