@@ -16,6 +16,60 @@
     width: 33.33%;
     padding: 20px;
 }
+@media screen and (max-width:767px){
+    #One{
+        width: 50%;
+    }
+    #Two{
+        width: 50%;
+    }
+    #Three{
+        width: 50%;
+        float: none;
+    }
+}
+@media screen and (max-width:430px){
+    #One {
+        float: none;
+        width:100%;
+    }
+    #Two {
+        float: none;
+        width: 100%;
+    }
+    #Three {
+        float: none;
+        width: 100%;
+    }
+    #DivFooter {
+        margin: 0 auto;
+        clear: both;
+    }
+    #FooterFixerL {
+        float:none;
+        text-align: center;
+        clear:both;
+    }
+    #FooterFixerR {
+        float:none;
+        text-align: center;
+        clear: both;
+    }
+    .SwimmingKnowledge{
+        padding-left:55px;
+    }
+}
+#DivFooter {
+    margin: 0 auto;
+}
+
+#FooterFixerL {
+    float: left;
+}
+#FooterFixerR {
+    margin-bottom: 5%; 
+    float: right;
+}
 .clearfix::after {
     content: "";
     clear: both;
