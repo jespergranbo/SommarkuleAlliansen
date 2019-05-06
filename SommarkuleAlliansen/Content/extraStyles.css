@@ -16,59 +16,18 @@
     width: 33.33%;
     padding: 20px;
 }
-@media screen and (max-width:767px){
-    #One{
-        width: 50%;
-    }
-    #Two{
-        width: 50%;
-    }
-    #Three{
-        width: 50%;
-        float: none;
-    }
-}
-@media screen and (max-width:430px){
-    #One {
-        float: none;
-        width:100%;
-    }
-    #Two {
-        float: none;
-        width: 100%;
-    }
-    #Three {
-        float: none;
-        width: 100%;
-    }
-    #DivFooter {
-        margin: 0 auto;
-        clear: both;
-    }
-    #FooterFixerL {
-        float:none;
-        text-align: center;
-        clear:both;
-    }
-    #FooterFixerR {
-        float:none;
-        text-align: center;
-        clear: both;
-    }
-    .SwimmingKnowledge{
-        padding-left:55px;
-    }
-}
 #DivFooter {
     margin: 0 auto;
 }
-
 #FooterFixerL {
     float: left;
+    text-align: center;
+    margin-bottom: 4%;
 }
 #FooterFixerR {
-    margin-bottom: 5%; 
+    margin-bottom: 5%;
     float: right;
+    text-align: center;
 }
 .clearfix::after {
     content: "";
@@ -152,11 +111,6 @@ input, select, textarea {
     margin-top: 6px;
     padding: 20px;
 }
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
 .paddingLeft {
     padding-left: 15px;
 }
@@ -168,4 +122,62 @@ input, select, textarea {
 }
 .removeMarginBottom {
     margin-bottom: 0px;
+}
+@media screen and (max-width:767px) {
+    #One {
+        width: 50%;
+    }
+
+    #Two {
+        width: 50%;
+    }
+
+    #Three {
+        width: 50%;
+        float: none;
+    }
+    .row {
+        display: table;
+    }
+    .column {
+        float:none;
+        width: 100%;
+        margin-top: 1%;
+        padding: 20px;
+    }
+}
+@media screen and (max-width:430px) {
+    #One {
+        float: none;
+        width: 100%;
+    }
+
+    #Two {
+        float: none;
+        width: 100%;
+    }
+
+    #Three {
+        float: none;
+        width: 100%;
+    }
+
+    #DivFooter {
+        margin: 0 auto;
+        clear: both;
+    }
+
+    #FooterFixerL {
+        float: none;
+        clear: both;
+    }
+
+    #FooterFixerR {
+        float: none;
+        clear: both;
+    }
+
+    .SwimmingKnowledge {
+        padding-left: 55px;
+    }
 }
