@@ -111,7 +111,8 @@ namespace SommarkuleAlliansen.Controllers
                 List<caretaker> caretakers = new List<caretaker>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT * FROM caretaker";
+                    string query = "SELECT child.caretaker_id, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, COUNT(*) " +
+                        "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id GROUP BY caretaker_id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
                     {
                         cmd.Connection = con;
@@ -127,9 +128,8 @@ namespace SommarkuleAlliansen.Controllers
                                     caretaker_number = Convert.ToInt32(sdr["caretaker_number"]),
                                     caretaker_email = Convert.ToString(sdr["caretaker_email"]),
                                     adress = Convert.ToString(sdr["address"]),
-                                    alternative_name = Convert.ToString(sdr["alternative_name"]),
-                                    alternative_number = Convert.ToInt32(sdr["alternative_number"]),
-                                    debt = Convert.ToDouble(sdr["debt"])
+                                    debt = Convert.ToDouble(sdr["debt"]),
+                                    count = Convert.ToInt32(sdr["count(*)"])
                                 });
                             }
                         }
@@ -150,7 +150,7 @@ namespace SommarkuleAlliansen.Controllers
                 List<ChildCaretakerLocationVM> children = new List<ChildCaretakerLocationVM>();
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, caretaker.caretaker_name, location.location_name, location.weeks FROM child " +
+                    string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, caretaker.caretaker_name, caretaker.caretaker_id, location.location_name, location.weeks FROM child " +
                         "INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id " +
                         "INNER JOIN location ON child.location_id = location.location_id";
                     using (MySqlCommand cmd = new MySqlCommand(query))
@@ -164,6 +164,7 @@ namespace SommarkuleAlliansen.Controllers
                                 children.Add(new ChildCaretakerLocationVM
                                 {
                                     child_id = Convert.ToInt32(sdr["child_id"]),
+                                    caretaker_id = Convert.ToInt32(sdr["caretaker_id"]),
                                     name = Convert.ToString(sdr["name"]),
                                     caretaker_name = Convert.ToString(sdr["caretaker_name"]),
                                     location_name = Convert.ToString(sdr["location_name"]),

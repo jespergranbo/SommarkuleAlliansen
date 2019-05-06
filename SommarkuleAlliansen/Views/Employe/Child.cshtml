@@ -46,7 +46,7 @@
                     @Html.DisplayFor(modelItem => item.weeks)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.caretaker_name)
+                    @Html.ActionLink(Html.DisplayFor(modelItem => item.caretaker_name).ToString(), "Details", new { id=item.caretaker_id })
                 </td>
                 <td>
                     @Html.ActionLink("Visa mer", "DetailsChild", new { id=item.child_id }) |
