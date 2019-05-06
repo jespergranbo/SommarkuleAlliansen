@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Gruppdetaljer";
 }
-<div style="border-radius:5px; background-color:white; padding:10px; margin-top:5%; opacity: 0.9;">
+<div class="standardStyle">
     <table class="table">
         <tr>
             <th style="border:none;">
@@ -36,7 +36,7 @@
                 <td>
                     @Html.EditorFor(modelItem => item.present)
                 </td>
-                <td>@Html.ActionLink("Visa mer", "DetailsChild", new { id = item.child_id })</td>
+                <td>@Html.ActionLink("Visa mer", "DetailsChild", "Admin", new { id = item.child_id }, null)</td>
             </tr>
         }
 
