@@ -157,6 +157,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\EmployeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -164,11 +165,14 @@
     </Compile>
     <Compile Include="Models\child.cs" />
     <Compile Include="Models\ChildGroupRelation.cs" />
+    <Compile Include="Models\AdminDatabaseOperations.cs" />
     <Compile Include="Models\Email.cs" />
     <Compile Include="Models\employe.cs" />
+    <Compile Include="Models\EmployeDatabaseOperations.cs" />
     <Compile Include="Models\groups.cs" />
     <Compile Include="Models\caretaker.cs" />
     <Compile Include="Models\group_leaders.cs" />
+    <Compile Include="Models\HomeDatabaseOperations.cs" />
     <Compile Include="Models\information.cs" />
     <Compile Include="Models\location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -596,20 +600,20 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Employe\LogIn.cshtml" />
-    <Content Include="Views\Employe\Caretaker.cshtml" />
-    <Content Include="Views\Employe\Edit.cshtml" />
-    <Content Include="Views\Employe\Details.cshtml" />
-    <Content Include="Views\Employe\Child.cshtml" />
+    <Content Include="Views\Admin\Caretaker.cshtml" />
+    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\Admin\Details.cshtml" />
+    <Content Include="Views\Admin\Child.cshtml" />
     <Content Include="Views\Home\ConfirmedOrder.cshtml" />
-    <Content Include="Views\Employe\EditChild.cshtml" />
-    <Content Include="Views\Employe\DetailsChild.cshtml" />
+    <Content Include="Views\Admin\EditChild.cshtml" />
+    <Content Include="Views\Admin\DetailsChild.cshtml" />
     <Content Include="Views\Employe\EmployePage.cshtml" />
     <Content Include="Views\Employe\GroupDetails.cshtml" />
-    <Content Include="Views\Employe\Employe.cshtml" />
-    <Content Include="Views\Employe\EditEmploye.cshtml" />
-    <Content Include="Views\Employe\CreateEmploye.cshtml" />
-    <Content Include="Views\Employe\DeleteEmploye.cshtml" />
-    <Content Include="Views\Employe\EditInformation.cshtml" />
+    <Content Include="Views\Admin\Employe.cshtml" />
+    <Content Include="Views\Admin\EditEmploye.cshtml" />
+    <Content Include="Views\Admin\CreateEmploye.cshtml" />
+    <Content Include="Views\Admin\DeleteEmploye.cshtml" />
+    <Content Include="Views\Admin\EditInformation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

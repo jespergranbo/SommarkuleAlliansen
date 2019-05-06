@@ -16,6 +16,7 @@ namespace SommarkuleAlliansen.Controllers
     public class HomeController : Controller
     {
         string constr = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
+        HomeDatabaseOperations operations = new HomeDatabaseOperations();
         public ActionResult Index()
         {
             return View();
@@ -24,33 +25,7 @@ namespace SommarkuleAlliansen.Controllers
         public ActionResult Register()
         {
             List<location> locations = new List<location>();
-            using (MySqlConnection con = new MySqlConnection(constr))
-            {
-                string query = "SELECT * FROM location";
-                using (MySqlCommand cmd = new MySqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    con.Open();
-                    using (MySqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                            locations.Add(new location
-                            {
-                                location_id = Convert.ToInt32(sdr["location_id"]),
-                                location_name = Convert.ToString(sdr["location_name"]),
-                                location_adress = Convert.ToString(sdr["location_address"]),
-                                start_date = Convert.ToDateTime(sdr["start_date"]),
-                                end_date = Convert.ToDateTime(sdr["end_date"]),
-                                location_email = Convert.ToString(sdr["location_email"]),
-                                weeks = Convert.ToString(sdr["weeks"]),
-                                price = Convert.ToInt32(sdr["price"])
-                            });
-                        }
-                    }
-                    con.Close();
-                }
-            }
+            locations = operations.FindAllLocations();
             return View(locations);
         }
         [HttpPost]
@@ -65,172 +40,26 @@ namespace SommarkuleAlliansen.Controllers
             {
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    string query = "SELECT * FROM caretaker WHERE caretaker_email = @email";
-                    using (MySqlCommand cmd = new MySqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@email", caretakerEmail);
-                        con.Open();
-                        using (MySqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            while(sdr.Read())
-                            {
-                                caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
-                            }
-                        }
-                        con.Close();
-                    }
-                    location selectedLocation = GetLocationInformation(location_id);
-                    query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = ";
-                    if (location_id == 3)
-                    {
-                        query += "1 OR birth_year = @birth_year AND location_id = 2";
-                    }
-                    else if (location_id == 6)
-                    {
-                        query += "4 OR birth_year = @birth_year AND location_id = 5";
-                    }
-                    else
-                    {
-                        query += "@location_id";
-                    }
-                    using (MySqlCommand cmd = new MySqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@birth_year", birth.Year.ToString());
-                        cmd.Parameters.AddWithValue("@location_id", location_id);
-                        con.Open();
-                        using (MySqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            while (sdr.Read())
-                            {
-                                groups.Add(new groups {
-                                    group_id = Convert.ToInt32(sdr["group_id"])
-                                });
-                            }
-                        }
-                        con.Close();
-                    }
+                    caretaker_id = operations.SearchForExistingCaretaker(caretakerEmail);
+                    location selectedLocation = operations.GetLocationInformation(location_id);
+                    groups = operations.GetGroupId(location_id, birth);
+                    
                     if (caretaker_id != 0)
                     {
-                        UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
+                        operations.UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
                     }
                     if (caretaker_id == 0)
                     {
-                        query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number, debt) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, @address, @alternative_name, @alternative_number, @debt);";
-                        using (MySqlCommand cmd = new MySqlCommand(query))
-                        {
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@caretaker_name", caretakerName);
-                            cmd.Parameters.AddWithValue("@caretaker_number", caretakerNumber);
-                            cmd.Parameters.AddWithValue("@caretaker_email", caretakerEmail);
-                            cmd.Parameters.AddWithValue("@address", caretakerAddress);
-                            cmd.Parameters.AddWithValue("@alternative_name", altName);
-                            cmd.Parameters.AddWithValue("@alternative_number", altNumber);
-                            cmd.Parameters.AddWithValue("@debt", selectedLocation.price);
-                            con.Open();
-                            using (MySqlDataReader sdr = cmd.ExecuteReader())
-                            {
-                               caretaker_id = cmd.LastInsertedId;
-                            }
-                            con.Close();
-                        }
+                        caretaker_id = operations.AddCaretaker(caretakerName, caretakerNumber, caretakerEmail, caretakerAddress, altName, altNumber, selectedLocation.price);
                     }
-                    query = "INSERT INTO child (child_id, name, comment, caretaker_id, can_swim, birth_date, allow_photos, vaccinated, shirt_size, location_id, present) VALUES (NULL, @name, @comment, @caretaker_id, @can_swim, @birth_date, @allow_photos, @vaccinated, @shirt_size, @location_id, @present);";
-                    using (MySqlCommand cmd = new MySqlCommand(query))
-                    {
-                        bool present = false;
-                        cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@name", child_name);
-                        cmd.Parameters.AddWithValue("@comment", comment);
-                        cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
-                        cmd.Parameters.AddWithValue("@can_swim", CanSwim);
-                        cmd.Parameters.AddWithValue("@birth_date", birth);
-                        cmd.Parameters.AddWithValue("@allow_photos", allowPhoto);
-                        cmd.Parameters.AddWithValue("@vaccinated", isVaccinated);
-                        cmd.Parameters.AddWithValue("@shirt_size", shirtSize);
-                        cmd.Parameters.AddWithValue("@location_id", location_id);
-                        cmd.Parameters.AddWithValue("@present", present);
-                        con.Open();
-                        using (MySqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                            child_id = cmd.LastInsertedId;
-                        }
-                        con.Close();
-                    }
-                    query = "INSERT INTO childgrouprelation (child_group_relation_id, child_id, group_id) VALUES (null, @child_id, @group_id1)";
-                    if (groups.Count > 1)
-                    {
-                        query += ", (null, @child_id, @group_id2)";
-                    }
-                    using (MySqlCommand cmd = new MySqlCommand(query))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters.AddWithValue("@child_id", child_id);
-                        cmd.Parameters.AddWithValue("@group_id1", groups[0].group_id);
-                        if (groups.Count > 1)
-                        {
-                            cmd.Parameters.AddWithValue("@group_id2", groups[1].group_id);
-                        }
-                        con.Open();
-                        using (MySqlDataReader sdr = cmd.ExecuteReader())
-                        {
-                        }
-                        con.Close();
-                    }
+                    child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id);
+                    operations.AddToGroup(groups, child_id);
                     return RedirectToAction("OrderConfermation", new { caretakerEmail , caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name });
                 }
             }
             return View();
         }
-        private void UpdateCaretakerDebt(long caretaker_id, int price)
-        {
-            using (MySqlConnection con = new MySqlConnection(constr))
-            {
-                string query = "UPDATE caretaker SET debt = debt + @debt WHERE caretaker_id = @caretaker_id;";
-                using (MySqlCommand cmd = new MySqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
-                    cmd.Parameters.AddWithValue("@debt", price);
-                    con.Open();
-                    using (MySqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                        }
-                    }
-                    con.Close();
-                }
-            }
-        }
-        public location GetLocationInformation(int location_id)
-        {
-            location selectedLocation = new location();
-            using (MySqlConnection con = new MySqlConnection(constr))
-            {
-                string query = "SELECT * FROM location WHERE location_id = @location_id";
-                
-                using (MySqlCommand cmd = new MySqlCommand(query))
-                {
-                    cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@location_id", location_id);
-                    con.Open();
-                    using (MySqlDataReader sdr = cmd.ExecuteReader())
-                    {
-                        while (sdr.Read())
-                        {
-                            selectedLocation.price = Convert.ToInt32(sdr["price"]);
-                            selectedLocation.start_date = Convert.ToDateTime(sdr["start_date"]);
-                            selectedLocation.end_date = Convert.ToDateTime(sdr["end_date"]);
-                            selectedLocation.location_name = Convert.ToString(sdr["location_name"]);
-                        }
-                    }
-                    con.Close();
-                }
-            }
-            return selectedLocation;
-        }
+        
         public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name)
         {
             if (ModelState.IsValid)
