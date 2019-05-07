@@ -2,14 +2,23 @@
 @{
     ViewBag.Title = "Hem";
 }
+@{string headline = Model.ElementAt(0).information_Title; }
+@{string text = Model.ElementAt(0).information_Text; }
+@{string registerTitle = Model.ElementAt(1).information_Title; }
+@{string registerText = Model.ElementAt(1).information_Text; }
+@{string debtTitle = Model.ElementAt(2).information_Title; }
+@{string debtText = Model.ElementAt(2).information_Text; }
+@{string unRegister = Model.ElementAt(3).information_Title; }
+@{string unRegisterText = Model.ElementAt(3).information_Text; }
 <center>
     <div style="position:relative;" class="standardStyle">
         <h2>
-            Sommarkulan 2019
+            Sommarkulan @DateTime.Now.Year
         </h2>
-        <h4>Vecka 25 (17/6 - 20/6) och Vecka 26 (24/6 - 28/6)</h4>
+        <h4>@Html.Raw(headline)</h4>
         <div style="padding-left:20%; padding-right:20%;">
             <p style="border-top-style:solid; border-top-color: lightgrey;">
+                @Html.Raw(text)
             </p>
         </div>
         <div>
@@ -18,7 +27,7 @@
             <img src="~/Content/images/HSK-logo.png" />
             <img src="~/Content/images/gavle_kommun.png" />
         </div>
-        <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = "1"})'>
+        <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(0).information_id})'>
             <img style="width: 20px; height: 20px; position:absolute; top:7px; right: 7px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
         </a>
     </div>
@@ -30,9 +39,9 @@
                 <img src="~/Content/images/datepicture.png" />
             </div>
             <h4>Sista anmälningsdatumet</h4>
-            <p>31 Maj, 2019</p>
-            <p>Du anmäler ditt barn till Sommarkulan genom vårt anmälningsformulär som du tar dig till via länken ovan.</p>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = "2"})'>
+            <p>@Html.Raw(registerTitle)</p>
+            <p>@Html.Raw(registerText)</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(1).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </div>
@@ -42,9 +51,9 @@
                 <img src="~/Content/images/datepicture.png" />
             </div>
             <h4>Betala senast</h4>
-            <p>14 Juni, 2019</p>
-            <p>Avgiften till Sommarkulan betalar du till vårt bankgiro. Betalningsuppgifter hittar du i bekräftelsemailet som skickas efter din anmälan.</p>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = "3"})'>
+            <p>@Html.Raw(debtTitle)</p>
+            <p>@Html.Raw(debtText)</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(2).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </div>
@@ -54,9 +63,9 @@
                 <img src="~/Content/images/datepicture.png" />
             </div>
             <h4>Sista dag för avbokning</h4>
-            <p>14 Juni, 2019</p>
-            <p>Om ditt barn inte kan delta måste du avboka! Detta görs till respektive lokal förening senast 14/6!</p>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = "4"})'>
+            <p>@Html.Raw(unRegister)</p>
+            <p>@Html.Raw(unRegisterText)</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(3).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </div>

@@ -615,6 +615,7 @@
     <Content Include="Views\Admin\CreateEmploye.cshtml" />
     <Content Include="Views\Admin\DeleteEmploye.cshtml" />
     <Content Include="Views\Admin\EditInformation.cshtml" />
+    <Content Include="Views\Home\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

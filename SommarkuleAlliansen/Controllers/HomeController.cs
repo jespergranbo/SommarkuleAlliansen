@@ -19,13 +19,40 @@ namespace SommarkuleAlliansen.Controllers
         HomeDatabaseOperations operations = new HomeDatabaseOperations();
         public ActionResult Index()
         {
+            List<information> informations = new List<information>();
+            try
+            {
+                informations = operations.GetInformation();
+            }
+            catch (Exception)
+            {
+                string message = "Det går inte att hämta hemsidan, vänligen försök igen.";
+                return RedirectToAction("Error", "Home", new { message = message });
+            }
+            
+            return View(informations);
+        }
+        public ActionResult Error(string message)
+        {
+            if (message == null)
+            {
+                return RedirectToAction("Index");
+            }
+            ViewBag.Message = message;
             return View();
         }
-
         public ActionResult Register()
         {
             List<location> locations = new List<location>();
-            locations = operations.FindAllLocations();
+            try
+            {
+                locations = operations.FindAllLocations();
+            }
+            catch (Exception)
+            {
+                string message = "Det går inte att hämta platserna, vänligen försök igen.";
+                return RedirectToAction("Error", "Home", new { message = message });
+            }
             return View(locations);
         }
         [HttpPost]
@@ -36,25 +63,35 @@ namespace SommarkuleAlliansen.Controllers
             List<groups> groups = new List<groups>();
             DateTime start_date = DateTime.Now;
             DateTime end_date = DateTime.Now;
+            location selectedLocation = new location();
             if (ModelState.IsValid)
             {
                 using (MySqlConnection con = new MySqlConnection(constr))
                 {
-                    caretaker_id = operations.SearchForExistingCaretaker(caretakerEmail);
-                    location selectedLocation = operations.GetLocationInformation(location_id);
-                    groups = operations.GetGroupId(location_id, birth);
-                    
-                    if (caretaker_id != 0)
+                    try
                     {
-                        operations.UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
+                        caretaker_id = operations.SearchForExistingCaretaker(caretakerEmail);
+                        selectedLocation = operations.GetLocationInformation(location_id);
+                        groups = operations.GetGroupId(location_id, birth);
+
+                        if (caretaker_id != 0)
+                        {
+                            operations.UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
+                        }
+                        if (caretaker_id == 0)
+                        {
+                            caretaker_id = operations.AddCaretaker(caretakerName, caretakerNumber, caretakerEmail, caretakerAddress, altName, altNumber, selectedLocation.price);
+                        }
+                        child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id);
+                        operations.AddToGroup(groups, child_id);
+                        return RedirectToAction("OrderConfermation", new { caretakerEmail, caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name });
                     }
-                    if (caretaker_id == 0)
+                    catch (Exception)
                     {
-                        caretaker_id = operations.AddCaretaker(caretakerName, caretakerNumber, caretakerEmail, caretakerAddress, altName, altNumber, selectedLocation.price);
+                        string message = "Det går inte att registrera barnet, vänligen försök igen.";
+                        return RedirectToAction("Error", "Home", new { message = message });
                     }
-                    child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id);
-                    operations.AddToGroup(groups, child_id);
-                    return RedirectToAction("OrderConfermation", new { caretakerEmail , caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name });
+
                 }
             }
             return View();

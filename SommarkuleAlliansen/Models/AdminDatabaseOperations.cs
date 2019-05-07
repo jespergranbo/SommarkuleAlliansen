@@ -139,6 +139,29 @@ namespace SommarkuleAlliansen.Models
             }
             return employe;
         }
+        public bool FindEmployeWithNickname(string name)
+        {
+            employe employe = new employe();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM employe WHERE name = @name";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@name", name);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            return true;
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return false;
+        }
         public void UpdateEmploye(employe employe)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -474,7 +497,7 @@ namespace SommarkuleAlliansen.Models
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "UPDATE information SET information_Title = @information_Title, information_Text = @information_Text";
+                string query = "UPDATE information SET information_Title = @information_Title, information_Text = @information_Text WHERE information_id = @information_id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
