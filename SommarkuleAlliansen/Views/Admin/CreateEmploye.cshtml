@@ -16,7 +16,6 @@
             @Html.LabelFor(model => Model.ElementAt(0).employe_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).employe_id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => Model.ElementAt(0).employe_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -32,7 +31,7 @@
             <label class="paddingLeft">Namn</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).name, new { htmlAttributes = new { @class = "form-control", @name = "name", @required = "required" } })
-                @Html.ValidationMessageFor(model => Model.ElementAt(0).name, "", new { @class = "text-danger" })
+                <p class="text-danger">@ViewBag.Message</p>
             </div>
         </div>
 

@@ -170,10 +170,18 @@ namespace SommarkuleAlliansen.Controllers
                 return RedirectToAction("Error", "Home", new { message = message });
             }
         }
-        public ActionResult CreateEmploye()
+        public ActionResult CreateEmploye(bool? exsistingName)
         {
             if (Session["employe_id"] != null)
             {
+                if (exsistingName == true)
+                {
+                    ViewBag.Message = "Användarnamnet finns redan. Välj ett annat.";
+                }
+                else
+                {
+                    ViewBag.Message = "";
+                }
                 List<EmployeGroupLocationVM> locations = new List<EmployeGroupLocationVM>();
                 try
                 {
@@ -202,9 +210,17 @@ namespace SommarkuleAlliansen.Controllers
             {
                 try
                 {
-                    long location_id = operations.GetLocationIdByGroup(group_id);
-                    operations.AddEmploye(name, employe_type, number, password, group_id, location_id);
-                    return RedirectToAction("Employe");
+                    bool exsistingName = operations.FindEmployeWithNickname(name);
+                    if (exsistingName == false)
+                    {
+                        long location_id = operations.GetLocationIdByGroup(group_id);
+                        operations.AddEmploye(name, employe_type, number, password, group_id, location_id);
+                        return RedirectToAction("Employe");
+                    }
+                    else
+                    {
+                        return RedirectToAction("CreateEmploye", new { exsistingName });
+                    }
                 }
                 catch (Exception)
                 {
