@@ -94,7 +94,7 @@ namespace SommarkuleAlliansen.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 employe employe = new employe();
-                operations.FindEmploye(id);
+                employe = operations.FindEmploye(id);
                 if (employe == null)
                 {
                     return HttpNotFound();
