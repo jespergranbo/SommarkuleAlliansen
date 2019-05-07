@@ -177,6 +177,9 @@ input, select, textarea {
         clear: both;
     }
 
+    #ResizeText {
+        font-size: 30px;
+    }
     .SwimmingKnowledge {
         padding-left: 55px;
     }
