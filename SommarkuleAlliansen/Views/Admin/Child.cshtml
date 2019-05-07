@@ -46,11 +46,11 @@
                     @Html.DisplayFor(modelItem => item.weeks)
                 </td>
                 <td>
-                    @Html.ActionLink(Html.DisplayFor(modelItem => item.caretaker_name).ToString(), "Details", new { id=item.caretaker_id })
+                    @Html.ActionLink(Html.Raw(item.caretaker_name).ToString(), "Details", new { id = item.caretaker_id })
                 </td>
                 <td>
-                    @Html.ActionLink("Visa mer", "DetailsChild", new { id=item.child_id }) |
-                    @Html.ActionLink("Redigera", "EditChild", new { id=item.child_id })
+                    @Html.ActionLink("Visa mer", "DetailsChild", new { id = item.child_id }) |
+                    @Html.ActionLink("Redigera", "EditChild", new { id = item.child_id })
                 </td>
             </tr>
         }

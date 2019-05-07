@@ -474,7 +474,7 @@ namespace SommarkuleAlliansen.Models
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "UPDATE information SET information_Title = @information_Title, information_Text = @information_Text";
+                string query = "UPDATE information SET information_Title = @information_Title, information_Text = @information_Text WHERE information_id = @information_id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;

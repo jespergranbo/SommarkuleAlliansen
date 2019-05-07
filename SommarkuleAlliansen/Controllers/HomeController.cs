@@ -19,7 +19,9 @@ namespace SommarkuleAlliansen.Controllers
         HomeDatabaseOperations operations = new HomeDatabaseOperations();
         public ActionResult Index()
         {
-            return View();
+            List<information> informations = new List<information>();
+            informations = operations.GetInformation();
+            return View(informations);
         }
 
         public ActionResult Register()

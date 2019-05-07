@@ -237,5 +237,32 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public List<information> GetInformation()
+        {
+            List<information> informations = new List<information>();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM information";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            informations.Add(new information
+                            {
+                                information_id = Convert.ToInt32(sdr["information_id"]),
+                                information_Title = Convert.ToString(sdr["information_Title"]),
+                                information_Text = Convert.ToString(sdr["information_Text"])
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return informations;
+        }
     }
 }
