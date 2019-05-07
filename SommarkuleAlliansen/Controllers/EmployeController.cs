@@ -25,7 +25,15 @@ namespace SommarkuleAlliansen.Controllers
         public ActionResult Login(employe account)
         {
             employe employe = new employe();
-            employe = operations.FindEmployeLogIn(account);
+            try
+            {
+                employe = operations.FindEmployeLogIn(account);
+            }
+            catch (Exception)
+            {
+                string message = "Det går inte att hämta användarna, vänligen försök igen.";
+                return RedirectToAction("Error", "Home", new { message = message });
+            }
             if (employe.employe_id != 0)
             {
                 Session["employe_id"] = employe.employe_id.ToString();
@@ -51,8 +59,17 @@ namespace SommarkuleAlliansen.Controllers
             {
                 List<GroupLocationVM> groups = new List<GroupLocationVM>();
                 int id = Convert.ToInt32(Session["location_id"]);
-                groups = operations.FindAllGroups(id);
-                return View(groups);
+                try
+                {
+                    groups = operations.FindAllGroups(id);
+                    return View(groups);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta grupperna, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
             }
             else
             {
@@ -64,8 +81,17 @@ namespace SommarkuleAlliansen.Controllers
             if (Session["employe_id"] != null)
             {
                 List<ChildGroupVM> children = new List<ChildGroupVM>();
-                children = operations.GetGroupDetails(id);
-                return View(children);
+                try
+                {
+                    children = operations.GetGroupDetails(id);
+                    return View(children);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta grupperna, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
             }
             else
             {

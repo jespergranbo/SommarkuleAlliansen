@@ -21,8 +21,17 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-                List<EmployeLocationVM> employes = operations.GetAllEmployes();
-                return View(employes);
+                try
+                {
+                    List<EmployeLocationVM> employes = operations.GetAllEmployes();
+                    return View(employes);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hämta anställda, vänligen försök igen.";
+                    return RedirectToAction("Error","Home", new { message = message });
+                }
+                
             }
             else
             {
@@ -33,8 +42,16 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-                List<caretaker> caretakers = operations.GetAllCaretakers();
-                return View(caretakers);
+                try
+                {
+                    List<caretaker> caretakers = operations.GetAllCaretakers();
+                    return View(caretakers);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
             }
             else
             {
@@ -45,8 +62,16 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null)
             {
-                List<ChildCaretakerLocationVM> children = operations.GetChildCaretakerLocation();
-                return View(children);
+                try
+                {
+                    List<ChildCaretakerLocationVM> children = operations.GetChildCaretakerLocation();
+                    return View(children);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hämta barn, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
             }
             else
             {
@@ -62,7 +87,15 @@ namespace SommarkuleAlliansen.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 employe employe = new employe();
-                employe = operations.FindEmploye(id);
+                try
+                {
+                    employe = operations.FindEmploye(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta den anställda, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (employe == null)
                 {
                     return HttpNotFound();
@@ -80,8 +113,17 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                operations.UpdateEmploye(employe);
-                return RedirectToAction("Employe");
+                try
+                {
+                    operations.UpdateEmploye(employe);
+                    return RedirectToAction("Employe");
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att redigera anställda, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
             }
             return View(employe);
         }
@@ -94,7 +136,15 @@ namespace SommarkuleAlliansen.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 employe employe = new employe();
-                employe = operations.FindEmploye(id);
+                try
+                {
+                    employe = operations.FindEmploye(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta den anställda, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (employe == null)
                 {
                     return HttpNotFound();
@@ -109,15 +159,31 @@ namespace SommarkuleAlliansen.Controllers
         [HttpPost]
         public ActionResult DeleteEmploye(int id)
         {
+            try
+            {
             operations.DeleteEmploye(id);
             return RedirectToAction("Employe");
+            }
+            catch (Exception)
+            {
+                string message = "Det går inte att ta bort den anställda, vänligen försök igen.";
+                return RedirectToAction("Error", "Home", new { message = message });
+            }
         }
         public ActionResult CreateEmploye()
         {
             if (Session["employe_id"] != null)
             {
                 List<EmployeGroupLocationVM> locations = new List<EmployeGroupLocationVM>();
-                locations = operations.GetLocations();
+                try
+                {
+                    locations = operations.GetLocations();
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att lägga till en användare just nu, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (locations == null)
                 {
                     return HttpNotFound();
@@ -134,9 +200,17 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                long location_id = operations.GetLocationIdByGroup(group_id);
-                operations.AddEmploye(name, employe_type, number, password, group_id, location_id);
-                return RedirectToAction("Employe");
+                try
+                {
+                    long location_id = operations.GetLocationIdByGroup(group_id);
+                    operations.AddEmploye(name, employe_type, number, password, group_id, location_id);
+                    return RedirectToAction("Employe");
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att lägga till en användare just nu, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
             }
             return View();
         }
@@ -148,7 +222,17 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                caretaker caretaker = operations.FindCaretaker(id);
+                caretaker caretaker = new caretaker();
+                try
+                {
+                     caretaker = operations.FindCaretaker(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta vårdnadshavaren, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
                 if (caretaker == null)
                 {
                     return HttpNotFound();
@@ -166,8 +250,17 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                operations.UpdateCaretaker(caretaker);
-                return RedirectToAction("Caretaker");
+                try
+                {
+                    operations.UpdateCaretaker(caretaker);
+                    return RedirectToAction("Caretaker");
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att redigera vårdnadshavaren, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
             }
             return View(caretaker);
         }
@@ -180,7 +273,15 @@ namespace SommarkuleAlliansen.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
-                caretakerDetails = operations.GetCaretakerDetails(id);
+                try
+                {
+                    caretakerDetails = operations.GetCaretakerDetails(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta vårdnadshavaren, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (caretakerDetails == null)
                 {
                     return HttpNotFound();
@@ -202,20 +303,29 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                var body = "Hej " + caretaker_name + "! Du har fortfarande inte betalat din skuld på " + debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
-                var message = new MailMessage();
-                message.To.Add(new MailAddress(caretaker_email));
-                message.From = new MailAddress("sommarkulan@outlook.com");
-                message.Subject = "Betalningspåminnelse";
-                message.Body = string.Format(body);
-                message.IsBodyHtml = true;
-
-                using (var smtp = new SmtpClient())
+                try
                 {
-                    await smtp.SendMailAsync(message);
-                    bool justSentMessage = true;
-                    return RedirectToAction("Details", "Admin", new { caretaker_id = caretaker_id, justSentMessage = justSentMessage });
+                    var body = "Hej " + caretaker_name + "! Du har fortfarande inte betalat din skuld på " + debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
+                    var message = new MailMessage();
+                    message.To.Add(new MailAddress(caretaker_email));
+                    message.From = new MailAddress("sommarkulan@outlook.com");
+                    message.Subject = "Betalningspåminnelse";
+                    message.Body = string.Format(body);
+                    message.IsBodyHtml = true;
+
+                    using (var smtp = new SmtpClient())
+                    {
+                        await smtp.SendMailAsync(message);
+                        bool justSentMessage = true;
+                        return RedirectToAction("Details", "Admin", new { caretaker_id = caretaker_id, justSentMessage = justSentMessage });
+                    }
                 }
+                catch (Exception)
+                {
+                    string message = "Det går inte att uppdatera vårdnadshavaren, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
             }
             return View();
         }
@@ -227,7 +337,16 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                child child = operations.FindChild(id);
+                child child = new child();
+                try
+                {
+                    child = operations.FindChild(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta barnet, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (child == null)
                 {
                     return HttpNotFound();
@@ -245,8 +364,17 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                operations.UpdateChild(child);
-                return RedirectToAction("Child");
+                try
+                {
+                    operations.UpdateChild(child);
+                    return RedirectToAction("Child");
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att redigera barnet, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                
             }
             return View(child);
         }
@@ -259,7 +387,15 @@ namespace SommarkuleAlliansen.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
-                childDetails = operations.GetChildDetails(id);
+                try
+                {
+                    childDetails = operations.GetChildDetails(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta barnet, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (childDetails == null)
                 {
                     return HttpNotFound();
@@ -280,7 +416,15 @@ namespace SommarkuleAlliansen.Controllers
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
                 information information = new information();
-                information = operations.FindInformation(id);
+                try
+                {
+                    information = operations.FindInformation(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta informationen, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
                 if (information == null)
                 {
                     return HttpNotFound();
@@ -298,8 +442,16 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                operations.UpdateInformation(information);
-                return RedirectToAction("Index", "Home");
+                try
+                {
+                    operations.UpdateInformation(information);
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att uppdatera informationen, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
             }
             return View(information);
         }
