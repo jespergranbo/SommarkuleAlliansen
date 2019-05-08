@@ -353,10 +353,14 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 }
-                child child = new child();
+                ChildGroupRelationVM child = new ChildGroupRelationVM();
+                ChildGroupRelationVM childGroup = new ChildGroupRelationVM();
                 try
                 {
                     child = operations.FindChild(id);
+                    childGroup = operations.FindChildGroup(id);
+                    child.group_id = childGroup.group_id;
+                    child.group_id2 = childGroup.group_id2;
                 }
                 catch (Exception)
                 {

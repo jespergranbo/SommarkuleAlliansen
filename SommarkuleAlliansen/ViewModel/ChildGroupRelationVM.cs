@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace SommarkuleAlliansen.Models
+namespace SommarkuleAlliansen.ViewModel
 {
-    public class child
+    public class ChildGroupRelationVM
     {
+        public int childGroupRelation_id { get; set; }
+        public int group_id { get; set; }
+        public int group_id2 { get; set; }
+
         public int child_id { get; set; }
         public string name { get; set; }
         public string comment { get; set; }

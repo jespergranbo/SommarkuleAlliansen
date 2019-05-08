@@ -1,4 +1,4 @@
-﻿@model SommarkuleAlliansen.Models.child
+﻿@model SommarkuleAlliansen.ViewModel.ChildGroupRelationVM
 
 @{
     ViewBag.Title = "Redigera Barn";
@@ -40,7 +40,23 @@
                 @Html.ValidationMessageFor(model => model.shirt_size, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            <label class="paddingLeft">Grupp för vecka 1</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.group_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.group_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Model.group_id2 != 0)
+        {
+            <div class="form-group">
+                <label class="paddingLeft">Grupp för vecka 2</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.group_id2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.group_id2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         <div class="form-group">
             <label class="paddingLeft">Kommentar</label>
             <div class="col-md-10">
