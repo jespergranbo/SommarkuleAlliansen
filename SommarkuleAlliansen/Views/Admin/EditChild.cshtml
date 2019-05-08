@@ -53,7 +53,7 @@
             <label class="paddingLeft">Simmkunnig</label>
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.can_swim)
+                    @Html.EditorFor(model => model.can_swim, new { htmlAttributes = new { @class = "form-radio-css" } })
                     @Html.ValidationMessageFor(model => model.can_swim, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -63,7 +63,7 @@
             <label class="paddingLeft">Tillåt foto</label>
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.allow_photos)
+                    @Html.EditorFor(model => model.allow_photos, new { htmlAttributes = new { @class = "form-radio-css" } })
                     @Html.ValidationMessageFor(model => model.allow_photos, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -73,7 +73,7 @@
             <label class="paddingLeft">Vaccinerat</label>
             <div class="col-md-10">
                 <div class="checkbox">
-                    @Html.EditorFor(model => model.vaccinated)
+                    @Html.EditorFor(model => model.vaccinated, new { htmlAttributes = new { @class = "form-radio-css" } })
                     @Html.ValidationMessageFor(model => model.vaccinated, "", new { @class = "text-danger" })
                 </div>
             </div>

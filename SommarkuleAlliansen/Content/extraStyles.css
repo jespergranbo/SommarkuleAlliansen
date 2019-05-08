@@ -123,6 +123,39 @@ input, select, textarea {
 .removeMarginBottom {
     margin-bottom: 0px;
 }
+.DivWrapper {
+    width: 100%;
+}
+.DivBlocker {
+    display: inline-block;
+    width: 30%;
+    padding: 20px;
+}
+.specialStyle {
+    width: 32%;
+}
+@media screen and (max-width:991px) {
+    .DivBlocker {
+        width: 100%;
+        padding:1%;
+        margin:1%;
+    }
+    .DivWrapper{
+        margin-top:5%;
+    }
+    .box {
+        width: 100%;
+        padding: 1%;
+        margin-top:10%;
+        margin:1%;
+    }
+    .specialStyle {
+        width: 100%;
+    }
+    .bg-fixes{
+        margin-top:5%;
+    }
+}
 @media screen and (max-width:767px) {
     #One {
         width: 50%;
