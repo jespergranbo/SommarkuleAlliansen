@@ -12,16 +12,16 @@
             <th class="removeBorder">
                 Födelsedatum
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile" class="removeBorder">
                 Tröjstorlek
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile3" class="removeBorder">
                 Förening
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile4" class="removeBorder">
                 Period
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile3" style="padding-right:18px;" class="removeBorder">
                 Vårdnadshavare
             </th>
             <td class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
@@ -36,16 +36,16 @@
                 <td>
                     @String.Format("{0:yyy/MM/dd}", item.birth_date)
                 </td>
-                <td>
+                <td id="HideFromMobile">
                     @Html.DisplayFor(modelItem => item.shirt_size)
                 </td>
-                <td>
+                <td id="HideFromMobile3">
                     @Html.DisplayFor(modelItem => item.location_name)
                 </td>
-                <td>
+                <td id="HideFromMobile4">
                     @Html.DisplayFor(modelItem => item.weeks)
                 </td>
-                <td>
+                <td id="HideFromMobile3">
                     @Html.ActionLink(Html.Raw(item.caretaker_name).ToString(), "Details", new { id = item.caretaker_id })
                 </td>
                 <td>
