@@ -23,7 +23,7 @@
                 <label>Barnets Namn:</label> <br />
                 <input type="text" id="childName" name="child_name" required /> <br />
                 <label>Födelsedatum:</label> <br />
-                <input type="date" id="childBirth" name="birth" required /> <br />
+                <input type="date" id="childBirth" name="birth" required /> - <input type="number"/> <br />
                 <p class="text-danger" id="errorMessage" style="visibility:hidden">Födelseåret får bara vara mellan 2007 - 2012.</p>
                 <label>Tröjstorlek:</label> <br />
                 <select name="shirtSize" required>
@@ -65,6 +65,10 @@
                         </center>
                     </label>
                 </div>
+                <label style="margin-top: 3%;">
+                    Allergi:
+                    <textarea id="childComment" name="comment" style="width: 100%;"></textarea>
+                </label>
                 <label style="margin-top: 3%;">
                     Annan information som kan vara nödvändig för sommarkulans ledare:
                     <textarea id="childComment" name="comment" style="width: 100%;"></textarea>
