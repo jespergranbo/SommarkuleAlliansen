@@ -231,4 +231,10 @@ input, select, textarea {
     #HideFromMobile2 {
         display: none;
     }
+    .ChangeContent span {
+        display: none;
+    }
+    .ChangeContent:after {
+        content: 'Nmr';
+    }
 }
