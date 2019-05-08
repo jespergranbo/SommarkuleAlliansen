@@ -181,12 +181,12 @@ namespace SommarkuleAlliansen.Models
             }
             return caretaker_id;
         }
-        public long AddChild(string child_name, string comment, long caretaker_id, bool CanSwim, DateTime birth, bool allowPhoto, bool isVaccinated, string shirtSize, int location_id, DateTime registration_date)
+        public long AddChild(string child_name, string comment, long caretaker_id, bool CanSwim, DateTime birth, bool allowPhoto, bool isVaccinated, string shirtSize, int location_id, DateTime registration_date, int social_security, string allergy_comment)
         {
             long child_id = 0;
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "INSERT INTO child (child_id, name, comment, caretaker_id, can_swim, birth_date, allow_photos, vaccinated, shirt_size, location_id, present, registration_date) VALUES (NULL, @name, @comment, @caretaker_id, @can_swim, @birth_date, @allow_photos, @vaccinated, @shirt_size, @location_id, @present, @registration_date);";
+                string query = "INSERT INTO child (child_id, name, comment, caretaker_id, can_swim, birth_date, allow_photos, vaccinated, shirt_size, location_id, present, registration_date, social_security, allergy_comment) VALUES (NULL, @name, @comment, @caretaker_id, @can_swim, @birth_date, @allow_photos, @vaccinated, @shirt_size, @location_id, @present, @registration_date, @social_security, @allergy_comment);";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     bool present = false;
@@ -202,6 +202,8 @@ namespace SommarkuleAlliansen.Models
                     cmd.Parameters.AddWithValue("@location_id", location_id);
                     cmd.Parameters.AddWithValue("@present", present);
                     cmd.Parameters.AddWithValue("@registration_date", registration_date);
+                    cmd.Parameters.AddWithValue("@social_security", social_security);
+                    cmd.Parameters.AddWithValue("@allergy_comment", allergy_comment);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {

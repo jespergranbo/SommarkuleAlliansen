@@ -56,7 +56,7 @@ namespace SommarkuleAlliansen.Controllers
             return View(locations);
         }
         [HttpPost]
-        public ActionResult Register(int location_id, string child_name, DateTime birth, string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string comment, string caretakerName, string caretakerAddress, string caretakerEmail, int caretakerNumber, string altName, int altNumber)
+        public ActionResult Register(int location_id, string child_name, DateTime birth, string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string comment, string caretakerName, string caretakerAddress, string caretakerEmail, int caretakerNumber, string altName, int altNumber, int social_security, string allergy_comment)
         {
             long caretaker_id = 0;
             long child_id = 0;
@@ -83,7 +83,7 @@ namespace SommarkuleAlliansen.Controllers
                         {
                             caretaker_id = operations.AddCaretaker(caretakerName, caretakerNumber, caretakerEmail, caretakerAddress, altName, altNumber, selectedLocation.price);
                         }
-                        child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id, registration_date);
+                        child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id, registration_date, social_security, allergy_comment);
                         operations.AddToGroup(groups, child_id);
                         return RedirectToAction("OrderConfermation", new { caretakerEmail, caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name });
                     }
