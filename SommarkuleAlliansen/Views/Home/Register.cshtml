@@ -23,7 +23,7 @@
                 <label>Barnets Namn:</label> <br />
                 <input type="text" id="childName" name="child_name" required /> <br />
                 <label>Födelsedatum:</label> <br />
-                <input type="date" id="childBirth" name="birth" required /> - <input type="number" name="social_security" required/> <br />
+                <input type="date" id="childBirth" name="birth" required /> - <input type="text" name="social_security" pattern="\d*" maxlength="4" required/> <br />
                 <p class="text-danger" id="errorMessage" style="visibility:hidden">Födelseåret får bara vara mellan 2007 - 2012.</p>
                 <label>Tröjstorlek:</label> <br />
                 <select name="shirtSize" required>
