@@ -18,14 +18,13 @@
             <th style="border:none;">
                 Närvaro
             </th>
-            <th style="border:none;"></th>
         </tr>
 
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                    @Html.ActionLink(item.name, "DetailsChild", "Admin", new { id = item.child_id }, null)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.comment)
@@ -36,7 +35,6 @@
                 <td>
                     @Html.EditorFor(modelItem => item.present)
                 </td>
-                <td>@Html.ActionLink("Visa mer", "DetailsChild", "Admin", new { id = item.child_id }, null)</td>
             </tr>
         }
 
