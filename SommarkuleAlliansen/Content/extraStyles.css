@@ -134,7 +134,11 @@ input, select, textarea {
 .specialStyle {
     width: 32%;
 }
-@media screen and (max-width:1199px){
+.InformationTextMobile{
+    padding-right:20%;
+    padding-left:20%;
+}
+@media screen and (max-width:1199px) {
     #HideFromMobile4{
         display:none;
     }
@@ -167,16 +171,18 @@ input, select, textarea {
 
 @media screen and (max-width:767px) {
     #One {
-        width: 50%;
+        float: none;
+        width: 100%;
     }
 
     #Two {
-        width: 50%;
+        float: none;
+        width: 100%;
     }
 
     #Three {
-        width: 50%;
         float: none;
+        width: 100%;
     }
     .row {
         display: table;
@@ -192,20 +198,6 @@ input, select, textarea {
     }
 }
 @media screen and (max-width:430px) {
-    #One {
-        float: none;
-        width: 100%;
-    }
-
-    #Two {
-        float: none;
-        width: 100%;
-    }
-
-    #Three {
-        float: none;
-        width: 100%;
-    }
 
     #DivFooter {
         margin: 0 auto;
@@ -246,5 +238,8 @@ input, select, textarea {
     }
     #RemovePaddingMobile{
         padding:2px;
+    }
+    .InformationTextMobile{
+        padding: 1%;
     }
 }

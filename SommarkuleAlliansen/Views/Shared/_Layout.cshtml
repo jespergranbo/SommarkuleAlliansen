@@ -1,5 +1,37 @@
 ﻿<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+<style>
+    .tryingshit {
+        display: block;
+        transition-duration: 0.5s;
+    }
+
+        .tryingshit:hover {
+            cursor: pointer;
+        }
+
+    .moreshit .tryingshit .moreshit {
+        visibility: hidden;
+        opacity: 0;
+        position: absolute;
+        transition: all 0.5s ease;
+        margin-top: 1rem;
+        left: 0;
+        display: none;
+    }
+
+        .moreshit .tryingshit:hover > .moreshit,
+        .moreshit .tryingshit .moreshit:hover {
+            visibility: visible;
+            opacity: 1;
+            display: block;
+        }
+
+        .moreshit li ul li {
+            clear: both;
+            width: 100%;
+        }
+</style>
 @if (Session["employe_type"] == null)
 {
     <style>
@@ -29,9 +61,12 @@
                     <li class="nav-item">@Html.ActionLink("Hem", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Anmälan", "Register", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Kontakt", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item hidden">@Html.ActionLink("Vårdnadshavare", "Caretaker", "Admin", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item hidden">@Html.ActionLink("Anställda", "Employe", "Admin", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item hidden">@Html.ActionLink("Grupper", "EmployePage", "Employe", null, new { @class = "nav-link" })</li>
+                        <ul class="dropdown moreshit">
+                            <li class="nav-item hidden tryingshit">@Html.ActionLink("Vårdnadshavare", "Caretaker", "Admin", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item hidden tryingshit">@Html.ActionLink("Anställda", "Employe", "Admin", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item hidden tryingshit">@Html.ActionLink("Grupper", "EmployePage", "Employe", null, new { @class = "nav-link" })</li>
+                        </ul>
+                    </li>
                     <li class="nav-item hidden">@Html.ActionLink("Logga ut", "LogOut", "Employe", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
