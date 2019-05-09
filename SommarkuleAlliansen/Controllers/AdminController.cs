@@ -17,6 +17,7 @@ namespace SommarkuleAlliansen.Controllers
     {
         AdminDatabaseOperations operations = new AdminDatabaseOperations();
         string constr = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
+
         public ActionResult Employe()
         {
             if (Session["employe_id"] != null)
@@ -115,12 +116,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditEmploye(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 employe employe = new employe();
                 try
                 {
@@ -164,12 +161,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteEmploye(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 employe employe = new employe();
                 try
                 {
@@ -267,12 +260,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Edit(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 caretaker caretaker = new caretaker();
                 try
                 {
@@ -317,12 +306,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Details(int? id, bool? justSentMessage)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
                 try
                 {
@@ -382,12 +367,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditChild(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 ChildGroupRelationVM child = new ChildGroupRelationVM();
                 ChildGroupRelationVM childGroup = new ChildGroupRelationVM();
                 try
@@ -435,12 +416,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DetailsChild(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
                 try
                 {
@@ -464,12 +441,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditInformation(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
                 information information = new information();
                 try
                 {
