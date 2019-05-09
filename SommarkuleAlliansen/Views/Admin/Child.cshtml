@@ -6,11 +6,11 @@
 <div class="standardStyle">
     <table class="table table-responsive">
         <tr>
-            <th class="removeBorder">
+            <th id="RemovePaddingMobile" class="removeBorder">
                 Namn
             </th>
-            <th class="removeBorder">
-                Födelsedatum
+            <th id="RemovePaddingMobile" class="removeBorder">
+                <div class="ChangeContent2"><span>Födelsedatum</span></div>
             </th>
             <th id="HideFromMobile" class="removeBorder">
                 Tröjstorlek
@@ -24,7 +24,7 @@
             <th id="HideFromMobile3" style="padding-right:18px;" class="removeBorder">
                 Vårdnadshavare
             </th>
-            <td class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
+            <td id="RemovePaddingMobile" class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
         </tr>
 
         @foreach (var item in Model)

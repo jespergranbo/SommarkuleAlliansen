@@ -237,4 +237,14 @@ input, select, textarea {
     .ChangeContent:after {
         content: 'Nmr';
     }
+
+    .ChangeContent2 span {
+        display: none;
+    }
+    .ChangeContent2:after {
+        content: 'Födelse';
+    }
+    #RemovePaddingMobile{
+        padding:2px;
+    }
 }
