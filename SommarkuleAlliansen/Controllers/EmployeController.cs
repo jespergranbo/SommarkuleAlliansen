@@ -78,7 +78,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult GroupDetails(int? id)
         {
-            if (Session["employe_id"] != null)
+            if (Session["employe_id"] != null || id != null)
             {
                 List<ChildGroupVM> children = new List<ChildGroupVM>();
                 try
@@ -97,6 +97,20 @@ namespace SommarkuleAlliansen.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        [HttpPost]
+        public ActionResult GroupDetails(List<ChildGroupVM> children)
+        {
+            try
+            {
+                operations.UpdatePresent(children);
+                return RedirectToAction("GroupDetails", new { id = children[0].group_id });
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("EmployePage");
+            }
+            
         }
     }
 }

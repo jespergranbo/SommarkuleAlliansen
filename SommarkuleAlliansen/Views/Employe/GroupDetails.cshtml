@@ -1,42 +1,63 @@
-﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildGroupVM>
+﻿@model IList<SommarkuleAlliansen.ViewModel.ChildGroupVM>
 
 @{
     ViewBag.Title = "Gruppdetaljer";
+    int presentCounter = 0;
 }
 <div class="standardStyle">
-    <table class="table">
-        <tr>
-            <th style="border:none;">
-                För- och Efternamn
-            </th>
-            <th style="border:none;">
-                Kommentar
-            </th>
-            <th style="border:none;">
-                Födelsedatum
-            </th>
-            <th style="border:none;">
-                Närvaro
-            </th>
-        </tr>
-
-        @foreach (var item in Model)
+    @using (Html.BeginForm("GroupDetails", "Employe", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        for (int i = 0; i < Model.Count(); i++)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.name, "DetailsChild", "Admin", new { id = item.child_id }, null)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.comment)
-                </td>
-                <td>
-                    @String.Format("{0:yyyy/MM/dd}", item.birth_date)
-                </td>
-                <td>
-                    @Html.EditorFor(modelItem => item.present)
-                </td>
-            </tr>
+            if (Model.ElementAt(i).present == true)
+            {
+                presentCounter++;
+            }
         }
+        <b style="padding-left:12px;">Närvarande: @presentCounter</b>
+        <table class="table">
+            <tr>
+                <th style="display:none" name="@Model.ElementAt(0).group_id">
+                    @Model.ElementAt(0).group_id
+                    @Html.HiddenFor(m => Model[0].group_id)
+                </th>
+                <th style="border:none;">
+                    För- och Efternamn
+                </th>
+                <th style="border:none;">
+                    Kommentar
+                </th>
+                <th style="border:none;">
+                    Födelsedatum
+                </th>
+                <th style="border:none;">
+                    Närvaro
+                </th>
+            </tr>
 
-    </table>
+            @Html.AntiForgeryToken()
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td style="display:none" name="@Model.ElementAt(i).child_id">
+                        @Model.ElementAt(i).child_id
+                        @Html.HiddenFor(m => Model[i].child_id)
+                    </td>
+                    <td>
+                        @Html.ActionLink(Model.ElementAt(i).name, "DetailsChild", "Admin", new { id = Model.ElementAt(i).child_id }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.ElementAt(i).comment)
+                    </td>
+                    <td>
+                        @String.Format("{0:yyyy/MM/dd}", Model.ElementAt(i).birth_date)
+                    </td>
+                    <td name="@Model.ElementAt(i).present">
+                        @Html.CheckBoxFor(m => Model[i].present)
+                    </td>
+                </tr>
+            }
+        </table>
+        <input type="submit" value="Rapportera närvaro" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
+    }
 </div>

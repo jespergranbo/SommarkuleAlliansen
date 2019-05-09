@@ -116,5 +116,26 @@ namespace SommarkuleAlliansen.Models
             }
             return children;
         }
+        public void UpdatePresent(List<ChildGroupVM> children)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                for (int i = 0; i < children.Count; i++)
+                {
+                    string query = "UPDATE child SET present = @present WHERE child_id = @child_id;";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@present", children[i].present);
+                        cmd.Parameters.AddWithValue("@child_id", children[i].child_id);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                        }
+                        con.Close();
+                    }
+                }
+            }
+        }
     }
 }

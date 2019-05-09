@@ -58,6 +58,41 @@ namespace SommarkuleAlliansen.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Caretaker(List<caretaker> caretakers)
+        {
+            if (ModelState.IsValid)
+            {
+                for (int i = 0; i < caretakers.Count; i++)
+                {
+                    if (caretakers[i].selectedForEmail == true)
+                    {
+                        try
+                        {
+                            var body = "Hej " + caretakers[i].caretaker_name + "! Du har fortfarande inte betalat din skuld på " + caretakers[i].debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
+                            var message = new MailMessage();
+                            message.To.Add(new MailAddress(caretakers[i].caretaker_email));
+                            message.From = new MailAddress("sommarkulan@outlook.com");
+                            message.Subject = "Betalningspåminnelse";
+                            message.Body = string.Format(body);
+                            message.IsBodyHtml = true;
+
+                            using (var smtp = new SmtpClient())
+                            {
+                                await smtp.SendMailAsync(message);
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            string message = "Det går inte att maila vårdnadshavaren, vänligen försök igen.";
+                            return RedirectToAction("Error", "Home", new { message = message });
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("Caretaker");
+        }
         public ActionResult Child()
         {
             if (Session["employe_id"] != null)
@@ -338,7 +373,7 @@ namespace SommarkuleAlliansen.Controllers
                 }
                 catch (Exception)
                 {
-                    string message = "Det går inte att uppdatera vårdnadshavaren, vänligen försök igen.";
+                    string message = "Det går inte att maila vårdnadshavaren, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
                 }
                 
