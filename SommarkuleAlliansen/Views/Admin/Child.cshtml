@@ -6,25 +6,25 @@
 <div class="standardStyle">
     <table class="table table-responsive">
         <tr>
-            <th class="removeBorder">
+            <th id="RemovePaddingMobile" class="removeBorder">
                 Namn
             </th>
-            <th class="removeBorder">
-                Födelsedatum
+            <th id="RemovePaddingMobile" class="removeBorder">
+                <div class="ChangeContent2"><span>Födelsedatum</span></div>
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile" class="removeBorder">
                 Tröjstorlek
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile3" class="removeBorder">
                 Förening
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile4" class="removeBorder">
                 Period
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile3" style="padding-right:18px;" class="removeBorder">
                 Vårdnadshavare
             </th>
-            <td class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
+            <td id="RemovePaddingMobile" class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
         </tr>
 
         @foreach (var item in Model)
@@ -36,16 +36,16 @@
                 <td>
                     @String.Format("{0:yyy/MM/dd}", item.birth_date)-@item.social_security
                 </td>
-                <td>
+                <td id="HideFromMobile">
                     @Html.DisplayFor(modelItem => item.shirt_size)
                 </td>
-                <td>
+                <td id="HideFromMobile3">
                     @Html.DisplayFor(modelItem => item.location_name)
                 </td>
-                <td>
+                <td id="HideFromMobile4">
                     @Html.DisplayFor(modelItem => item.weeks)
                 </td>
-                <td>
+                <td id="HideFromMobile3">
                     @Html.ActionLink(Html.Raw(item.caretaker_name).ToString(), "Details", new { id = item.caretaker_id })
                 </td>
                 <td>

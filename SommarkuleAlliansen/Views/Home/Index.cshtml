@@ -10,27 +10,31 @@
 @{string debtText = Model.ElementAt(2).information_Text; }
 @{string unRegister = Model.ElementAt(3).information_Title; }
 @{string unRegisterText = Model.ElementAt(3).information_Text; }
-<center>
-    <div style="position:relative;" class="standardStyle">
+<div style="position:relative;" class="standardStyle">
+    <center>
         <h2>
             Sommarkulan @DateTime.Now.Year
         </h2>
         <h4>@Html.Raw(headline)</h4>
+    </center>
         <div style="padding-left:20%; padding-right:20%;">
             <p style="border-top-style:solid; border-top-color: lightgrey;">
                 @Html.Raw(text)
             </p>
         </div>
-        <div>
-            <img src="~/Content/images/sisu.png" />
-            <img src="~/Content/images/Stromsbro-Logo.png" />
-            <img src="~/Content/images/HSK-logo.png" />
-            <img src="~/Content/images/gavle_kommun.png" />
-        </div>
-        <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(0).information_id})'>
-            <img style="width: 20px; height: 20px; position:absolute; top:7px; right: 7px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
-        </a>
-    </div>
+        <center>
+            <div>
+                <img src="~/Content/images/sisu.png" />
+                <img src="~/Content/images/Stromsbro-Logo.png" />
+                <img src="~/Content/images/HSK-logo.png" />
+                <img src="~/Content/images/gavle_kommun.png" />
+            </div>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(0).information_id})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:7px; right: 7px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
+        </center>
+</div>
+<center>
     <div class="clearfix standardStyle">
         <h3>Viktiga Datum</h3>
         <br />

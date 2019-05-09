@@ -7,9 +7,9 @@
     <table class="table">
         <tr>
             <th class="removeBorder">
-                Gruppnummer
+                <div class="ChangeContent"><span>Gruppnummer</span></div>
             </th>
-            <th class="removeBorder">
+            <th id="HideFromMobile4" class="removeBorder">
                 Antal barn i gruppen
             </th>
             <th class="removeBorder">
@@ -27,7 +27,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.group_id)
                 </td>
-                <td>
+                <td id="HideFromMobile4">
                     @Html.DisplayFor(modelItem => item.count)
                 </td>
                 <td>@Html.DisplayFor(modelItem => item.birth_year)</td>
