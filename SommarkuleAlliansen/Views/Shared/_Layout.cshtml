@@ -61,12 +61,12 @@
                     <li class="nav-item">@Html.ActionLink("Hem", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Anmälan", "Register", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item">@Html.ActionLink("Kontakt", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                        <ul class="dropdown moreshit">
+                        @*<ul class="dropdown moreshit">*@
                             <li class="nav-item hidden tryingshit">@Html.ActionLink("Vårdnadshavare", "Caretaker", "Admin", null, new { @class = "nav-link" })</li>
                             <li class="nav-item hidden tryingshit">@Html.ActionLink("Anställda", "Employe", "Admin", null, new { @class = "nav-link" })</li>
                             <li class="nav-item hidden tryingshit">@Html.ActionLink("Grupper", "EmployePage", "Employe", null, new { @class = "nav-link" })</li>
-                        </ul>
-                    </li>
+                        @*</ul>
+                    </li>*@
                     <li class="nav-item hidden">@Html.ActionLink("Logga ut", "LogOut", "Employe", null, new { @class = "nav-link" })</li>
                 </ul>
             </div>
