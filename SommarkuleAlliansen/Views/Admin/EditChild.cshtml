@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Redigera Barn";
+    int shirtSizes = 80;
 }
 @using (Html.BeginForm())
 {
@@ -36,6 +37,22 @@
         <div class="form-group">
             <label class="paddingLeft">Tröjstorlek</label>
             <div class="col-md-10">
+                <select name="shirtSize" required>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        if (i <= 3)
+                        {
+                            <option value="@shirtSizes CL" id="@i">@shirtSizes CL</option>
+                            shirtSizes += 20;
+                        }
+                        else
+                        {
+                            <option value="Small" id="4">Small</option>
+                            <option value="Medium" id="5">Medium</option>
+                            <option value="Large" id="6">Large</option>
+                        }
+                    }
+                </select>
                 @Html.EditorFor(model => model.shirt_size, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.shirt_size, "", new { @class = "text-danger" })
             </div>
