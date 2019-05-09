@@ -18,7 +18,10 @@ namespace SommarkuleAlliansen.ViewModel
         public string shirt_size { get; set; }
         public int group_id { get; set; }
         public bool present { get; set; }
-        
+        public string allergy_comment { get; set; }
+        public DateTime registration_date { get; set; }
+        public int social_security { get; set; }
+
         public int location_id { get; set; }
         public string weeks { get; set; }
         public int birth_year { get; set; }

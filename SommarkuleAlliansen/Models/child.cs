@@ -10,7 +10,6 @@ namespace SommarkuleAlliansen.Models
         public int child_id { get; set; }
         public string name { get; set; }
         public string comment { get; set; }
-        public string allergy_comment { get; set; }
         public int caretaker_id { get; set; }
         public bool can_swim { get; set; }
         public DateTime birth_date { get; set; }
@@ -18,6 +17,7 @@ namespace SommarkuleAlliansen.Models
         public bool vaccinated { get; set; }
         public string shirt_size { get; set; }
         public bool present { get; set; }
+        public string allergy_comment { get; set; }
         public DateTime registration_date { get; set; }
         public int social_security { get; set; }
     }

@@ -24,6 +24,9 @@ namespace SommarkuleAlliansen.ViewModel
         public bool allow_photos { get; set; }
         public bool vaccinated { get; set; }
         public string shirt_size { get; set; }
+        public string allergy_comment { get; set; }
+        public DateTime registration_date { get; set; }
+        public int social_security { get; set; }
 
         public int location_id { get; set; }
         public string location_name { get; set; }

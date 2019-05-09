@@ -28,7 +28,7 @@
                 <b style="margin-bottom: 0px;">Namn:</b>
                 <p>@Html.DisplayFor(model => model.name)</p>
                 <b style="margin-bottom: 0px;">Födelsedatum:</b>
-                <p>@String.Format("{0:yyy/MM/dd}", Model.birth_date)</p>
+                <p>@String.Format("{0:yyy/MM/dd}", Model.birth_date)-@Model.social_security</p>
                 <b style="margin-bottom: 0px;">Tröjstorlek:</b>
                 <p>@Html.DisplayFor(model => model.shirt_size)</p>
                 @if (Model.comment != "")
@@ -36,12 +36,20 @@
                     <b style="margin-bottom: 0px;">Kommentar:</b>
                     <p>@Model.comment</p>
                 }
+                @if (Model.allergy_comment != "")
+                {
+                    <b style="margin-bottom: 0px;">Allergier:</b>
+                    <p>@Model.allergy_comment</p>
+                }
                 <b style="margin-bottom: 0px;">Simmkunnighet:</b>
-                <p>@Html.DisplayFor(model => model.can_swim )</p>
+                <p>@Html.DisplayFor(model => model.can_swim)</p>
                 <b style="margin-bottom: 0px;">Tillåt att barnet är med på foton:</b>
                 <p>@Html.DisplayFor(model => model.allow_photos)</p>
                 <b style="margin-bottom: 0px;">Barnet vaccinerat mot stelkramp:</b>
                 <p>@Html.DisplayFor(model => model.vaccinated)</p>
+                <b style="margin-bottom: 0px;">Barnet blev registrerat:</b>
+                <p>@Html.DisplayFor(model => model.registration_date)</p>
+
 
             </div>
             <div class="box specialStyle" style="border-radius: 5px; background-color:white;">

@@ -81,7 +81,7 @@ namespace SommarkuleAlliansen.Models
             List<ChildCaretakerLocationVM> children = new List<ChildCaretakerLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, caretaker.caretaker_name, caretaker.caretaker_id, location.location_name, location.weeks FROM child " +
+                string query = "SELECT child.child_id, child.name, child.birth_date, child.shirt_size, child.allergy_comment, child.social_security, caretaker.caretaker_name, caretaker.caretaker_id, location.location_name, location.weeks FROM child " +
                     "INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id " +
                     "INNER JOIN location ON child.location_id = location.location_id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
@@ -97,6 +97,8 @@ namespace SommarkuleAlliansen.Models
                                 child_id = Convert.ToInt32(sdr["child_id"]),
                                 caretaker_id = Convert.ToInt32(sdr["caretaker_id"]),
                                 name = Convert.ToString(sdr["name"]),
+                                allergy_comment = Convert.ToString(sdr["allergy_comment"]),
+                                social_security = Convert.ToInt32(sdr["social_security"]),
                                 caretaker_name = Convert.ToString(sdr["caretaker_name"]),
                                 location_name = Convert.ToString(sdr["location_name"]),
                                 weeks = Convert.ToString(sdr["weeks"]),
@@ -335,7 +337,7 @@ namespace SommarkuleAlliansen.Models
             List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT child.name, child.birth_date, child.comment, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
+                string query = "SELECT child.name, child.birth_date, child.comment, child.allergy_comment, child.social_security, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
                     "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id INNER JOIN location on child.location_id = location.location_id WHERE caretaker.caretaker_id = @id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
@@ -351,6 +353,8 @@ namespace SommarkuleAlliansen.Models
                                 name = Convert.ToString(sdr["name"]),
                                 birth_date = Convert.ToDateTime(sdr["birth_date"]),
                                 comment = Convert.ToString(sdr["comment"]),
+                                allergy_comment = Convert.ToString(sdr["allergy_comment"]),
+                                social_security = Convert.ToInt32(sdr["social_security"]),
                                 caretaker_name = Convert.ToString(sdr["caretaker_name"]),
                                 caretaker_number = Convert.ToInt32(sdr["caretaker_number"]),
                                 caretaker_email = Convert.ToString(sdr["caretaker_email"]),
@@ -462,7 +466,7 @@ namespace SommarkuleAlliansen.Models
             ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
+                string query = "SELECT child.name, child.birth_date, child.shirt_size, child.comment, child.can_swim, child.allow_photos, child.vaccinated, child.allergy_comment, child.registration_date, child.social_security, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
                     "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id INNER JOIN location on child.location_id = location.location_id WHERE child.child_id = @id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
@@ -480,6 +484,9 @@ namespace SommarkuleAlliansen.Models
                             childDetails.can_swim = Convert.ToBoolean(sdr["can_swim"]);
                             childDetails.allow_photos = Convert.ToBoolean(sdr["allow_photos"]);
                             childDetails.vaccinated = Convert.ToBoolean(sdr["vaccinated"]);
+                            childDetails.allergy_comment = Convert.ToString(sdr["allergy_comment"]);
+                            childDetails.registration_date = Convert.ToDateTime(sdr["registration_date"]);
+                            childDetails.social_security = Convert.ToInt32(sdr["social_security"]);
                             childDetails.caretaker_name = Convert.ToString(sdr["caretaker_name"]);
                             childDetails.caretaker_number = Convert.ToInt32(sdr["caretaker_number"]);
                             childDetails.caretaker_email = Convert.ToString(sdr["caretaker_email"]);

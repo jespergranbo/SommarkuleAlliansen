@@ -66,7 +66,7 @@ namespace SommarkuleAlliansen.Models
                     con.Close();
                 }
             }
-            return 0;
+            return caretaker_id;
         }
         public location GetLocationInformation(int location_id)
         {

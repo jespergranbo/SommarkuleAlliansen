@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.name)
                 </td>
                 <td>
-                    @String.Format("{0:yyy/MM/dd}", item.birth_date)
+                    @String.Format("{0:yyy/MM/dd}", item.birth_date)-@item.social_security
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.shirt_size)
