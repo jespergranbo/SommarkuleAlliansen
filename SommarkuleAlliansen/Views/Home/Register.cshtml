@@ -9,7 +9,7 @@
     @using (Html.BeginForm())
     {
         <form action="Register()" method="post">
-            <h4>Period</h4>
+            <h4>Period <b style="color:red">*</b></h4>
             <div class="registerStyle">
                 <select style="width: 100%;" name="location_id">
                     @foreach (var item in Model)
@@ -20,12 +20,12 @@
             </div>
             <h3 style="margin-top:5%;">Barnets Uppgifter</h3>
             <div class="registerStyle">
-                <label>Barnets Namn:</label> <br />
+                <label>Barnets För- och Efternamn: </label><b style="color:red">*</b> <br />
                 <input type="text" id="childName" name="child_name" required /> <br />
-                <label>Födelsedatum:</label> <br />
-                <input type="date" id="childBirth" name="birth" required /> - <input type="text" name="social_security" pattern="\d*" maxlength="4" required/> <br />
+                <label>Personnummer: </label><b style="color:red">*</b> <br/>
+                <input type="date" id="childBirth" name="birth" required /> - <input size="3" type="text" name="social_security" pattern="\d*" maxlength="4" required/> <br />
                 <p class="text-danger" id="errorMessage" style="visibility:hidden">Födelseåret får bara vara mellan 2007 - 2012.</p>
-                <label>Tröjstorlek:</label> <br />
+                <label>Tröjstorlek: </label><b style="color:red">*</b> <br />
                 <select name="shirtSize" required>
                     @for (int i = 0; i < 5; i++)
                     {
@@ -44,21 +44,21 @@
                 </select> <br />
                 <div>
                     <label class="SwimmingKnowledge" style="margin-right: 20%;">
-                        Simkunnig: <br />
+                        Simkunnig: <b style="color:red">*</b> <br />
                         <center>
                             <label><input class="form-radio-css" type="radio" id="swimTrue" value="true" name="canSwim" required /> Ja</label>
                             <label><input class="form-radio-css" type="radio" id="swimFalse" value="false" name="canSwim" /> Nej</label>
                         </center>
                     </label>
                     <label class="Knowledge" style="margin-right: 20%;">
-                        Tillåt att barnet är med på foton: <br />
+                        Tillåt att barnet är med på foton: <b style="color:red">*</b> <br />
                         <center>
                             <input class="form-radio-css" type="radio" id="photoTrue" value="true" name="allowPhoto" required /> Ja
                             <input class="form-radio-css" type="radio" id="photoFalse" value="false" name="allowPhoto" /> Nej
                         </center>
                     </label>
                     <label class="Knowledge">
-                        Barnet vaccinerat mot stelkramp: <br />
+                        Barnet vaccinerat mot stelkramp: <b style="color:red">*</b> <br />
                         <center>
                             <input class="form-radio-css" type="radio" id="vaccineTrue" value="true" name="isVaccinated" required /> Ja
                             <input class="form-radio-css" type="radio" id="vaccineFalse" value="false" name="isVaccinated" /> Nej
@@ -76,17 +76,17 @@
             </div>
             <h3 style="margin-top:5%;">Vårdnadshavarens Uppgifter</h3>
             <div class="registerStyle">
-                <label>Namn:</label> <br />
+                <label>För- och Efternamn: <b style="color:red">*</b></label> <br />
                 <input type="text" id="caretakerName" name="caretakerName" required /> <br />
-                <label>Adress:</label> <br />
+                <label>Adress: <b style="color:red">*</b></label> <br />
                 <input type="text" id="caretakerAddress" name="caretakerAddress" required /> <br />
-                <label>Mailadress:</label> <br />
+                <label>Mailadress: <b style="color:red">*</b></label> <br />
                 <input type="email" id="caretakerEmail" name="caretakerEmail" required /> <br />
-                <label>Mobilnr (eller annat telenr där du kan kontaktas dagtid):</label> <br />
+                <label>Mobilnr <b style="color:red">*</b> (eller annat telenr där du kan kontaktas dagtid):</label> <br />
                 <input type="number" pattern="[0-9]*" id="caretakerNumber" name="caretakerNumber" required /> <br />
-                <label>Alternativ kontaktperson (annan målsman/mor- eller farförälder):</label> <br />
+                <label>Alternativ kontaktperson <b style="color:red">*</b> (annan målsman/mor- eller farförälder):</label> <br />
                 <input type="text" id="alternativeName" name="altName" required/> <br />
-                <label>Telenr till alternativ kontaktperson:</label> <br />
+                <label>Telenr till alternativ kontaktperson: <b style="color:red">*</b></label> <br />
                 <input type="number" id="alternativeNumber" name="altNumber" required/> <br />
                 <h4>Informationen kommer att skickas som en bekräftelse till din mail.</h4>
                 <input type="submit" value="Skicka" id="register" class="btn btn-outline-secondary" />

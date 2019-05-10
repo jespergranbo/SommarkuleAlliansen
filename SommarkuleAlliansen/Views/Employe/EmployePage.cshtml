@@ -13,7 +13,7 @@
                 Antal barn i gruppen
             </th>
             <th class="removeBorder">
-                Åldersgrupp
+                <div class="ChangeContent3"><span>Åldersgrupp</span></div>
             </th>
             <th class="removeBorder">
                 Period
@@ -30,8 +30,12 @@
                 <td id="HideFromMobile4">
                     @Html.DisplayFor(modelItem => item.count)
                 </td>
-                <td>@Html.DisplayFor(modelItem => item.birth_year)</td>
-                <td>@Html.DisplayFor(modelItem => item.weeks)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.birth_year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.weeks)
+                </td>
                 <td>
                     @Html.ActionLink("Visa grupp", "GroupDetails", new { id = item.group_id })
                 </td>
