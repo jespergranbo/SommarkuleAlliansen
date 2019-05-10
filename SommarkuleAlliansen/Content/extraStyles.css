@@ -138,6 +138,9 @@ input, select, textarea {
     padding-right:20%;
     padding-left:20%;
 }
+.paddingCaretaker{
+    padding-right:15px;
+}
 @media screen and (max-width:1199px) {
     #HideFromMobile4{
         display:none;
