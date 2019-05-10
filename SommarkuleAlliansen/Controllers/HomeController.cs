@@ -160,5 +160,9 @@ namespace SommarkuleAlliansen.Controllers
                 return View(caretakerOrder);
             }
         }
+        public ActionResult Sent()
+        {
+            return View();
+        }
     }
 }
