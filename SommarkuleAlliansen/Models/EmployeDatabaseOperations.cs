@@ -43,19 +43,24 @@ namespace SommarkuleAlliansen.Models
             }
             return employe;
         }
-        public List<GroupLocationVM> FindAllGroups(int id)
+        public List<GroupLocationVM> FindAllGroups(int id, int employe_type)
         {
             List<GroupLocationVM> groups = new List<GroupLocationVM>();
+            
             using (MySqlConnection con = new MySqlConnection(constr))
             {
                 string query = "SELECT childgrouprelation.group_id, groups.birth_year, location.weeks, location.location_id, count(*) FROM childgrouprelation INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN location ON groups.location_id = location.location_id";
-                if (id <= 3)
+                if (id <= 3 && employe_type != 1 )
                 {
                     query += " WHERE location.location_id <= 3 GROUP BY group_id";
                 }
-                else if (id > 3)
+                else if (id > 3 && employe_type != 1)
                 {
                     query += " WHERE location.location_id > 3 GROUP BY group_id";
+                }
+                else
+                {
+                    query += " GROUP BY group_id";
                 }
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
