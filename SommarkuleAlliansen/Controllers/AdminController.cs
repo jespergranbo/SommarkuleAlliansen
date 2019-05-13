@@ -141,7 +141,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditEmploye([Bind(Include = "employe_id,employe_type,name,number,password,group_id,location_id")] employe employe)
+        public ActionResult EditEmploye([Bind(Include = "employe_id,employe_type,name,number,password,group_id,location_id")] employe employe, int employe_type, int location_id)
         {
             if (ModelState.IsValid)
             {
