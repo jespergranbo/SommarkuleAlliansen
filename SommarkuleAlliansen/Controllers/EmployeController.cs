@@ -59,9 +59,10 @@ namespace SommarkuleAlliansen.Controllers
             {
                 List<GroupLocationVM> groups = new List<GroupLocationVM>();
                 int id = Convert.ToInt32(Session["location_id"]);
+                int employe_type = Convert.ToInt32(Session["employe_type"]);
                 try
                 {
-                    groups = operations.FindAllGroups(id);
+                    groups = operations.FindAllGroups(id, employe_type);
                     return View(groups);
                 }
                 catch (Exception)

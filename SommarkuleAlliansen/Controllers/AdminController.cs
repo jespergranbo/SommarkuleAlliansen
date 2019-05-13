@@ -370,13 +370,16 @@ namespace SommarkuleAlliansen.Controllers
             if (Session["employe_id"] != null || id != null)
             {
                 ChildGroupRelationVM child = new ChildGroupRelationVM();
-                ChildGroupRelationVM childGroup = new ChildGroupRelationVM();
+                List<ChildGroupRelationVM> childGroup = new List<ChildGroupRelationVM>();
                 try
                 {
                     child = operations.FindChild(id);
                     childGroup = operations.FindChildGroup(id);
-                    child.group_id = childGroup.group_id;
-                    child.group_id2 = childGroup.group_id2;
+                    child.group_id = childGroup[0].group_id;
+                    if (childGroup.Count > 1)
+                    {
+                        child.group_id2 = childGroup[1].group_id2;
+                    }
                 }
                 catch (Exception)
                 {
@@ -396,13 +399,23 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditChild([Bind(Include = "child_id,name,comment,can_swim,birth_date,allow_photos,vaccinated,shirt_size")] child child)
+        public ActionResult EditChild([Bind(Include = "child_id,name,comment,can_swim,birth_date,allow_photos,vaccinated,shirt_size,group_id,group_id2")] ChildGroupRelationVM child)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    List<ChildGroupRelationVM> childGroup = new List<ChildGroupRelationVM>();
+                    childGroup = operations.FindChildGroup(child.child_id);
+                    child.childGroupRelation_id = childGroup[0].childGroupRelation_id;
                     operations.UpdateChild(child);
+                    operations.UpdateChildGroup(child);
+                    if (childGroup.Count > 1)
+                    {
+                        child.childGroupRelation_id = childGroup[1].childGroupRelation_id;
+                        child.group_id = child.group_id2;
+                        operations.UpdateChildGroup(child);
+                    }
                     return RedirectToAction("Child");
                 }
                 catch (Exception)

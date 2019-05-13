@@ -405,9 +405,9 @@ namespace SommarkuleAlliansen.Models
             }
             return child;
         }
-        public ChildGroupRelationVM FindChildGroup(int? id)
+        public List<ChildGroupRelationVM> FindChildGroup(int? id)
         {
-            ChildGroupRelationVM childGroup = new ChildGroupRelationVM();
+            List<ChildGroupRelationVM> childGroup = new List<ChildGroupRelationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
                 string query = "SELECT * FROM childgrouprelation WHERE child_id = @id";
@@ -423,11 +423,18 @@ namespace SommarkuleAlliansen.Models
                         {
                             if (counter == 0)
                             {
-                                childGroup.group_id = Convert.ToInt32(sdr["group_id"]);
+                                childGroup.Add(new ChildGroupRelationVM {
+                                    childGroupRelation_id = Convert.ToInt32(sdr["child_group_relation_id"]),
+                                    group_id = Convert.ToInt32(sdr["group_id"])
+                                });
                             }
                             else if (counter == 1)
                             {
-                                childGroup.group_id2 = Convert.ToInt32(sdr["group_id"]);
+                                childGroup.Add(new ChildGroupRelationVM
+                                {
+                                    childGroupRelation_id = Convert.ToInt32(sdr["child_group_relation_id"]),
+                                    group_id2 = Convert.ToInt32(sdr["group_id"])
+                                });
                             }
                             counter++;
                         }
@@ -437,7 +444,7 @@ namespace SommarkuleAlliansen.Models
             }
             return childGroup;
         }
-        public void UpdateChild(child child)
+        public void UpdateChild(ChildGroupRelationVM child)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
@@ -453,6 +460,24 @@ namespace SommarkuleAlliansen.Models
                     cmd.Parameters.AddWithValue("@allow_photos", child.allow_photos);
                     cmd.Parameters.AddWithValue("@vaccinated", child.vaccinated);
                     cmd.Parameters.AddWithValue("@shirt_size", child.shirt_size);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void UpdateChildGroup(ChildGroupRelationVM child)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE childgrouprelation SET group_id = @group_id WHERE child_group_relation_id = @id;";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@group_id", child.group_id);
+                    cmd.Parameters.AddWithValue("@id", child.childGroupRelation_id);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
