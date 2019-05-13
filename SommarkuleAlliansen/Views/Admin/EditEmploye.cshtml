@@ -21,6 +21,8 @@
             <label class="paddingLeft">Anställningstyp:</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.employe_type, new { htmlAttributes = new { @class = "form-control" } })
+                <label><input class="form-radio-css" type="radio" value=1 name="Role" required /> Admin</label>
+                <label><input class="form-radio-css" type="radio" value=2 name="Role" required /> Ledare</label>
                 @Html.ValidationMessageFor(model => model.employe_type, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -61,6 +63,8 @@
             <label class="paddingLeft">Plats id:</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => model.location_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.location_id, new { htmlAttributes = new { @class = "form-radio-css", @type = "checkbox" } })
+                @Html.EditorFor(model => model.location_id, new { htmlAttributes = new { @class = "form-radio-css", @type = "checkbox" } })
                 @Html.ValidationMessageFor(model => model.location_id, "", new { @class = "text-danger" })
             </div>
         </div>
