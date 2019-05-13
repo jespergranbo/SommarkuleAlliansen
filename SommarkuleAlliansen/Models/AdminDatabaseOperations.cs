@@ -12,13 +12,14 @@ namespace SommarkuleAlliansen.Models
     public class AdminDatabaseOperations
     {
         string constr = ConfigurationManager.ConnectionStrings["smconnection"].ConnectionString;
-        public List<EmployeLocationVM> GetAllEmployes()
+        public List<EmployeGroupLocationVM> GetAllEmployes()
         {
-            List<EmployeLocationVM> employes = new List<EmployeLocationVM>();
+            List<EmployeGroupLocationVM> employes = new List<EmployeGroupLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT employe.employe_id, employe.employe_type, employe.name, employe.number, employe.group_id, location.location_id, location.location_name FROM employe" +
-                    " INNER JOIN location ON employe.location_id = location.location_id";
+                string query = "SELECT employe.employe_id, employe.employe_type, employe.name, employe.number, location.location_id, location.location_name, groups.birth_year FROM employe " +
+                    "INNER JOIN location ON employe.location_id = location.location_id " +
+                    "INNER JOIN groups ON employe.group_id = groups.group_id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -27,14 +28,14 @@ namespace SommarkuleAlliansen.Models
                     {
                         while (sdr.Read())
                         {
-                            employes.Add(new EmployeLocationVM
+                            employes.Add(new EmployeGroupLocationVM
                             {
                                 employe_id = Convert.ToInt32(sdr["employe_id"]),
                                 employe_type = Convert.ToInt32(sdr["employe_type"]),
                                 name = Convert.ToString(sdr["name"]),
                                 number = Convert.ToInt32(sdr["number"]),
                                 location_id = Convert.ToInt32(sdr["location_id"]),
-                                group_id = Convert.ToInt32(sdr["group_id"]),
+                                birth_year = Convert.ToInt32(sdr["birth_year"]),
                                 location_name = Convert.ToString(sdr["location_name"])
                             });
                         }
@@ -232,7 +233,7 @@ namespace SommarkuleAlliansen.Models
             List<EmployeGroupLocationVM> locations = new List<EmployeGroupLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT groups.group_id, groups.location_id, groups.birth_year, location.location_name, location.weeks FROM groups INNER JOIN location ON groups.location_id = location.location_id ORDER BY group_id ASC";
+                string query = "SELECT groups.group_id, groups.location_id, groups.birth_year, location.location_name, location.weeks FROM groups INNER JOIN location ON groups.location_id = location.location_id WHERE weeks = 'Båda veckorna' ORDER BY group_id ASC";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
