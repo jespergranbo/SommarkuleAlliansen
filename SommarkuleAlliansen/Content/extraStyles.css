@@ -1,0 +1,255 @@
+﻿* {
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+.bg-fixes {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.footerMargin {
+    margin-bottom: 1px;
+}
+.box {
+    float: left;
+    width: 33.33%;
+    padding: 20px;
+}
+#DivFooter {
+    margin: 0 auto;
+}
+#FooterFixerL {
+    float: left;
+    text-align: center;
+    margin-bottom: 4%;
+}
+#FooterFixerR {
+    margin-bottom: 5%;
+    float: right;
+    text-align: center;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.standardStyle {
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    margin-top: 5%;
+    opacity: 0.9;
+}
+.detailsChild {
+    border-radius: 5px;
+    background-color: white;
+    margin-right: 2%;
+    width: 32%;
+}
+input, select, textarea {
+    width: auto;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+
+.form-radio-css {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: inline-block;
+    position: relative;
+    background-color: #f1f1f1;
+    color: #666;
+    top: 10px;
+    height: 30px;
+    width: 30px;
+    border: 0;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-right: 7px;
+    outline: none;
+}
+.form-radio-css:checked::before {
+    position: absolute;
+    font: 13px/1 'Open Sans', sans-serif;
+    left: 11px;
+    top: 7px;
+    content: '\02143';
+    transform: rotate(40deg);
+}
+.form-radio-css:hover {
+    background-color: #f7f7f7;
+}
+.form-radio-css:checked {
+    background-color: #f1f1f1;
+}
+.registerStyle {
+    border-radius: 5px;
+    background-color: lightblue;
+    padding: 10px;
+}
+.contact {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical;
+}
+.Contactcontainer {
+    border-radius: 5px;
+    background-color: white;
+    padding: 10px;
+    margin-top: 5%;
+}
+.column {
+    float: left;
+    width: 50%;
+    margin-top: 6px;
+    padding: 20px;
+}
+.paddingLeft {
+    padding-left: 15px;
+}
+.removeBorder {
+    border: none;
+}
+.removeDisplay {
+    display: none;
+}
+.removeMarginBottom {
+    margin-bottom: 0px;
+}
+.DivWrapper {
+    width: 100%;
+}
+.DivBlocker {
+    display: inline-block;
+    width: 30%;
+    padding: 20px;
+}
+.specialStyle {
+    width: 32%;
+}
+.InformationTextMobile{
+    padding-right:20%;
+    padding-left:20%;
+}
+.paddingCaretaker{
+    padding-right:15px;
+}
+@media screen and (max-width:1199px) {
+    #HideFromMobile4{
+        display:none;
+    }
+}
+@media screen and (max-width:991px) {
+    .DivBlocker {
+        width: 100%;
+        padding:1%;
+        margin:1%;
+    }
+    .DivWrapper{
+        margin-top:5%;
+    }
+    .box {
+        width: 100%;
+        padding: 1%;
+        margin-top:10%;
+        margin:1%;
+    }
+    .specialStyle {
+        width: 100%;
+    }
+    .bg-fixes{
+        margin-top:5%;
+    }
+    #HideFromMobile3 {
+        display: none;
+    }
+}
+
+@media screen and (max-width:767px) {
+    #One {
+        float: none;
+        width: 100%;
+    }
+
+    #Two {
+        float: none;
+        width: 100%;
+    }
+
+    #Three {
+        float: none;
+        width: 100%;
+    }
+    .row {
+        display: table;
+    }
+    .column {
+        float:none;
+        width: 100%;
+        margin-top: 1%;
+        padding: 20px;
+    }
+    #HideFromMobile {
+        display:none;
+    }
+}
+@media screen and (max-width:430px) {
+
+    #DivFooter {
+        margin: 0 auto;
+        clear: both;
+    }
+
+    #FooterFixerL {
+        float: none;
+        clear: both;
+    }
+
+    #FooterFixerR {
+        float: none;
+        clear: both;
+    }
+
+    #ResizeText {
+        font-size: 30px;
+    }
+    .SwimmingKnowledge {
+        padding-left: 55px;
+    }
+    #HideFromMobile2 {
+        display: none;
+    }
+    .ChangeContent span {
+        display: none;
+    }
+    .ChangeContent:after {
+        content: 'Nmr';
+    }
+
+    .ChangeContent2 span {
+        display: none;
+    }
+    .ChangeContent2:after {
+        content: 'Födelse';
+    }
+    .ChangeContent3 span {
+        display: none;
+    }
+
+    .ChangeContent3:after {
+        content: 'Årskull';
+    }
+    #RemovePaddingMobile{
+        padding:2px;
+    }
+    .InformationTextMobile{
+        padding: 1%;
+    }
+}

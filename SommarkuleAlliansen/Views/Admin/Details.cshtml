@@ -1,0 +1,55 @@
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildCaretakerLocationVM>
+
+@{
+    ViewBag.Title = "Vårdnadshavare detaljer";
+}
+<div style="margin-top: 5%; opacity: 0.9;" class="clearfix">
+    @using (Html.BeginForm("Details", "Admin", new { caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div  class="box" style="border-radius: 5px; background-color:white; margin-right:1%; margin-bottom:2%;">
+            <h4>Vårdnadshavare</h4>
+            <hr />
+            <b class="removeMarginBottom">Namn:</b>
+            <p>@Model.ElementAt(0).caretaker_name</p>
+            <b class="removeMarginBottom">Nummer:</b>
+            <p>@Model.ElementAt(0).caretaker_number</p>
+            <b class="removeMarginBottom">Email:</b>
+            <p>@Model.ElementAt(0).caretaker_email</p>
+            <b class="removeMarginBottom">Adress:</b>
+            <p>@Model.ElementAt(0).adress</p>
+            <b class="removeMarginBottom">Skuld:</b>
+            <p>@Model.ElementAt(0).debt</p>
+            <b class="removeMarginBottom">Alternativ kontaktperson:</b>
+            <p>@Model.ElementAt(0).alternative_name</p>
+            <b class="removeMarginBottom">Alternativ kontaktnummer:</b>
+            <p>@Model.ElementAt(0).alternative_number</p>
+            <input type="submit" value="Skicka betalningspåmminelse" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
+            <br />
+            <div style="padding-bottom: 2%; color:green;">@ViewData["error"]</div>
+        </div>
+    }
+        <div class="DivWrapper">
+            @foreach (var item in Model)
+            {
+            <div class="DivBlocker" style="border-radius: 5px; background-color:white; margin: 1%; margin-bottom:2%; margin-top: 0;">
+                <h4>Barn</h4>
+                <hr />
+                <b class="removeMarginBottom">Namn:</b>
+                <p>@item.name</p>
+                <b class="removeMarginBottom">Födelsedatum:</b>
+                <p>@String.Format("{0:yyy/MM/dd}", item.birth_date)-@item.social_security</p>
+                <b class="removeMarginBottom">Kommentar:</b>
+                <p>@item.comment <br \></p>
+                <b class="removeMarginBottom">Allergier:</b>
+                <p>@item.allergy_comment <br \></p>
+                <b class="removeMarginBottom">Start datum:</b>
+                <p>@String.Format("{0:MM/dd}", item.start_date)</p>
+                <b class="removeMarginBottom">Slut datum:</b>
+                <p>@String.Format("{0:MM/dd}", item.end_date)</p>
+                <b class="removeMarginBottom">Anmäld för period:</b>
+                <p>@item.weeks</p>
+            </div>
+            }
+        </div>
+    </div>

@@ -1,4 +1,13 @@
 ﻿<!DOCTYPE html>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+@if (Session["employe_type"] == null)
+{
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+}
 <html>
 <head>
     <meta charset="utf-8" />
@@ -6,52 +15,56 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/extraStyles.css")
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+<body class="bg-fixes" background="~/Content/images/blue.png">
+    <nav class="navbar navbar-expand-sm navbar-dark fixed-top bg-dark">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Sommarkulan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            @Html.ActionLink("Sommarkulan", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                <ul class="nav navbar-nav mr-auto">
+                    <li class="nav-item">@Html.ActionLink("Hem", "Index", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Anmälan", "Register", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item">@Html.ActionLink("Kontakt", "Contact", "Home", null, new { @class = "nav-link" })</li>
+                    <li class="nav-item dropdown hidden">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Adminsida
+                        </a>
+                        <div class="dropdown-menu">
+                            @Html.ActionLink("Vårdnadshavare", "Caretaker", "Admin", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Barn", "Child", "Admin", null, new { @class = "dropdown-item" })
+                            @Html.ActionLink("Anställda", "Employe", "Admin", null, new { @class = "dropdown-item" })
+                        </div>
+                    </li>
+                    <li class="nav-item hidden">@Html.ActionLink("Grupper", "EmployePage", "Employe", null, new { @class = "nav-link" })</li>
+                </ul>
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Hem", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Anmälan", "About", "Home")</li>
+                    <li class="nav-item hidden">@Html.ActionLink("Logga ut", "LogOut", "Employe", null, new { @class = "nav-link pull-right" })</li>
                 </ul>
             </div>
         </div>
-    </div>
+    </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <table>
-                <tr>
-                    <td>Hagaströms SK</td>
-                    <td>Strömsbro IF</td>
-                <tr>
-                    <td>Hagaströms IP, Basvägen 23</td>
-                    <td>Testebovallen, Hillevägen 14</td>
-                </tr>
-                <tr>
-                    <td>kansli@hagastromssk.se</td>
-                    <td>kansli@stromsbroif.se</td>
-                </tr>
-                <tr>
-                    <td>026 - 19 79 66</td>
-                    <td>026 - 10 32 38</td>
-                </tr>
-                <tr>
-                        <td><a href="http://www.hagastromssk.se">Till HSK hemsida</a></td>
-                        <td><a href="http://www.stromsbroif.se">Till SIF hemsida</a></td>
-                </tr>
-            </table>
+            <div id="DivFooter">
+                <div id="FooterFixerL">
+                    <p class="footerMargin">Hagaströms SK</p>
+                    <p class="footerMargin">Hagaströms IP, Basvägen 23</p>
+                    <p class="footerMargin">kansli@hagastromssk.se</p>
+                    <a class="footerMargin" href="http://www.hagastromssk.se">Till HSK hemsida</a>
+                </div>
+                <div id="FooterFixerR">
+                    <p class="footerMargin">Strömsbro</p>
+                    <p class="footerMargin">Testebovallen, Hillevägen 14</p>
+                    <p class="footerMargin">kansli@stromsbroif.se</p>
+                    <a class="footerMargin" href="http://www.stromsbroif.se">Till SIF hemsida</a>
+                </div>
+            </div>
         </footer>
     </div>
 

@@ -1,0 +1,73 @@
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.EmployeGroupLocationVM>
+
+@{
+    ViewBag.Title = "Lägg till anställd";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+<div class="standardStyle">
+    <div class="form-horizontal">
+        <h4 class="paddingLeft">Lägg till en ny anställd</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" style="display:none">
+            @Html.LabelFor(model => Model.ElementAt(0).employe_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.ElementAt(0).employe_id, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Anställningstyp:</label>
+            <div class="col-md-10">
+                <label><input class="form-radio-css" id="admincheck" type="radio" value="1" name="employe_type" required /> Admin</label>
+                <label><input class="form-radio-css" id="employecheck" type="radio" value="2" name="employe_type" required /> Ledare</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Namn</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.ElementAt(0).name, new { htmlAttributes = new { @class = "form-control", @name = "name", @required = "required" } })
+                <p class="text-danger">@ViewBag.Message</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Nummer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.ElementAt(0).number, new { htmlAttributes = new { @class = "form-control", @name = "number", @required = "required" } })
+                @Html.ValidationMessageFor(model => Model.ElementAt(0).number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Lösenord</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => Model.ElementAt(0).password, new { htmlAttributes = new { @class = "form-control", @name = "password", @required = "required" } })
+                @Html.ValidationMessageFor(model => Model.ElementAt(0).password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Ledare för plats och årsgrupp</label>
+            <div class="col-md-10">
+                <select style="width: 100%;" name="group_id">
+                    @foreach (var item in Model)
+                    {
+                        <option value="@item.group_id">Plats: @item.location_name. Årsgrupp: @item.birth_year</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="create" value="Create" class="btn btn-outline-secondary" />
+            </div>
+        </div>
+    </div>
+    </div>
+    }

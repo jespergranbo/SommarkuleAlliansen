@@ -1,0 +1,47 @@
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.GroupLocationVM>
+
+@{
+    ViewBag.Title = "Grupper";
+}
+<div class="standardStyle">
+    <table class="table">
+        <tr>
+            <th class="removeBorder">
+                <div class="ChangeContent"><span>Gruppnummer</span></div>
+            </th>
+            <th id="HideFromMobile4" class="removeBorder">
+                Antal barn i gruppen
+            </th>
+            <th class="removeBorder">
+                <div class="ChangeContent3"><span>Åldersgrupp</span></div>
+            </th>
+            <th class="removeBorder">
+                Period
+            </th>
+            <th class="removeBorder"></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.group_id)
+                </td>
+                <td id="HideFromMobile4">
+                    @Html.DisplayFor(modelItem => item.count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.birth_year)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.weeks)
+                </td>
+                <td>
+                    @Html.ActionLink("Visa grupp", "GroupDetails", new { id = item.group_id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

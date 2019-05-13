@@ -1,0 +1,35 @@
+﻿@model SommarkuleAlliansen.Models.employe
+@{
+    ViewBag.Title = "Logga in";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <center>
+        <div  class="standardStyle">
+            <div class="form-group">
+                <label>Namn</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Lösenord</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Logga in" class="btn btn-outline-secondary" />
+                </div>
+            </div>
+            <span class="help-block">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </span>
+        </div>
+    </center>
+}

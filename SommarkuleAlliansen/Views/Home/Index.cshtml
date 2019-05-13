@@ -1,10 +1,77 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model IEnumerable<SommarkuleAlliansen.Models.information>
+@{
+    ViewBag.Title = "Hem";
 }
+@{string headline = Model.ElementAt(0).information_Title; }
+@{string text = Model.ElementAt(0).information_Text; }
+@{string registerTitle = Model.ElementAt(1).information_Title; }
+@{string registerText = Model.ElementAt(1).information_Text; }
+@{string debtTitle = Model.ElementAt(2).information_Title; }
+@{string debtText = Model.ElementAt(2).information_Text; }
+@{string unRegister = Model.ElementAt(3).information_Title; }
+@{string unRegisterText = Model.ElementAt(3).information_Text; }
+<div style="position:relative;" class="standardStyle">
+    <center>
+        <h2>
+            Sommarkulan @DateTime.Now.Year
+        </h2>
+        <h4>@Html.Raw(headline)</h4>
+    </center>
+        <div class="InformationTextMobile">
+            <p style="border-top-style:solid; border-top-color: lightgrey;">
+                @Html.Raw(text)
+            </p>
+        </div>
+        <center>
+            <div>
+                <img src="~/Content/images/sisu.png" />
+                <img src="~/Content/images/Stromsbro-Logo.png" />
+                <img src="~/Content/images/HSK-logo.png" />
+                <img src="~/Content/images/gavle_kommun.png" />
+            </div>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(0).information_id})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:7px; right: 7px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
+        </center>
+</div>
 <center>
-    <div style="border-style: solid; margin-top: 25px">
-        <h2>Årets Sommarkula 2019</h2>
-        <h3>Vecka 25 (17/6 - 20/6) och Vecka 26 (24/6 - 28/6)</h3>
-        <p>info</p>
+    <div class="clearfix standardStyle">
+        <h3>Viktiga Datum</h3>
+        <br />
+        <div id="One" class="box" style="position:relative;">
+            <div>
+                <img src="~/Content/images/datepicture.png" />
+            </div>
+            <h4>Sista anmälningsdatumet</h4>
+            <p>@Html.Raw(registerTitle)</p>
+            <p>@Html.Raw(registerText)</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(1).information_id})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
+        </div>
+
+        <div id="Two" class="box" style="position:relative;">
+            <div>
+                <img src="~/Content/images/datepicture.png" />
+            </div>
+            <h4>Betala senast</h4>
+            <p>@Html.Raw(debtTitle)</p>
+            <p>@Html.Raw(debtText)</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(2).information_id})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
+        </div>
+
+        <div id="Three" class="box" style="position:relative;">
+            <div id="Three">
+                <img src="~/Content/images/datepicture.png" />
+            </div>
+            <h4>Sista dag för avbokning</h4>
+            <p>@Html.Raw(unRegister)</p>
+            <p>@Html.Raw(unRegisterText)</p>
+            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(3).information_id})'>
+                <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
+            </a>
+        </div>
     </div>
 </center>

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.ChildCaretakerLocationVM>
+
+@{
+    ViewBag.Title = "Barn";
+}
+<div class="standardStyle">
+    <table class="table table-responsive">
+        <tr>
+            <th id="RemovePaddingMobile" class="removeBorder">
+                Namn
+            </th>
+            <th id="RemovePaddingMobile" class="removeBorder">
+                <div class="ChangeContent2"><span>Födelsedatum</span></div>
+            </th>
+            <th id="HideFromMobile" class="removeBorder">
+                Tröjstorlek
+            </th>
+            <th id="HideFromMobile3" class="removeBorder">
+                Förening
+            </th>
+            <th id="HideFromMobile4" class="removeBorder">
+                Period
+            </th>
+            <th id="HideFromMobile3" style="padding-right:18px;" class="removeBorder">
+                Vårdnadshavare
+            </th>
+            <td id="RemovePaddingMobile" class="removeBorder">@Html.ActionLink("Vårdnadshavare", "Caretaker") | Barn</td>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @String.Format("{0:yyy/MM/dd}", item.birth_date) <span id="HideFromMobile">-@item.social_security</span>
+                </td>
+                <td id="HideFromMobile">
+                    @Html.DisplayFor(modelItem => item.shirt_size)
+                </td>
+                <td id="HideFromMobile3">
+                    @Html.DisplayFor(modelItem => item.location_name)
+                </td>
+                <td id="HideFromMobile4">
+                    @Html.DisplayFor(modelItem => item.weeks)
+                </td>
+                <td id="HideFromMobile3">
+                    @Html.ActionLink(Html.Raw(item.caretaker_name).ToString(), "Details", new { id = item.caretaker_id })
+                </td>
+                <td>
+                    @Html.ActionLink("Visa mer", "DetailsChild", new { id = item.child_id }) |
+                    @Html.ActionLink("Redigera", "EditChild", new { id = item.child_id })
+                </td>
+            </tr>
+        }
+    </table>
+</div>

@@ -1,0 +1,122 @@
+﻿@model SommarkuleAlliansen.ViewModel.ChildGroupRelationVM
+
+@{
+    ViewBag.Title = "Redigera Barn";
+    int shirtSizes = 80;
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="standardStyle">
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group removeDisplay">
+            @Html.LabelFor(model => model.child_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.child_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.child_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Namn</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Födelsedatum</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.birth_date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.birth_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Tröjstorlek</label>
+            <div class="col-md-10">
+                <select name="shirtSize" id="shirtsizes" required>
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        if (i <= 3)
+                        {
+                            <option value="@shirtSizes CL" id="@i">@shirtSizes CL</option>
+                            shirtSizes += 20;
+                        }
+                        else
+                        {
+                            <option value="Small" id="4">Small</option>
+                            <option value="Medium" id="5">Medium</option>
+                            <option value="Large" id="6">Large</option>
+                        }
+                    }
+                </select>
+                @Html.EditorFor(model => model.shirt_size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.shirt_size, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="paddingLeft">Grupp för vecka 1</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.group_id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.group_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        @if (Model.group_id2 != 0)
+        {
+            <div class="form-group">
+                <label class="paddingLeft">Grupp för vecka 2</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.group_id2, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.group_id2, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
+        <div class="form-group">
+            <label class="paddingLeft">Kommentar</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.comment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Simmkunnig</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.can_swim, new { htmlAttributes = new { @class = "form-radio-css" } })
+                    @Html.ValidationMessageFor(model => model.can_swim, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Tillåt foto</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.allow_photos, new { htmlAttributes = new { @class = "form-radio-css" } })
+                    @Html.ValidationMessageFor(model => model.allow_photos, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Vaccinerat</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.vaccinated, new { htmlAttributes = new { @class = "form-radio-css" } })
+                    @Html.ValidationMessageFor(model => model.vaccinated, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Spara" class="btn btn-outline-secondary" />
+            </div>
+        </div>
+    </div>
+</div>
+}

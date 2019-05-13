@@ -1,0 +1,84 @@
+﻿@model SommarkuleAlliansen.Models.caretaker
+
+@{
+    ViewBag.Title = "Redigera vårdnadshavare";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+<div class="standardStyle">
+    <div class="form-horizontal">
+        <div class="removeDisplay">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.caretaker_id, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.caretaker_id, "", new { @class = "text-danger" })
+                    </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="paddingLeft">Namn</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.caretaker_name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.caretaker_name, "", new { @class = "text-danger" })
+                </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Nummer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.caretaker_number, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.ValidationMessageFor(model => model.caretaker_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Email</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.caretaker_email, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.caretaker_email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Adress</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.adress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.adress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Alternativt namn</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.alternative_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.alternative_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Alternativt nummer</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.alternative_number, new { htmlAttributes = new { @class = "form-control"} })
+                @Html.ValidationMessageFor(model => model.alternative_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Skuld</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.debt, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.debt, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Spara" class="btn btn-outline-secondary" />
+            </div>
+        </div>
+    </div>
+</div>
+}

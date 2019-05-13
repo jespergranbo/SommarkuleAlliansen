@@ -1,0 +1,87 @@
+﻿@model IList<SommarkuleAlliansen.ViewModel.EmployeGroupLocationVM>
+
+@{
+    ViewBag.Title = "Redigera anställd";
+    int objects = Model.Count - 1;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="standardStyle">
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group removeDisplay">
+                @Html.LabelFor(model => Model.ElementAt(objects).employe_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ElementAt(objects).employe_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(objects).employe_id, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="paddingLeft">Anställningstyp:</label>
+                <div class="col-md-10">
+                    <label><input class="form-radio-css" id="admincheck" type="radio" value="1" name="employe_type" required /> Admin</label>
+                    <label><input class="form-radio-css" id="employecheck" type="radio" value="2" name="employe_type" required /> Ledare</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="paddingLeft">Namn:</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ElementAt(objects).name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(objects).name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="paddingLeft">Nummer:</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ElementAt(objects).number, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(objects).number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="paddingLeft">Lösenord:</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ElementAt(objects).password, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(objects).password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="paddingLeft">Ledare för plats och årsgrupp:</label>
+                <div class="col-md-10">
+                    <select style="width: 100%;" id="locations" name="group_id">
+                        @for (int i = 0; i < objects; i++)
+                        {
+                            <option value="@Model.ElementAt(i).group_id">Plats: @Model.ElementAt(i).location_name. Årsgrupp: @Model.ElementAt(i).birth_year</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-outline-secondary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    window.onload = onPageLoad();
+
+    function onPageLoad() {
+        if (@Model.ElementAt(0).employe_type == 1) {
+            document.getElementById("admincheck").checked = true;
+        }
+        else {
+            document.getElementById("employecheck").checked = true;
+        }
+        document.getElementById("locations").value = @Model.ElementAt(objects).group_id;
+    }
+</script>
