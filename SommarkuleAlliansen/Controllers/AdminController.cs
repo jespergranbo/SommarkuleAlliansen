@@ -24,7 +24,7 @@ namespace SommarkuleAlliansen.Controllers
             {
                 try
                 {
-                    List<EmployeLocationVM> employes = operations.GetAllEmployes();
+                    List<EmployeGroupLocationVM> employes = operations.GetAllEmployes();
                     return View(employes);
                 }
                 catch (Exception)
@@ -119,9 +119,21 @@ namespace SommarkuleAlliansen.Controllers
             if (Session["employe_id"] != null || id != null)
             {
                 employe employe = new employe();
+                List<EmployeGroupLocationVM> employe_locations = new List<EmployeGroupLocationVM>();
                 try
                 {
+                    employe_locations = operations.GetLocations();
                     employe = operations.FindEmploye(id);
+
+                    employe_locations.Add(new EmployeGroupLocationVM{
+                        name = employe.name,
+                        employe_type = employe.employe_type,
+                        employe_id = employe.employe_id,
+                        number = employe.number,
+                        password = employe.password,
+                        group_id = employe.group_id,
+                        location_id = employe.location_id
+                    });
                 }
                 catch (Exception)
                 {
@@ -132,7 +144,7 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(employe);
+                return View(employe_locations);
             }
             else
             {
@@ -141,12 +153,14 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditEmploye([Bind(Include = "employe_id,employe_type,name,number,password,group_id,location_id")] employe employe, int employe_type, int location_id)
+        public ActionResult EditEmploye([Bind(Include = "employe_id,employe_type,name,number,password,group_id")] employe employe)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    long location_id = operations.GetLocationIdByGroup(employe.group_id);
+                    employe.location_id = Convert.ToInt32(location_id);
                     operations.UpdateEmploye(employe);
                     return RedirectToAction("Employe");
                 }

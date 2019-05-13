@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.EmployeLocationVM>
+﻿@model IEnumerable<SommarkuleAlliansen.ViewModel.EmployeGroupLocationVM>
 
 @{
     ViewBag.Title = "Anställda";
@@ -22,7 +22,7 @@
                 Anställningsplats
             </th>
             <th id="HideFromMobile3">
-                Ledare för grupp
+                Ledare årsgrupp
             </th>
             <th></th>
         </tr>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.location_name)
             </td>
             <td id="HideFromMobile3">
-                @Html.DisplayFor(modelItem => item.group_id)
+                @Html.DisplayFor(modelItem => item.birth_year)
             </td>
             <td>
                 @Html.ActionLink("Redigera", "EditEmploye", new { id = item.employe_id }) |
