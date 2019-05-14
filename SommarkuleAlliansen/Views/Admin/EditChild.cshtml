@@ -78,14 +78,14 @@
             <div class="form-group">
                 <label class="paddingLeft">Allergier</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ElementAt(lastIndex).allergy_comment, new { htmlAttributes = new { @class = "form-control", @name = "allergy_comment", @required = "required" } })
+                    @Html.EditorFor(model => Model.ElementAt(lastIndex).allergy_comment, new { htmlAttributes = new { @class = "form-control", @name = "allergy_comment" } })
                     @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).allergy_comment, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="form-group">
                 <label class="paddingLeft">Kommentar</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ElementAt(lastIndex).comment, new { htmlAttributes = new { @class = "form-control", @name = "comment", @required = "required" } })
+                    @Html.EditorFor(model => Model.ElementAt(lastIndex).comment, new { htmlAttributes = new { @class = "form-control", @name = "comment" } })
                     @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).comment, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -94,7 +94,7 @@
                 <label class="paddingLeft">Simmkunnig</label>
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => Model.ElementAt(lastIndex).can_swim, new { htmlAttributes = new { @class = "form-radio-css", @name = "can_swim", @required = "required" } })
+                        @Html.EditorFor(model => Model.ElementAt(lastIndex).can_swim, new { htmlAttributes = new { @class = "form-radio-css", @name = "can_swim" } })
                         @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).can_swim, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                 <label class="paddingLeft">Tillåt foto</label>
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => Model.ElementAt(lastIndex).allow_photos, new { htmlAttributes = new { @class = "form-radio-css", @name = "allow_photos", @required = "required" } })
+                        @Html.EditorFor(model => Model.ElementAt(lastIndex).allow_photos, new { htmlAttributes = new { @class = "form-radio-css", @name = "allow_photos" } })
                         @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).allow_photos, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -114,7 +114,7 @@
                 <label class="paddingLeft">Vaccinerat</label>
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => Model.ElementAt(lastIndex).vaccinated, new { htmlAttributes = new { @class = "form-radio-css", @name = "vaccinated", @required = "required" } })
+                        @Html.EditorFor(model => Model.ElementAt(lastIndex).vaccinated, new { htmlAttributes = new { @class = "form-radio-css", @name = "vaccinated" } })
                         @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).vaccinated, "", new { @class = "text-danger" })
                     </div>
                 </div>
