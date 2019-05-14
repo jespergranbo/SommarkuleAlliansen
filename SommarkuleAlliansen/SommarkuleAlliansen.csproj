@@ -201,6 +201,7 @@
     <Content Include="Content\images\HSK-logo.png" />
     <Content Include="Content\images\sisu.png" />
     <Content Include="Content\images\Stromsbro-Logo.png" />
+    <Content Include="Content\images\sol.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
