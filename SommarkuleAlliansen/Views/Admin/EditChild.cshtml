@@ -35,6 +35,14 @@
         </div>
 
         <div class="form-group">
+            <label class="paddingLeft">Sista fyra</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.social_security, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.social_security, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="paddingLeft">Tröjstorlek</label>
             <div class="col-md-10">
                 <select name="shirtSize" id="shirtsizes" required>
@@ -74,6 +82,13 @@
                 </div>
             </div>
         }
+        <div class="form-group">
+            <label class="paddingLeft">Allergier</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.allergy_comment, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.allergy_comment, "", new { @class = "text-danger" })
+            </div>
+        </div>
         <div class="form-group">
             <label class="paddingLeft">Kommentar</label>
             <div class="col-md-10">

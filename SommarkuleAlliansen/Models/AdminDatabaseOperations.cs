@@ -394,11 +394,13 @@ namespace SommarkuleAlliansen.Models
                             child.child_id = Convert.ToInt32(sdr["child_id"]);
                             child.name = Convert.ToString(sdr["name"]);
                             child.comment = Convert.ToString(sdr["comment"]);
+                            child.allergy_comment = Convert.ToString(sdr["allergy_comment"]);
                             child.can_swim = Convert.ToBoolean(sdr["can_swim"]);
                             child.birth_date = Convert.ToDateTime(sdr["birth_date"]);
                             child.allow_photos = Convert.ToBoolean(sdr["allow_photos"]);
                             child.vaccinated = Convert.ToBoolean(sdr["vaccinated"]);
                             child.shirt_size = Convert.ToString(sdr["shirt_size"]);
+                            child.social_security = Convert.ToInt32(sdr["social_security"]);
                         }
                     }
                     con.Close();

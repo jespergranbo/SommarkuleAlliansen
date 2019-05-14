@@ -413,7 +413,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditChild([Bind(Include = "child_id,name,comment,can_swim,birth_date,allow_photos,vaccinated,shirt_size,group_id,group_id2")] ChildGroupRelationVM child)
+        public ActionResult EditChild([Bind(Include = "child_id,name,comment,can_swim,birth_date,allow_photos,vaccinated,shirt_size,group_id,group_id2,allergy_comment,social_security")] ChildGroupRelationVM child)
         {
             if (ModelState.IsValid)
             {
