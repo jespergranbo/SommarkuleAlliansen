@@ -139,7 +139,7 @@ input, select, textarea {
     padding-left:20%;
 }
 .paddingCaretaker{
-    padding-right:15px;
+    padding-right:5px;
 }
 @media screen and (max-width:1199px) {
     #HideFromMobile4{
