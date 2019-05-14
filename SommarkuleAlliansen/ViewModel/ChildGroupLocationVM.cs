@@ -8,6 +8,7 @@ namespace SommarkuleAlliansen.ViewModel
     public class ChildGroupLocationVM
     {
         public int group_id { get; set; }
+        public int group_id2 { get; set; }
         public string name { get; set; }
         public string comment { get; set; }
         public int caretaker_id { get; set; }

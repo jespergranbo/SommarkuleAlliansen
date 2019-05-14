@@ -228,7 +228,7 @@ namespace SommarkuleAlliansen.Models
                 return location_id;
             }
         }
-        public List<EmployeGroupLocationVM> GetLocations()
+        public List<EmployeGroupLocationVM> GetLocationsBothWeeks()
         {
             List<EmployeGroupLocationVM> locations = new List<EmployeGroupLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -243,6 +243,35 @@ namespace SommarkuleAlliansen.Models
                         while (sdr.Read())
                         {
                             locations.Add(new EmployeGroupLocationVM
+                            {
+                                group_id = Convert.ToInt32(sdr["group_id"]),
+                                location_id = Convert.ToInt32(sdr["location_id"]),
+                                birth_year = Convert.ToInt32(sdr["birth_year"]),
+                                location_name = Convert.ToString(sdr["location_name"]),
+                                weeks = Convert.ToString(sdr["weeks"])
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return locations;
+        }
+        public List<ChildGroupLocationVM> GetLocations()
+        {
+            List<ChildGroupLocationVM> locations = new List<ChildGroupLocationVM>();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT groups.group_id, groups.location_id, groups.birth_year, location.location_name, location.weeks FROM groups INNER JOIN location ON groups.location_id = location.location_id ORDER BY group_id ASC";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            locations.Add(new ChildGroupLocationVM
                             {
                                 group_id = Convert.ToInt32(sdr["group_id"]),
                                 location_id = Convert.ToInt32(sdr["location_id"]),
@@ -376,9 +405,9 @@ namespace SommarkuleAlliansen.Models
             }
             return caretakerDetails;
         }
-        public ChildGroupRelationVM FindChild(int? id)
+        public ChildGroupLocationVM FindChild(int? id)
         {
-            ChildGroupRelationVM child = new ChildGroupRelationVM();
+            ChildGroupLocationVM child = new ChildGroupLocationVM();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
                 string query = "SELECT * FROM child WHERE child_id = @id";
@@ -408,9 +437,9 @@ namespace SommarkuleAlliansen.Models
             }
             return child;
         }
-        public List<ChildGroupRelationVM> FindChildGroup(int? id)
+        public List<ChildGroupLocationVM> FindChildGroup(int? id)
         {
-            List<ChildGroupRelationVM> childGroup = new List<ChildGroupRelationVM>();
+            List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
                 string query = "SELECT * FROM childgrouprelation WHERE child_id = @id";
@@ -426,14 +455,15 @@ namespace SommarkuleAlliansen.Models
                         {
                             if (counter == 0)
                             {
-                                childGroup.Add(new ChildGroupRelationVM {
+                                childGroup.Add(new ChildGroupLocationVM
+                                {
                                     childGroupRelation_id = Convert.ToInt32(sdr["child_group_relation_id"]),
                                     group_id = Convert.ToInt32(sdr["group_id"])
                                 });
                             }
                             else if (counter == 1)
                             {
-                                childGroup.Add(new ChildGroupRelationVM
+                                childGroup.Add(new ChildGroupLocationVM
                                 {
                                     childGroupRelation_id = Convert.ToInt32(sdr["child_group_relation_id"]),
                                     group_id2 = Convert.ToInt32(sdr["group_id"])
@@ -447,22 +477,16 @@ namespace SommarkuleAlliansen.Models
             }
             return childGroup;
         }
-        public void UpdateChild(ChildGroupRelationVM child)
+        public void AddToGroup(List<groups> groups, long child_id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "UPDATE child SET name = @name, comment = @comment, can_swim = @can_swim, birth_date = @birth_date, allow_photos = @allow_photos, vaccinated = @vaccinated, shirt_size = @shirt_size WHERE child_id = @id;";
+                string query = "INSERT INTO childgrouprelation (child_group_relation_id, child_id, group_id) VALUES (null, @child_id, @group_id)";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@id", child.child_id);
-                    cmd.Parameters.AddWithValue("@name", child.name);
-                    cmd.Parameters.AddWithValue("@comment", child.comment);
-                    cmd.Parameters.AddWithValue("@can_swim", child.can_swim);
-                    cmd.Parameters.AddWithValue("@birth_date", child.birth_date);
-                    cmd.Parameters.AddWithValue("@allow_photos", child.allow_photos);
-                    cmd.Parameters.AddWithValue("@vaccinated", child.vaccinated);
-                    cmd.Parameters.AddWithValue("@shirt_size", child.shirt_size);
+                    cmd.Parameters.AddWithValue("@child_id", child_id);
+                    cmd.Parameters.AddWithValue("@group_id", groups[1].group_id);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
@@ -471,7 +495,114 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
-        public void UpdateChildGroup(ChildGroupRelationVM child)
+        public void DeleteFromRelation(int childGroup_id)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM childgrouprelation WHERE child_group_relation_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", childGroup_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public groups GetGroupInfo(int group_id)
+        {
+            groups groups = new groups();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM groups WHERE group_id = @group_id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@group_id", group_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            groups.location_id = Convert.ToInt32(sdr["location_id"]);
+                            groups.birth_year = Convert.ToInt32(sdr["birth_year"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return groups;
+        }
+        public List<groups> GetGroupId(int location_id, DateTime birth)
+        {
+            List<groups> groups = new List<groups>();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM groups WHERE birth_year = @birth_year AND location_id = ";
+                if (location_id == 3)
+                {
+                    query += "1 OR birth_year = @birth_year AND location_id = 2";
+                }
+                else if (location_id == 6)
+                {
+                    query += "4 OR birth_year = @birth_year AND location_id = 5";
+                }
+                else
+                {
+                    query += "@location_id";
+                }
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@birth_year", birth.Year.ToString());
+                    cmd.Parameters.AddWithValue("@location_id", location_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            groups.Add(new groups
+                            {
+                                group_id = Convert.ToInt32(sdr["group_id"])
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return groups;
+        }
+        public void UpdateChild(int child_id, string name, string allergy_comment, string comment, bool can_swim, DateTime birth_date, bool allow_photos, bool vaccinated, string shirt_size, int social_security, int location_id)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE child SET name = @name, comment = @comment, can_swim = @can_swim, birth_date = @birth_date, allow_photos = @allow_photos, vaccinated = @vaccinated, shirt_size = @shirt_size, allergy_comment = @allergy_comment, social_security = @social_security, location_id = @location_id WHERE child_id = @id;";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", child_id);
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@comment", comment);
+                    cmd.Parameters.AddWithValue("@can_swim", can_swim);
+                    cmd.Parameters.AddWithValue("@birth_date", birth_date);
+                    cmd.Parameters.AddWithValue("@allow_photos", allow_photos);
+                    cmd.Parameters.AddWithValue("@vaccinated", vaccinated);
+                    cmd.Parameters.AddWithValue("@shirt_size", shirt_size);
+                    cmd.Parameters.AddWithValue("@allergy_comment", allergy_comment);
+                    cmd.Parameters.AddWithValue("@social_security", social_security);
+                    cmd.Parameters.AddWithValue("@location_id", location_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void UpdateChildGroup(int group_id, int childGroupRelation_id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
@@ -479,8 +610,8 @@ namespace SommarkuleAlliansen.Models
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@group_id", child.group_id);
-                    cmd.Parameters.AddWithValue("@id", child.childGroupRelation_id);
+                    cmd.Parameters.AddWithValue("@group_id", group_id);
+                    cmd.Parameters.AddWithValue("@id", childGroupRelation_id);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {

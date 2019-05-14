@@ -122,7 +122,7 @@ namespace SommarkuleAlliansen.Controllers
                 List<EmployeGroupLocationVM> employe_locations = new List<EmployeGroupLocationVM>();
                 try
                 {
-                    employe_locations = operations.GetLocations();
+                    employe_locations = operations.GetLocationsBothWeeks();
                     employe = operations.FindEmploye(id);
 
                     employe_locations.Add(new EmployeGroupLocationVM{
@@ -227,7 +227,7 @@ namespace SommarkuleAlliansen.Controllers
                 List<EmployeGroupLocationVM> locations = new List<EmployeGroupLocationVM>();
                 try
                 {
-                    locations = operations.GetLocations();
+                    locations = operations.GetLocationsBothWeeks();
                 }
                 catch (Exception)
                 {
@@ -383,10 +383,12 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null || id != null)
             {
-                ChildGroupRelationVM child = new ChildGroupRelationVM();
-                List<ChildGroupRelationVM> childGroup = new List<ChildGroupRelationVM>();
+                ChildGroupLocationVM child = new ChildGroupLocationVM();
+                List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
+                List<ChildGroupLocationVM> locations = new List<ChildGroupLocationVM>();
                 try
                 {
+                    locations = operations.GetLocations();
                     child = operations.FindChild(id);
                     childGroup = operations.FindChildGroup(id);
                     child.group_id = childGroup[0].group_id;
@@ -394,6 +396,20 @@ namespace SommarkuleAlliansen.Controllers
                     {
                         child.group_id2 = childGroup[1].group_id2;
                     }
+                    locations.Add(new ChildGroupLocationVM {
+                        name = child.name,
+                        child_id = child.child_id,
+                        comment = child.comment,
+                        allergy_comment = child.allergy_comment,
+                        can_swim = child.can_swim,
+                        birth_date = child.birth_date,
+                        allow_photos = child.allow_photos,
+                        vaccinated = child.vaccinated,
+                        shirt_size = child.shirt_size,
+                        social_security = child.social_security,
+                        group_id = child.group_id,
+                        group_id2 = child.group_id2
+                    });
                 }
                 catch (Exception)
                 {
@@ -404,7 +420,7 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     return HttpNotFound();
                 }
-                return View(child);
+                return View(locations);
             }
             else
             {
@@ -413,33 +429,50 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditChild([Bind(Include = "child_id,name,comment,can_swim,birth_date,allow_photos,vaccinated,shirt_size,group_id,group_id2,allergy_comment,social_security")] ChildGroupRelationVM child)
+        public ActionResult EditChild(int child_id, string name, DateTime birth_date, int social_security, string shirtSize, int group_id, string allergy_comment, string comment, bool can_swim, bool allow_photos, bool vaccinated)
         {
             if (ModelState.IsValid)
             {
+                List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
+                List<groups> groups = new List<groups>();
+                groups group = new groups();
                 try
                 {
-                    List<ChildGroupRelationVM> childGroup = new List<ChildGroupRelationVM>();
-                    childGroup = operations.FindChildGroup(child.child_id);
-                    child.childGroupRelation_id = childGroup[0].childGroupRelation_id;
-                    operations.UpdateChild(child);
-                    operations.UpdateChildGroup(child);
-                    if (childGroup.Count > 1)
+                    childGroup = operations.FindChildGroup(child_id);
+                    group = operations.GetGroupInfo(group_id);
+                    groups = operations.GetGroupId(group.location_id, birth_date);
+                    group_id = groups[0].group_id;
+                    int childGroup_id = childGroup[0].childGroupRelation_id;
+                    operations.UpdateChildGroup(group_id, childGroup_id);
+                    if (childGroup.Count > 1 && groups.Count > 1)
                     {
-                        child.childGroupRelation_id = childGroup[1].childGroupRelation_id;
-                        child.group_id = child.group_id2;
-                        operations.UpdateChildGroup(child);
+                        group_id = groups[1].group_id;
+                        childGroup_id = childGroup[1].childGroupRelation_id;
+                        operations.UpdateChildGroup(group_id, childGroup_id);
                     }
+                    else if (childGroup.Count == 1 && groups.Count > 1)
+                    {
+                        long child_ID = child_id;
+                        operations.AddToGroup(groups, child_ID);
+                    }
+                    else if (childGroup.Count > 1 && groups.Count == 1)
+                    {
+                        childGroup_id = childGroup[1].childGroupRelation_id;
+                        operations.DeleteFromRelation(childGroup_id);
+                    }
+                    operations.UpdateChild(child_id, name, allergy_comment, comment, can_swim, birth_date, allow_photos, vaccinated, shirtSize, social_security, group.location_id);
+
+
                     return RedirectToAction("Child");
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     string message = "Det går inte att redigera barnet, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
                 }
                 
             }
-            return View(child);
+            return RedirectToAction("Child");
         }
         public ActionResult DetailsChild(int? id)
         {
