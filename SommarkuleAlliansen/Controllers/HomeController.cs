@@ -24,7 +24,7 @@ namespace SommarkuleAlliansen.Controllers
             {
                 informations = operations.GetInformation();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 string message = "Det går inte att hämta hemsidan, vänligen försök igen.";
                 return RedirectToAction("Error", "Home", new { message = message });

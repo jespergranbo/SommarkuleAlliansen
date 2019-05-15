@@ -362,6 +362,42 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void UpdateCaretakerDebt(int caretaker_id, int debt)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE caretaker SET debt = debt + @debt WHERE caretaker_id = @id;";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", caretaker_id);
+                    cmd.Parameters.AddWithValue("@debt", debt);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void DecreaseCaretakerDebt(int caretaker_id, int debt)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE caretaker SET debt = debt - @debt WHERE caretaker_id = @id;";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", caretaker_id);
+                    cmd.Parameters.AddWithValue("@debt", debt);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
         public List<ChildCaretakerLocationVM> GetCaretakerDetails(int? id)
         {
             List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
@@ -421,6 +457,7 @@ namespace SommarkuleAlliansen.Models
                         while (sdr.Read())
                         {
                             child.child_id = Convert.ToInt32(sdr["child_id"]);
+                            child.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
                             child.name = Convert.ToString(sdr["name"]);
                             child.comment = Convert.ToString(sdr["comment"]);
                             child.allergy_comment = Convert.ToString(sdr["allergy_comment"]);
@@ -430,6 +467,7 @@ namespace SommarkuleAlliansen.Models
                             child.vaccinated = Convert.ToBoolean(sdr["vaccinated"]);
                             child.shirt_size = Convert.ToString(sdr["shirt_size"]);
                             child.social_security = Convert.ToInt32(sdr["social_security"]);
+                            child.location_id = Convert.ToInt32(sdr["location_id"]);
                         }
                     }
                     con.Close();
@@ -536,7 +574,7 @@ namespace SommarkuleAlliansen.Models
             }
             return groups;
         }
-        public List<groups> GetGroupId(int location_id, DateTime birth)
+        public List<groups> GetGroupId(int location_id, int birth)
         {
             List<groups> groups = new List<groups>();
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -557,7 +595,7 @@ namespace SommarkuleAlliansen.Models
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@birth_year", birth.Year.ToString());
+                    cmd.Parameters.AddWithValue("@birth_year", birth);
                     cmd.Parameters.AddWithValue("@location_id", location_id);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())

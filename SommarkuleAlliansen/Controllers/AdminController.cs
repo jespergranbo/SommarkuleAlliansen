@@ -402,10 +402,12 @@ namespace SommarkuleAlliansen.Controllers
                         comment = child.comment,
                         allergy_comment = child.allergy_comment,
                         can_swim = child.can_swim,
+                        caretaker_id = child.caretaker_id,
                         birth_date = child.birth_date,
                         allow_photos = child.allow_photos,
                         vaccinated = child.vaccinated,
                         shirt_size = child.shirt_size,
+                        location_id = child.location_id,
                         social_security = child.social_security,
                         group_id = child.group_id,
                         group_id2 = child.group_id2
@@ -429,18 +431,19 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditChild(int child_id, string name, DateTime birth_date, int social_security, string shirtSize, int group_id, string allergy_comment, string comment, bool can_swim, bool allow_photos, bool vaccinated)
+        public ActionResult EditChild(int child_id, int caretaker_id, string name, DateTime birth_date, int social_security, string shirtSize, int group_id, string allergy_comment, string comment, bool can_swim, bool allow_photos, bool vaccinated)
         {
             if (ModelState.IsValid)
             {
                 List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
                 List<groups> groups = new List<groups>();
                 groups group = new groups();
+                int debt = 300;
                 try
                 {
                     childGroup = operations.FindChildGroup(child_id);
                     group = operations.GetGroupInfo(group_id);
-                    groups = operations.GetGroupId(group.location_id, birth_date);
+                    groups = operations.GetGroupId(group.location_id, group.birth_year);
                     group_id = groups[0].group_id;
                     int childGroup_id = childGroup[0].childGroupRelation_id;
                     operations.UpdateChildGroup(group_id, childGroup_id);
@@ -453,12 +456,20 @@ namespace SommarkuleAlliansen.Controllers
                     else if (childGroup.Count == 1 && groups.Count > 1)
                     {
                         long child_ID = child_id;
+                        
                         operations.AddToGroup(groups, child_ID);
+                        operations.UpdateCaretakerDebt(caretaker_id, debt);
                     }
                     else if (childGroup.Count > 1 && groups.Count == 1)
                     {
+                        caretaker caretaker = new caretaker();
+                        caretaker = operations.FindCaretaker(caretaker_id);
                         childGroup_id = childGroup[1].childGroupRelation_id;
                         operations.DeleteFromRelation(childGroup_id);
+                        if (caretaker.debt > debt)
+                        {
+                            operations.DecreaseCaretakerDebt(caretaker_id, debt);
+                        }
                     }
                     operations.UpdateChild(child_id, name, allergy_comment, comment, can_swim, birth_date, allow_photos, vaccinated, shirtSize, social_security, group.location_id);
 
