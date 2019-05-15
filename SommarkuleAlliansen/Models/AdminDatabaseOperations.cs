@@ -135,6 +135,14 @@ namespace SommarkuleAlliansen.Models
                             employe.password = Convert.ToString(sdr["password"]);
                             employe.group_id = Convert.ToInt32(sdr["group_id"]);
                             employe.location_id = Convert.ToInt32(sdr["location_id"]);
+                            employe.post_number = Convert.ToInt32(sdr["post_number"]);
+                            employe.tax = Convert.ToBoolean(sdr["tax"]);
+                            employe.bank = Convert.ToString(sdr["bank"]);
+                            employe.clearing = Convert.ToInt32(sdr["clearing"]);
+                            employe.account_number = Convert.ToInt32(sdr["account_number"]);
+                            employe.shirt_size = Convert.ToString(sdr["shirt_size"]);
+                            employe.social_security = Convert.ToInt32(sdr["social_security"]);
+                            employe.address = Convert.ToString(sdr["adress"]);
                         }
                     }
                     con.Close();
@@ -165,21 +173,29 @@ namespace SommarkuleAlliansen.Models
             }
             return false;
         }
-        public void UpdateEmploye(employe employe)
+        public void UpdateEmploye(int employe_id, string adress, long location_id, int employe_type, string name, int number, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "UPDATE employe SET name = @name, employe_type = @employe_type, number = @number, password = @password, group_id = @group_id, location_id = @location_id WHERE employe_id = @id;";
+                string query = "UPDATE employe SET name = @name, adress = @adress, employe_type = @employe_type, number = @number, password = @password, group_id = @group_id, location_id = @location_id, post_number = @post_number, tax = @tax, bank = @bank, clearing = @clearing, account_number = @account_number, shirt_size = @shirt_size, social_security = @social_security WHERE employe_id = @id;";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
-                    cmd.Parameters.AddWithValue("@id", employe.employe_id);
-                    cmd.Parameters.AddWithValue("@name", employe.name);
-                    cmd.Parameters.AddWithValue("@employe_type", employe.employe_type);
-                    cmd.Parameters.AddWithValue("@number", employe.number);
-                    cmd.Parameters.AddWithValue("@password", employe.password);
-                    cmd.Parameters.AddWithValue("@group_id", employe.group_id);
-                    cmd.Parameters.AddWithValue("@location_id", employe.location_id);
+                    cmd.Parameters.AddWithValue("@id", employe_id);
+                    cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@employe_type", employe_type);
+                    cmd.Parameters.AddWithValue("@number", number);
+                    cmd.Parameters.AddWithValue("@password", password);
+                    cmd.Parameters.AddWithValue("@group_id", group_id);
+                    cmd.Parameters.AddWithValue("@adress", adress);
+                    cmd.Parameters.AddWithValue("@location_id", location_id);
+                    cmd.Parameters.AddWithValue("@post_number", post_number);
+                    cmd.Parameters.AddWithValue("@tax", tax);
+                    cmd.Parameters.AddWithValue("@bank", bank);
+                    cmd.Parameters.AddWithValue("@clearing", clearing);
+                    cmd.Parameters.AddWithValue("@account_number", account_number);
+                    cmd.Parameters.AddWithValue("@shirt_size", shirt_size);
+                    cmd.Parameters.AddWithValue("@social_security", social_security);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
@@ -286,20 +302,28 @@ namespace SommarkuleAlliansen.Models
             }
             return locations;
         }
-        public void AddEmploye (string name, int employe_type, int number, string password, int group_id, long location_id)
+        public void AddEmploye (string name, string adress, int employe_type, int number, string password, int group_id, long location_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "INSERT INTO employe (employe_id, name, employe_type, number, password, group_id, location_id) VALUES (NULL, @name, @employe_type, @number, @password, @group_id, @location_id)";
+                string query = "INSERT INTO employe (employe_id, name, adress, employe_type, number, password, group_id, location_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security) VALUES (NULL, @name, @adress, @employe_type, @number, @password, @group_id, @location_id, @post_number, @tax, @bank, @clearing, @account_number, @shirt_size, @social_security)";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@name", name);
+                    cmd.Parameters.AddWithValue("@adress", adress);
                     cmd.Parameters.AddWithValue("@employe_type", employe_type);
                     cmd.Parameters.AddWithValue("@number", number);
                     cmd.Parameters.AddWithValue("@password", password);
                     cmd.Parameters.AddWithValue("@group_id", group_id);
                     cmd.Parameters.AddWithValue("@location_id", location_id);
+                    cmd.Parameters.AddWithValue("@post_number", post_number);
+                    cmd.Parameters.AddWithValue("@tax", tax);
+                    cmd.Parameters.AddWithValue("@bank", bank);
+                    cmd.Parameters.AddWithValue("@clearing", clearing);
+                    cmd.Parameters.AddWithValue("@account_number", account_number);
+                    cmd.Parameters.AddWithValue("@shirt_size", shirt_size);
+                    cmd.Parameters.AddWithValue("@social_security", social_security);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
