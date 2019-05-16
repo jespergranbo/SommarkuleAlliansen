@@ -16,18 +16,17 @@
     width: 33.33%;
     padding: 20px;
 }
-#DivFooter {
-    margin: 0 auto;
-}
 #FooterFixerL {
     float: left;
     text-align: center;
     margin-bottom: 4%;
+    color: white;
 }
 #FooterFixerR {
     margin-bottom: 5%;
     float: right;
     text-align: center;
+    color: white;
 }
 .clearfix::after {
     content: "";
@@ -88,7 +87,7 @@ input, select, textarea {
 }
 .registerStyle {
     border-radius: 5px;
-    background-color: lightblue;
+    background-color:lightgray;
     padding: 10px;
 }
 .contact {

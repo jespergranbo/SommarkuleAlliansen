@@ -25,13 +25,13 @@
                 <th id="HideFromMobile" class="removeBorder PaddingCaretaker">
                     Barn
                 </th>
-                <th class="removeBorder PaddingCaretaker">
+                <th id="HideFromMobile2" class="removeBorder PaddingCaretaker">
                     Betala
                 </th>
                 <th class="removeBorder PaddingCaretaker">
                     Påminnelse
                 </th>
-                <td class="removeBorder">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
+                <td id="HideFromMobile2" class="removeBorder">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
 
             </tr>
             @for (int i = 0; i < Model.Count(); i++)
@@ -60,7 +60,7 @@
                         @Model[i].count
                         @Html.HiddenFor(m => Model[i].count) st
                     </td>
-                    <td style="background-color: #ff8080" name="@Model.ElementAt(i).debt">
+                    <td id="HideFromMobile2" style="background-color: #ff8080" name="@Model.ElementAt(i).debt">
                         @Model[i].debt
                         @Html.HiddenFor(m => Model[i].debt):-
                     </td>
