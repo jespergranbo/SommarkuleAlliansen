@@ -88,6 +88,9 @@ namespace SommarkuleAlliansen.Models
                             selectedLocation.start_date = Convert.ToDateTime(sdr["start_date"]);
                             selectedLocation.end_date = Convert.ToDateTime(sdr["end_date"]);
                             selectedLocation.location_name = Convert.ToString(sdr["location_name"]);
+                            selectedLocation.location_number = Convert.ToInt32(sdr["location_number"]);
+                            selectedLocation.location_email = Convert.ToString(sdr["location_email"]);
+                            selectedLocation.weeks = Convert.ToString(sdr["weeks"]);
                         }
                     }
                     con.Close();
