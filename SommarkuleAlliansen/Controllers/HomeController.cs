@@ -85,7 +85,7 @@ namespace SommarkuleAlliansen.Controllers
                         }
                         child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id, registration_date, social_security, allergy_comment);
                         operations.AddToGroup(groups, child_id);
-                        return RedirectToAction("OrderConfermation", new { caretakerEmail, caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name });
+                        return RedirectToAction("OrderConfermation", new { caretakerEmail, caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name, selectedLocation.location_email,selectedLocation.location_number, birth, shirtSize, CanSwim, allowPhoto, isVaccinated, allergy_comment, comment, caretakerAddress, caretakerNumber, altName, altNumber, selectedLocation.weeks });
                     }
                     catch (Exception)
                     {
@@ -97,17 +97,36 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View();
         }
-        
-        public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name)
+        public string CheckIfTrue(bool check)
+        {
+            string result = "";
+            if (check == true)
+            {
+                result = "Ja";
+            }
+            else
+            {
+                result = "Nej";
+            }
+            return result;
+        }
+        public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name, string location_email, int location_number, DateTime birth,string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string allergy_comment, string comment, string caretakerAddress, int caretakerNumber, string altName, int altNumber, string weeks)
         {
             if (ModelState.IsValid)
             {
-                var body = "<p>Hej" + caretakerName + "</p> <p>här är BEKRÄFTELSEN på din anmälan till Sommarkulan! Följande uppgifter om dig har registrerats.</p> <p>Observera att eftersom det inte går att besvara detta mail så måste du om du har frågor eller vill ändra något kontakta din Förening"
-                    + location_name + ", ring " + //location_number + " eller maila till"
-                    + //location_email + "</p> <b>BETALINFO :</b> <p> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften,"
-                    + price + ":- sista betaldatum är 2019-06-14, till bankgiro 5894-0172 eller SWISH till 123 613 34 25</p>" +
-                //HÄR KOMMER ALL INFORMATION SOM DEM REGISTRERAT SIG MED
-                "<p>Du kan redan nu betala din avgift. Vänligen ange barnets namn (" + child_name + ") samt plats ("+ location_name + ") på din betalning.</p> <p>Kom ihåg!</p><p>Kläder efter väder samt badkläder. Tisdagar, onsdagar samt fredagar 28/6 åker vi till Fjärran och  badar. Torsdagar åker vi till DOME https://www.thedome.se/ </p><p>Ingen Sommarkulan på midsommarafton.</p><p>Materialpaket ingår till ALLA!</p<p>Tiderna som gäller är 09:00 - 15:00 varje dag.</p><p>Varje dag ingår en lättlunch som består av youghurt/kräm, smörgås eller varmkorv. Frukt och mjölk ingår i alla måltider.</p><h3>VÄLKOMMEN önskar ingen idiot :)</h3>";
+                string result = "";
+                
+                var body = "<p>Hej " + caretakerName + "!<br/>Här är BEKRÄFTELSEN på din anmälan till Sommarkulan! Följande uppgifter om dig har registrerats.</p> <p>Observera att eftersom det inte går att besvara detta mail så måste du om du har frågor eller vill ändra något kontakta din Förening "
+                    + location_name + ", ring (+46) " + location_number + " eller maila till "
+                    + location_email + "</p><p><b>BETALINFO :</b> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften, "
+                    + price + ":- sista betaldatum är 2019-06-14, till bankgiro 5894-0172 eller SWISH till 123 613 34 25</p><p></p>" +
+                "<p>Namn: " + child_name + "<br/>Födelsedatum: " + String.Format("{0:yyy/MM/dd}", birth) + "<br/>Tröjstorlek: " + shirtSize + "<br/>Simkunnig: " + (result = CheckIfTrue(CanSwim)) + "<br/>Tillåt att barnet är med på foton: " + (result = CheckIfTrue(allowPhoto)) + "<br/>Vaccinerad mot stelkramp: " + (result = CheckIfTrue(isVaccinated)) + "<br/>Allergi: " + allergy_comment + "<br/>Övrig info: " + comment + "</p>" +
+                "<p>Målsman: " + caretakerName + ", " + caretakerAddress + ", Telnr: (+46)" + caretakerNumber + "<br/>Alt.kontakt: " + altName + ", Telnr: (+46)" + altNumber + "</p>" +
+                "<p>Period: " + location_name + " " + String.Format("{0:MM/dd}", start_date) + " - " + String.Format("{0:MM/dd}", end_date) + " (" + weeks + ")</p>" +
+                "<p>Plats: " + location_name + "<br/>Samling: Måndag 17 Juni kl 9:00<br/>Kontakt: " + location_email + ", " + location_number + "</p>" +
+                "<p>Du kan redan nu betala din avgift. Vänligen ange barnets namn (" + child_name + ") samt plats ("+ location_name + ") på din betalning.</p> <p>Kom ihåg!<br/>Kläder efter väder samt badkläder. Tisdagar, onsdagar samt fredagar 28/6 åker vi till Fjärran och  badar. " +
+                "Torsdagar åker vi till DOME https://www.thedome.se/ <br/>Ingen Sommarkulan på midsommarafton.<br/>Materialpaket ingår till ALLA!<br/>Tiderna som gäller är 09:00 - 15:00 varje dag.<br/>Varje dag ingår en lättlunch som består av youghurt/kräm, smörgås eller varmkorv. " +
+                "Frukt och mjölk ingår i alla måltider.</p><h3>VÄLKOMMEN önskar vi på SOMMARKULAN</h3>";
 
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(caretakerEmail));
