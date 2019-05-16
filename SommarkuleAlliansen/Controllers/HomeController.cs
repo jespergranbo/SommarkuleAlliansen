@@ -103,8 +103,8 @@ namespace SommarkuleAlliansen.Controllers
             if (ModelState.IsValid)
             {
                 var body = "<p>Hej" + caretakerName + "</p> <p>här är BEKRÄFTELSEN på din anmälan till Sommarkulan! Följande uppgifter om dig har registrerats.</p> <p>Observera att eftersom det inte går att besvara detta mail så måste du om du har frågor eller vill ändra något kontakta din Förening"
-                    + location_name + ", ring " + location_number + " eller maila till"
-                    + location_email + "</p> <b>BETALINFO :</b> <p> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften,"
+                    + location_name + ", ring " + //location_number + " eller maila till"
+                    + //location_email + "</p> <b>BETALINFO :</b> <p> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften,"
                     + price + ":- sista betaldatum är 2019-06-14, till bankgiro 5894-0172 eller SWISH till 123 613 34 25</p>" +
                 //HÄR KOMMER ALL INFORMATION SOM DEM REGISTRERAT SIG MED
                 "<p>Du kan redan nu betala din avgift. Vänligen ange barnets namn (" + child_name + ") samt plats ("+ location_name + ") på din betalning.</p> <p>Kom ihåg!</p><p>Kläder efter väder samt badkläder. Tisdagar, onsdagar samt fredagar 28/6 åker vi till Fjärran och  badar. Torsdagar åker vi till DOME https://www.thedome.se/ </p><p>Ingen Sommarkulan på midsommarafton.</p><p>Materialpaket ingår till ALLA!</p<p>Tiderna som gäller är 09:00 - 15:00 varje dag.</p><p>Varje dag ingår en lättlunch som består av youghurt/kräm, smörgås eller varmkorv. Frukt och mjölk ingår i alla måltider.</p><h3>VÄLKOMMEN önskar ingen idiot :)</h3>";
