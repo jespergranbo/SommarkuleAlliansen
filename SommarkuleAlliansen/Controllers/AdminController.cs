@@ -404,6 +404,35 @@ namespace SommarkuleAlliansen.Controllers
                     {
                         child.group_id2 = childGroup[1].group_id2;
                     }
+                    int shirtID = 0;
+                    if (child.shirt_size == "80 CL")
+                    {
+                        shirtID = 0;
+                    }
+                    else if (child.shirt_size == "100 CL")
+                    {
+                        shirtID = 1;
+                    }
+                    else if (child.shirt_size == "120 CL")
+                    {
+                        shirtID = 2;
+                    }
+                    else if (child.shirt_size == "140 CL")
+                    {
+                        shirtID = 3;
+                    }
+                    else if (child.shirt_size == "Small")
+                    {
+                        shirtID = 4;
+                    }
+                    else if (child.shirt_size == "Medium")
+                    {
+                        shirtID = 5;
+                    }
+                    else if (child.shirt_size == "Large")
+                    {
+                        shirtID = 6;
+                    }
                     locations.Add(new ChildGroupLocationVM {
                         name = child.name,
                         child_id = child.child_id,
@@ -414,7 +443,7 @@ namespace SommarkuleAlliansen.Controllers
                         birth_date = child.birth_date,
                         allow_photos = child.allow_photos,
                         vaccinated = child.vaccinated,
-                        shirt_size = child.shirt_size,
+                        shirt_size = Convert.ToString(shirtID),
                         location_id = child.location_id,
                         social_security = child.social_security,
                         group_id = child.group_id,
@@ -443,6 +472,35 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
+                string shirt_size = "";
+                if (shirtSize == "0")
+                {
+                    shirt_size = "80 CL";
+                }
+                else if (shirtSize == "1")
+                {
+                    shirt_size = "100 CL";
+                }
+                else if (shirtSize == "2")
+                {
+                    shirt_size = "120 CL";
+                }
+                else if (shirtSize == "3")
+                {
+                    shirt_size = "140 CL";
+                }
+                else if (shirtSize == "4")
+                {
+                    shirt_size = "Small";
+                }
+                else if (shirtSize == "5")
+                {
+                    shirt_size = "Medium";
+                }
+                else if (shirtSize == "6")
+                {
+                    shirt_size = "Large";
+                }
                 List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
                 List<groups> groups = new List<groups>();
                 groups group = new groups();
@@ -479,7 +537,7 @@ namespace SommarkuleAlliansen.Controllers
                             operations.DecreaseCaretakerDebt(caretaker_id, debt);
                         }
                     }
-                    operations.UpdateChild(child_id, name, allergy_comment, comment, can_swim, birth_date, allow_photos, vaccinated, shirtSize, social_security, group.location_id);
+                    operations.UpdateChild(child_id, name, allergy_comment, comment, can_swim, birth_date, allow_photos, vaccinated, shirt_size, social_security, group.location_id);
 
 
                     return RedirectToAction("Child");
