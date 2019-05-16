@@ -44,6 +44,22 @@
         </div>
 
         <div class="form-group">
+            <label class="paddingLeft">Postnummer:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).post_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).post_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Adress:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).adress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).adress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <label class="paddingLeft">Lösenord</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).password, new { htmlAttributes = new { @class = "form-control", @name = "password", @required = "required" } })
@@ -60,6 +76,56 @@
                         <option value="@item.group_id">Plats: @item.location_name. Årsgrupp: @item.birth_year</option>
                     }
                 </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Skatta:</label>
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => Model.ElementAt(0).tax, new { htmlAttributes = new { @class = "form-radio-css", @name = "can_swim" } })
+                    @Html.ValidationMessageFor(model => Model.ElementAt(0).tax, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Bank:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).bank, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).bank, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Clearing:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).clearing, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).clearing, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Banknummer:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).account_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).account_number, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Tröjstorlek:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).shirt_size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).shirt_size, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="paddingLeft">Personnummer:</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ElementAt(0).social_security, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ElementAt(0).social_security, "", new { @class = "text-danger" })
             </div>
         </div>
 
