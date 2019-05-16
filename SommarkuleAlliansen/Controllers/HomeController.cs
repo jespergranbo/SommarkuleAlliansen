@@ -118,7 +118,7 @@ namespace SommarkuleAlliansen.Controllers
                 
                 var body = "<p>Hej " + caretakerName + "!<br/>Här är BEKRÄFTELSEN på din anmälan till Sommarkulan! Följande uppgifter om dig har registrerats.</p> <p>Observera att eftersom det inte går att besvara detta mail så måste du om du har frågor eller vill ändra något kontakta din Förening "
                     + location_name + ", ring (+46) " + location_number + " eller maila till "
-                    + location_email + "</p> <b>BETALINFO :</b> <p> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften,"
+                    + location_email + "</p><p><b>BETALINFO :</b> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften, "
                     + price + ":- sista betaldatum är 2019-06-14, till bankgiro 5894-0172 eller SWISH till 123 613 34 25</p><p></p>" +
                 "<p>Namn: " + child_name + "<br/>Födelsedatum: " + String.Format("{0:yyy/MM/dd}", birth) + "<br/>Tröjstorlek: " + shirtSize + "<br/>Simkunnig: " + (result = CheckIfTrue(CanSwim)) + "<br/>Tillåt att barnet är med på foton: " + (result = CheckIfTrue(allowPhoto)) + "<br/>Vaccinerad mot stelkramp: " + (result = CheckIfTrue(isVaccinated)) + "<br/>Allergi: " + allergy_comment + "<br/>Övrig info: " + comment + "</p>" +
                 "<p>Målsman: " + caretakerName + ", " + caretakerAddress + ", Telnr: (+46)" + caretakerNumber + "<br/>Alt.kontakt: " + altName + ", Telnr: (+46)" + altNumber + "</p>" +
