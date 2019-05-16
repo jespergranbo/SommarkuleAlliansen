@@ -14,7 +14,7 @@
                     Namn
                 </th>
                 <th id="HideFromMobile4" class="PaddingCaretaker" style="border-top: none">
-                    Nummer (+46)
+                    Nmr (+46)
                 </th>
                 <th id="HideFromMobile4" class="PaddingCaretaker" style="border-top: none">
                     Mail
@@ -25,7 +25,7 @@
                 <th id="HideFromMobile" class="PaddingCaretaker" style="border-top: none">
                     Barn
                 </th>
-                <th class="PaddingCaretaker" style="border-top: none">
+                <th id="HideFromMobile2" class="PaddingCaretaker" style="border-top: none">
                     Betala
                 </th>
                 <th class="PaddingCaretaker" style="border-top: none">
@@ -93,7 +93,7 @@
                         @Model[i].count
                         @Html.HiddenFor(m => Model[i].count)
                     </td>
-                    <td style="background-color: #53c653" name="@Model.ElementAt(i).caretaker_email">
+                    <td id="HideFromMobile2" style="background-color: #53c653" name="@Model.ElementAt(i).caretaker_email">
                         @Model[i].debt
                         @Html.HiddenFor(m => Model[i].debt):-
                     </td>
