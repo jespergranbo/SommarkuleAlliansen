@@ -3,7 +3,6 @@
 @{
     ViewBag.Title = "Gruppdetaljer";
     int presentCounter = 0;
-    List<SommarkuleAlliansen.ViewModel.ChildGroupVM> SortedList = Model.OrderBy(o=>o.name).ToList();
 }
         <div class="standardStyle">
             @using (Html.BeginForm("GroupDetails", "Employe", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -21,9 +20,13 @@
                 <b style="padding-left:12px;">Närvarande: @presentCounter</b>
                 <table class="table">
                     <tr>
+                        <th style="display:none" name="@Model.ElementAt(0).child_id">
+                            @Model.ElementAt(0).child_id
+                            @Html.HiddenFor(m => Model.ElementAt(0).child_id)
+                        </th>
                         <th style="display:none" name="@Model.ElementAt(0).group_id">
                             @Model.ElementAt(0).group_id
-                            @Html.HiddenFor(m => Model[0].group_id)
+                            @Html.HiddenFor(m => Model.ElementAt(0).group_id)
                         </th>
                         <th style="border:none;">
                             För- och Efternamn
@@ -42,24 +45,28 @@
                     @Html.AntiForgeryToken()
                     @for (int i = 0; i < Model.Count(); i++)
                     {
-                        <tr>
-                            <td style="display:none" name="@SortedList.ElementAt(i).child_id">
-                                @SortedList.ElementAt(i).child_id
-                                @Html.HiddenFor(m => SortedList[i].child_id)
-                            </td>
-                            <td>
-                                @Html.ActionLink(SortedList.ElementAt(i).name, "DetailsChild", "Admin", new { id = SortedList.ElementAt(i).child_id }, null)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => SortedList.ElementAt(i).comment)
-                            </td>
-                            <td>
-                                @String.Format("{0:yyyy/MM/dd}", SortedList.ElementAt(i).birth_date)
-                            </td>
-                            <td name="@SortedList.ElementAt(i).present">
-                                @Html.CheckBoxFor(m => SortedList[i].present)
-                            </td>
-                        </tr>
+                    <tr>
+                        <td style="display:none" name="@Model[i].child_id">
+                            @Model[i].child_id
+                            @Html.HiddenFor(m => Model[i].child_id)
+                        </td>
+                        <td style="display:none" name="@Model[i].group_id">
+                            @Model[i].group_id
+                            @Html.HiddenFor(m => Model[i].group_id)
+                        </td>
+                        <td>
+                            @Html.ActionLink(Model[i].name, "DetailsChild", "Admin", new { id = Model[i].child_id }, null)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model[i].comment)
+                        </td>
+                        <td>
+                            @String.Format("{0:yyyy/MM/dd}", Model[i].birth_date)
+                        </td>
+                        <td name="@Model[i].present">
+                            @Html.CheckBoxFor(m => Model[i].present)
+                        </td>
+                    </tr>
                     }
                 </table>
                 <input type="submit" value="Rapportera närvaro" style="margin-bottom:3%;" class="btn btn-outline-secondary" />

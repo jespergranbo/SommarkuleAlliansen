@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
@@ -85,6 +86,7 @@ namespace SommarkuleAlliansen.Controllers
                 try
                 {
                     children = operations.GetGroupDetails(id);
+                    children = children.OrderBy(o => o.name).ToList();
                     return View(children);
                 }
                 catch (Exception)
