@@ -176,7 +176,7 @@ namespace SommarkuleAlliansen.Controllers
                         Session["name"] = name.ToString();
                         Session["employe_type"] = employe_type.ToString();
                         Session["group_id"] = group_id.ToString();
-                        Session["location_id"] = group_id.ToString();
+                        Session["location_id"] = location_id.ToString();
                     }
                     return RedirectToAction("Employe");
                 }

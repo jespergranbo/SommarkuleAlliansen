@@ -52,6 +52,8 @@ namespace SommarkuleAlliansen.Controllers
             Session["employe_id"] = null;
             Session["name"] = null;
             Session["employe_type"] = null;
+            Session["group_id"] = null;
+            Session["location_id"] = null;
             return RedirectToAction("Index", "Home");
         }
         public ActionResult EmployePage()
