@@ -64,7 +64,7 @@
                         @Model[i].debt
                         @Html.HiddenFor(m => Model[i].debt):-
                     </td>
-                    <td style=" padding-left: 40px; background-color: #ff8080" name="@Model.ElementAt(i).selectedForEmail">
+                    <td style=" padding-left: 40px; padding-top: 0px; padding-bottom: 0px; background-color: #ff8080" name="@Model.ElementAt(i).selectedForEmail">
                         @Html.CheckBoxFor(m => Model[i].selectedForEmail, new { @class = "form-radio-css"})
                     </td>
                     <td style="background-color: #ff8080">
@@ -77,7 +77,7 @@
                         @Model[i].caretaker_name
                         @Html.HiddenFor(m => Model[i].caretaker_name)
                     </td>
-                    <td id="HideFromMobile" name="@Model.ElementAt(i).caretaker_number" style="background-color: #53c653">
+                    <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_number" style="background-color: #53c653">
                         @Model[i].caretaker_number
                         @Html.HiddenFor(m => Model[i].caretaker_number)
                     </td>
