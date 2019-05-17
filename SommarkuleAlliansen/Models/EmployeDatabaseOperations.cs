@@ -34,7 +34,7 @@ namespace SommarkuleAlliansen.Models
                             employe.number = Convert.ToInt32(sdr["number"]);
                             employe.password = sdr["password"].ToString();
                             employe.group_id = Convert.ToInt32(sdr["group_id"]);
-                            employe.location_id = Convert.ToInt32(sdr["group_id"]);
+                            employe.location_id = Convert.ToInt32(sdr["location_id"]);
                         }
                     }
                     con.Close();
@@ -43,18 +43,18 @@ namespace SommarkuleAlliansen.Models
             }
             return employe;
         }
-        public List<GroupLocationVM> FindAllGroups(int id, int employe_type)
+        public List<GroupLocationVM> FindAllGroups(int location_id, int employe_type)
         {
             List<GroupLocationVM> groups = new List<GroupLocationVM>();
             
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT childgrouprelation.group_id, groups.birth_year, location.weeks, location.location_id, location.end_date, count(*) FROM childgrouprelation INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN location ON groups.location_id = location.location_id";
-                if (id <= 3 && employe_type != 1 )
+                string query = "SELECT childgrouprelation.group_id, groups.birth_year, location.weeks, location.location_name, groups.location_id, location.end_date, count(*) FROM childgrouprelation INNER JOIN groups ON childgrouprelation.group_id = groups.group_id INNER JOIN location ON groups.location_id = location.location_id";
+                if (location_id <= 3 && employe_type != 1 )
                 {
                     query += " WHERE location.location_id <= 3 GROUP BY group_id";
                 }
-                else if (id > 3 && employe_type != 1)
+                else if (location_id > 3 && employe_type != 1)
                 {
                     query += " WHERE location.location_id > 3 GROUP BY group_id";
                 }
@@ -75,6 +75,7 @@ namespace SommarkuleAlliansen.Models
                                 group_id = Convert.ToInt32(sdr["group_id"]),
                                 birth_year = Convert.ToInt32(sdr["birth_year"]),
                                 weeks = Convert.ToString(sdr["weeks"]),
+                                location_name = Convert.ToString(sdr["location_name"]),
                                 end_date = Convert.ToDateTime(sdr["end_date"]),
                                 count = Convert.ToInt32(sdr["count(*)"])
                             });

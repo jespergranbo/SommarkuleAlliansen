@@ -170,11 +170,14 @@ namespace SommarkuleAlliansen.Controllers
                     long location_id = operations.GetLocationIdByGroup(group_id);
                     location_id = Convert.ToInt32(location_id);
                     operations.UpdateEmploye(employe_id, adress, location_id, employe_type, name, number, password, group_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security);
-                    Session["employe_id"] = employe_id.ToString();
-                    Session["name"] = name.ToString();
-                    Session["employe_type"] = employe_type.ToString();
-                    Session["group_id"] = group_id.ToString();
-                    Session["location_id"] = group_id.ToString();
+                    if (employe_id == Convert.ToInt32(Session["employe_id"]))
+                    {
+                        Session["employe_id"] = employe_id.ToString();
+                        Session["name"] = name.ToString();
+                        Session["employe_type"] = employe_type.ToString();
+                        Session["group_id"] = group_id.ToString();
+                        Session["location_id"] = group_id.ToString();
+                    }
                     return RedirectToAction("Employe");
                 }
                 catch (Exception e)

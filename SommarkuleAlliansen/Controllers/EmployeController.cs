@@ -41,7 +41,7 @@ namespace SommarkuleAlliansen.Controllers
                 Session["name"] = employe.name.ToString();
                 Session["employe_type"] = employe.employe_type.ToString();
                 Session["group_id"] = employe.group_id.ToString();
-                Session["location_id"] = employe.group_id.ToString();
+                Session["location_id"] = employe.location_id.ToString();
                 return RedirectToAction("Index", "Home");
             }
             ModelState.AddModelError("", "Användarnamnet eller lösenordet är fel");
@@ -59,11 +59,11 @@ namespace SommarkuleAlliansen.Controllers
             if (Session["employe_id"] != null)
             {
                 List<GroupLocationVM> groups = new List<GroupLocationVM>();
-                int id = Convert.ToInt32(Session["location_id"]);
+                int location_id = Convert.ToInt32(Session["location_id"]);
                 int employe_type = Convert.ToInt32(Session["employe_type"]);
                 try
                 {
-                    groups = operations.FindAllGroups(id, employe_type);
+                    groups = operations.FindAllGroups(location_id, employe_type);
                     return View(groups);
                 }
                 catch (Exception)
