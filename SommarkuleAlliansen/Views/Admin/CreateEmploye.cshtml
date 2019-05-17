@@ -46,7 +46,7 @@
         <div class="form-group">
             <label class="paddingLeft">Postnummer:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).post_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).post_number, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).post_number, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -54,7 +54,7 @@
         <div class="form-group">
             <label class="paddingLeft">Adress:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).adress, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).adress, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).adress, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -92,7 +92,7 @@
         <div class="form-group">
             <label class="paddingLeft">Bank:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).bank, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).bank, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).bank, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -100,7 +100,7 @@
         <div class="form-group">
             <label class="paddingLeft">Clearing:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).clearing, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).clearing, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).clearing, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -108,7 +108,7 @@
         <div class="form-group">
             <label class="paddingLeft">Banknummer:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).account_number, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).account_number, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).account_number, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -116,22 +116,22 @@
         <div class="form-group">
             <label class="paddingLeft">Tröjstorlek:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).shirt_size, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).shirt_size, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).shirt_size, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            <label class="paddingLeft">Personnummer:</label>
+            <label class="paddingLeft">Sista fyra i personnummer:</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ElementAt(0).social_security, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.ElementAt(0).social_security, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
                 @Html.ValidationMessageFor(model => model.ElementAt(0).social_security, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="create" value="Create" class="btn btn-outline-secondary" />
+                <input type="submit" id="create" value="Lägg till anställd" class="btn btn-outline-secondary" />
             </div>
         </div>
     </div>

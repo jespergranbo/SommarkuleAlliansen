@@ -338,6 +338,8 @@ namespace SommarkuleAlliansen.Controllers
                 List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
                 try
                 {
+                    string employe_type = Convert.ToString(Session["employe_type"]);
+                    ViewBag.Item = employe_type;
                     caretakerDetails = operations.GetCaretakerDetails(id);
                 }
                 catch (Exception)
@@ -563,6 +565,8 @@ namespace SommarkuleAlliansen.Controllers
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
                 try
                 {
+                    string employe_type = Convert.ToString(Session["employe_type"]);
+                    ViewBag.Item = employe_type;
                     childDetails = operations.GetChildDetails(id);
                 }
                 catch (Exception)
