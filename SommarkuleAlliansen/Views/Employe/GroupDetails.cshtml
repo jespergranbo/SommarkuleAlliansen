@@ -64,7 +64,7 @@
                             @String.Format("{0:yyyy/MM/dd}", Model[i].birth_date)
                         </td>
                         <td name="@Model[i].present">
-                            @Html.CheckBoxFor(m => Model[i].present)
+                            @Html.CheckBoxFor(m => Model[i].present, new { @class = "form-radio-css"})
                         </td>
                     </tr>
                     }

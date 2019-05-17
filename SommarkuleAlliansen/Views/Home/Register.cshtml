@@ -3,6 +3,12 @@
     ViewBag.Title = "Anmälan";
     int shirtSizes = 80;
 }
+<style>
+    .second-page {
+        background-color: #46484B;
+        border-radius: 5px;
+    }
+</style>
 
 <div class="standardStyle">
     <h1 id="ResizeText">Anmälningsformulär för Sommarkulan 2019</h1>
@@ -14,7 +20,7 @@
                 <select style="width: 100%;" name="location_id">
                     @foreach (var item in Model)
                     {
-                        <option value="@item.location_id">@item.location_name, @item.weeks (@String.Format("{0:MM/dd}", item.start_date) - @String.Format("{0:MM/dd}", item.end_date)), @item.price:-</option>
+                        <option value="@item.location_id">@item.location_name, @item.weeks (@String.Format("{0:d MMMM}", item.start_date) - @String.Format("{0:d MMMM}", item.end_date)), @item.price:-</option>
                     }
                 </select>
             </div>

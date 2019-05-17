@@ -3,6 +3,15 @@
 @{
     ViewBag.Title = "Vårdnadshavare";
 }
+<style>
+    .fourth-page {
+        background-color: #B8BABC;
+    }
+    .three-items {
+        background-color: #46484B;
+        border-radius: 5px;
+    }
+</style>
 @{bool justSentMessage = false;}
 @using (Html.BeginForm("Caretaker", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {

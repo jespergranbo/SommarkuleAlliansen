@@ -2,7 +2,6 @@
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
 }
-
 .bg-fixes {
     background-image: url(images/grass.jpg);
     background-attachment: fixed;
