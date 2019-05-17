@@ -192,11 +192,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\extraStyles.css" />
-    <Content Include="Content\images\blue.png" />
     <Content Include="Content\images\datepicture.png" />
-    <Content Include="Content\images\Dome-Gavle.jpg" />
     <Content Include="Content\images\Editingbtn.png" />
-    <Content Include="Content\images\footballfield.jpg" />
     <Content Include="Content\images\gavle_kommun.png" />
     <Content Include="Content\images\HSK-logo.png" />
     <Content Include="Content\images\sisu.png" />

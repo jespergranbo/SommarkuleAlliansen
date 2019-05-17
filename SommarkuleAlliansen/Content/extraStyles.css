@@ -4,6 +4,7 @@
 }
 
 .bg-fixes {
+    background-image: url(images/grass.jpg);
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -138,7 +139,7 @@ input, select, textarea {
     padding-left:20%;
 }
 .paddingCaretaker{
-    padding-right:5px;
+    padding: 10px;
 }
 @media screen and (max-width:1199px) {
     #HideFromMobile4{
