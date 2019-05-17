@@ -10,7 +10,7 @@
                 <h4>Vårdnadshavare</h4>
                 <hr />
                 <b style="margin-bottom: 0px;">Namn:</b>
-                <p>@Html.DisplayFor(model => model.caretaker_name)</p>
+                <p>@Html.ActionLink(Model.caretaker_name, "Details", "Admin", new { id = Model.caretaker_id }, null)</p>
                 <b style="margin-bottom: 0px;">Nummer (+46):</b>
                 <p>@Html.DisplayFor(model => model.caretaker_number)</p>
                 <b style="margin-bottom: 0px;">Email:</b>
@@ -21,6 +21,11 @@
                 <p>@Html.DisplayFor(model => model.alternative_name)</p>
                 <b style="margin-bottom: 0px;">Alternativt Nummer (+46):</b>
                 <p>@Html.DisplayFor(model => model.alternative_number)</p>
+                @if (ViewBag.Item == "1")
+                {
+                    <hr />
+                    <p class="removeMarginBottom">@Html.ActionLink("Redigera vårdnadshavare", "Edit", "Admin", new { id = Model.caretaker_id }, null)</p>
+                }
             </div>
             <div class="box detailsChild">
                 <h4>Barn</h4>
@@ -31,24 +36,23 @@
                 <p>@String.Format("{0:yyy/MM/dd}", Model.birth_date)-@Model.social_security</p>
                 <b style="margin-bottom: 0px;">Tröjstorlek:</b>
                 <p>@Html.DisplayFor(model => model.shirt_size)</p>
-                @if (Model.comment != "")
-                {
-                    <b style="margin-bottom: 0px;">Kommentar:</b>
-                    <p>@Model.comment</p>
-                }
-                @if (Model.allergy_comment != "")
-                {
-                    <b style="margin-bottom: 0px;">Allergier:</b>
-                    <p>@Model.allergy_comment</p>
-                }
+                <b style="margin-bottom: 0px;">Kommentar:</b>
+                <p>@Model.comment</p>
+                <b style="margin-bottom: 0px;">Allergier:</b>
+                <p>@Model.allergy_comment</p>
                 <b style="margin-bottom: 0px;">Simmkunnighet:</b>
-                <p>@Html.DisplayFor(model => model.can_swim)</p>
+                <p>@Html.EditorFor(model => model.can_swim, new { htmlAttributes = new { @class = "form-radio-css", @name = "vaccinated", @disabled = "disabled" } })</p>
                 <b style="margin-bottom: 0px;">Tillåt att barnet är med på foton:</b>
-                <p>@Html.DisplayFor(model => model.allow_photos)</p>
+                <p>@Html.EditorFor(model => model.allow_photos, new { htmlAttributes = new { @class = "form-radio-css", @name = "vaccinated", @disabled = "disabled" } })</p>
                 <b style="margin-bottom: 0px;">Barnet vaccinerat mot stelkramp:</b>
-                <p>@Html.DisplayFor(model => model.vaccinated)</p>
+                <p>@Html.EditorFor(model => model.vaccinated, new { htmlAttributes = new { @class = "form-radio-css", @name = "vaccinated", @disabled = "disabled" } })</p>
                 <b style="margin-bottom: 0px;">Barnet blev registrerat:</b>
                 <p>@Html.DisplayFor(model => model.registration_date)</p>
+                @if (ViewBag.Item == "1")
+                {
+                    <hr />
+                    <p class="removeMarginBottom">@Html.ActionLink("Redigera barn", "EditChild", "Admin", new { id = Model.child_id }, null)</p>
+                }
 
 
             </div>
