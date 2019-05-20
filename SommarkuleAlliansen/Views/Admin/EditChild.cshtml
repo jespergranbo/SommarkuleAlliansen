@@ -44,7 +44,7 @@
             <div class="form-group">
                 <label class="paddingLeft">Sista fyra</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => Model.ElementAt(lastIndex).social_security, new { htmlAttributes = new { @class = "form-control", @name = "social_security", @required = "required" } })
+                    @Html.EditorFor(model => Model.ElementAt(lastIndex).social_security, new { htmlAttributes = new { @class = "form-control", @name = "social_security", @id = "social_security", @required = "required", @maxlength = "4" } })
                     @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).social_security, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -140,5 +140,5 @@
     function onPageLoad() {
         document.getElementById("locations").value = @Model.ElementAt(lastIndex).group_id;
         document.getElementById("shirtsizes").value = @Model.ElementAt(lastIndex).shirt_size;
-    }
+        }
     </script>

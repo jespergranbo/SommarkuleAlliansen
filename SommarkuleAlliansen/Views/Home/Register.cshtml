@@ -29,7 +29,7 @@
                 <label>Barnets För- och Efternamn: </label><b style="color:red">*</b> <br />
                 <input type="text" id="childName" name="child_name" required /> <br />
                 <label>Personnummer: </label><b style="color:red">*</b> <br/>
-                <input type="date" id="childBirth" name="birth" required /> - <input size="3" type="text" name="social_security" maxlength="4" required/> <br />
+                <input type="date" id="childBirth" name="birth" required /> - <input size="3" type="text" name="social_security" id="social_security" onkeyup="checkInp()" maxlength="4" required/><p class="text-danger" id="social_security_error" style="visibility:hidden">Du får enbart ange siffror här.</p>
                 <p class="text-danger" id="errorMessage" style="visibility:hidden">Födelseåret får bara vara mellan 2007 - 2012.</p>
                 <label>Tröjstorlek: </label><b style="color:red">*</b> <br />
                 <select name="shirtSize" required>
@@ -113,4 +113,15 @@
             document.getElementById("register").disabled = false;
         }
     });
+    function checkInp() {
+        var x = document.getElementById("social_security").value;
+        if (isNaN(x)) {
+            document.getElementById("register").disabled = true;
+            document.getElementById("social_security_error").style.visibility = "visible";
+        }
+        else {
+            document.getElementById("register").disabled = false;
+            document.getElementById("social_security_error").style.visibility = "hidden";
+        }
+    }
 </script>
