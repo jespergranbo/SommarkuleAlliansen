@@ -200,6 +200,7 @@
     <Content Include="Content\images\Stromsbro-Logo.png" />
     <Content Include="Content\images\sol.png" />
     <Content Include="Content\images\grass.jpg" />
+    <Content Include="Content\ResponsiveDesign.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

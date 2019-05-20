@@ -1,0 +1,126 @@
+﻿@media screen and (max-width:1199px) {
+    #HideFromMobile4 {
+        display: none;
+    }
+}
+
+@media screen and (max-width:991px) {
+    .DivBlocker {
+        width: 100%;
+        padding: 1%;
+        margin: 1%;
+    }
+
+    .DivWrapper {
+        margin-top: 5%;
+    }
+
+    .box {
+        width: 100%;
+        padding: 1%;
+        margin-top: 10%;
+        margin: 1%;
+    }
+
+    .specialStyle {
+        width: 100%;
+    }
+
+    #HideFromMobile3 {
+        display: none;
+    }
+}
+
+@media screen and (max-width:767px) {
+    #One {
+        float: none;
+        width: 100%;
+    }
+
+    #Two {
+        float: none;
+        width: 100%;
+    }
+
+    #Three {
+        float: none;
+        width: 100%;
+    }
+
+    .row {
+        display: table;
+    }
+
+    .column {
+        float: none;
+        width: 100%;
+        margin-top: 1%;
+        padding: 20px;
+    }
+
+    #HideFromMobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width:430px) {
+
+    #DivFooter {
+        margin: 0 auto;
+        clear: both;
+    }
+
+    #FooterFixerL {
+        float: none;
+        clear: both;
+    }
+
+    #FooterFixerR {
+        float: none;
+        clear: both;
+    }
+
+    #ResizeText {
+        font-size: 30px;
+    }
+
+    .SwimmingKnowledge {
+        padding-left: 55px;
+    }
+
+    #HideFromMobile2 {
+        display: none;
+    }
+
+    .ChangeContent span {
+        display: none;
+    }
+
+    .ChangeContent:after {
+        content: 'Nmr';
+    }
+
+    .ChangeContent2 span {
+        display: none;
+    }
+
+    .ChangeContent2:after {
+        content: 'Födelse';
+    }
+
+    .ChangeContent3 span {
+        display: none;
+    }
+
+    .ChangeContent3:after {
+        content: 'Årskull';
+    }
+
+    #RemovePaddingMobile {
+        padding: 2px;
+    }
+
+    .InformationTextMobile {
+        padding: 1%;
+    }
+}
