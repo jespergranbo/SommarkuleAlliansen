@@ -1,0 +1,135 @@
+﻿@model SommarkuleAlliansen.ViewModel.EmployeGroupLocationVM
+
+@{
+    ViewBag.Title = "DetailsEmploye";
+}
+
+<div class="standardStyle">
+    <dl class="dl-horizontal">
+        <dt>
+            Namn:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            Anställningstyp:
+        </dt>
+        @if (Model.employe_type == 1)
+        {
+            <dd>
+                Admin
+            </dd>
+        }
+        else
+        {
+            <dd>
+                Ledare
+            </dd>
+        }
+
+        <dt>
+            Nummer:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.number)
+        </dd>
+
+        <dt>
+            Adress:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adress)
+        </dd>
+
+        <dt>
+            Postnummer:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.post_number)
+        </dd>
+
+        <dt>
+            Lösenord:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.password)
+        </dd>
+
+        <dt>
+            Anställningsplats:
+        </dt>
+
+        <dt>
+            Tröjstorlek:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shirt_size)
+        </dd>
+
+        <dt>
+            Sista fyra:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.social_security)
+        </dd>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_name)
+        </dd>
+
+        <dt>
+            Ledare för årsgrupp:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.birth_year)
+        </dd>
+
+        <dt>
+            Skatta:
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.tax, new { htmlAttributes = new { @class = "form-radio-css", @disabled = "disabled" } })
+        </dd>
+
+        <dt>
+            Bank:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.bank)
+        </dd>
+
+        <dt>
+            Clearingnummer:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.clearing)
+        </dd>
+
+        <dt>
+            Banknummer:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.account_number)
+        </dd>
+        <hr />
+        <p>
+            @Html.ActionLink("Redigera", "EditEmploye", new { id = Model.employe_id }) |
+            @Html.ActionLink("Ta bort", "DeleteEmploye", new { id = Model.employe_id })
+        </p>
+    </dl>
+</div>
+

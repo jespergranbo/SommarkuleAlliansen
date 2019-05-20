@@ -150,6 +150,44 @@ namespace SommarkuleAlliansen.Models
             }
             return employe;
         }
+        public EmployeGroupLocationVM FindDetailsEmploye(int? employe_id)
+        {
+            EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT employe.employe_id, employe.employe_type, employe.name, employe.number, employe.password, employe.post_number, employe.tax, employe.bank, employe.clearing, employe.account_number, employe.shirt_size, employe.social_security, employe.adress, location.location_name, groups.birth_year FROM employe " +
+                    "INNER JOIN location ON employe.location_id = location.location_id INNER JOIN groups ON employe.group_id = groups.group_id WHERE employe_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", employe_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            employe.employe_id = Convert.ToInt32(sdr["employe_id"]);
+                            employe.employe_type = Convert.ToInt32(sdr["employe_type"]);
+                            employe.name = Convert.ToString(sdr["name"]);
+                            employe.number = Convert.ToInt32(sdr["number"]);
+                            employe.password = Convert.ToString(sdr["password"]);
+                            employe.post_number = Convert.ToInt32(sdr["post_number"]);
+                            employe.tax = Convert.ToBoolean(sdr["tax"]);
+                            employe.bank = Convert.ToString(sdr["bank"]);
+                            employe.clearing = Convert.ToInt32(sdr["clearing"]);
+                            employe.account_number = Convert.ToInt32(sdr["account_number"]);
+                            employe.shirt_size = Convert.ToString(sdr["shirt_size"]);
+                            employe.social_security = Convert.ToInt32(sdr["social_security"]);
+                            employe.adress = Convert.ToString(sdr["adress"]);
+                            employe.location_name = Convert.ToString(sdr["location_name"]);
+                            employe.birth_year = Convert.ToInt32(sdr["birth_year"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return employe;
+        }
         public bool FindEmployeWithNickname(string name)
         {
             employe employe = new employe();
