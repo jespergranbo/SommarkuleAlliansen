@@ -64,8 +64,8 @@
                 @Html.DisplayFor(modelItem => item.birth_year)
             </td>
             <td>
-                @Html.ActionLink("Redigera", "EditEmploye", new { id = item.employe_id }) |
-                @Html.ActionLink("Ta bort", "DeleteEmploye", new { id = item.employe_id })
+                @Html.ActionLink("Visa mer", "DetailsEmploye", new { id = item.employe_id }) |
+                @Html.ActionLink("Redigera", "EditEmploye", new { id = item.employe_id })
             </td>
         </tr>
         }

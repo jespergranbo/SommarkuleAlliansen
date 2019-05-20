@@ -193,10 +193,10 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (Session["employe_id"] != null || id != null)
             {
-                employe employe = new employe();
+                EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
                 try
                 {
-                    employe = operations.FindEmploye(id);
+                    employe = operations.FindDetailsEmploye(id);
                 }
                 catch (Exception)
                 {
@@ -226,6 +226,31 @@ namespace SommarkuleAlliansen.Controllers
             {
                 string message = "Det går inte att ta bort den anställda, vänligen försök igen.";
                 return RedirectToAction("Error", "Home", new { message = message });
+            }
+        }
+        public ActionResult DetailsEmploye(int? id)
+        {
+            if (Session["employe_id"] != null || id != null)
+            {
+                EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
+                try
+                {
+                    employe = operations.FindDetailsEmploye(id);
+                }
+                catch (Exception e)
+                {
+                    string message = "Det går inte att hitta den anställda, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                if (employe == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(employe);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
             }
         }
         public ActionResult CreateEmploye(bool? exsistingName)
