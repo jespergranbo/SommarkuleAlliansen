@@ -149,6 +149,12 @@ namespace SommarkuleAlliansen.Controllers
 
             return View();
         }
+        public ActionResult PrivacyPolicy()
+        {
+            ViewBag.Message = "GDPR page";
+
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Contact(Email email)

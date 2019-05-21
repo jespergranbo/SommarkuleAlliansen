@@ -622,6 +622,7 @@
     <Content Include="Views\Admin\DetailsEmploye.cshtml" />
     <Content Include="Views\Admin\DeleteChild.cshtml" />
     <Content Include="Views\Admin\DeleteCaretaker.cshtml" />
+    <Content Include="Views\Home\PrivacyPolicy.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
