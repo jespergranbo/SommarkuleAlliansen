@@ -422,6 +422,45 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View();
         }
+        public ActionResult DeleteCaretaker(int? id)
+        {
+            if (Session["employe_id"] != null || id != null)
+            {
+                caretaker caretaker = new caretaker();
+                try
+                {
+                    caretaker = operations.FindCaretaker(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta vårdnadshavaren, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                if (caretaker == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(caretaker);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteCaretaker(int id)
+        {
+            try
+            {
+                operations.DeleteCaretaker(id);
+                return RedirectToAction("Caretaker");
+            }
+            catch (Exception)
+            {
+                string message = "Det går inte att ta bort vårdnadshavaren, vänligen försök igen.";
+                return RedirectToAction("Error", "Home", new { message = message });
+            }
+        }
         public ActionResult EditChild(int? id)
         {
             if (Session["employe_id"] != null || id != null)

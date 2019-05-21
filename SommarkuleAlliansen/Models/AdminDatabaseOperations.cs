@@ -293,6 +293,23 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void DeleteCaretaker(int id)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM caretaker WHERE caretaker_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
         public long GetLocationIdByGroup (long group_id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
