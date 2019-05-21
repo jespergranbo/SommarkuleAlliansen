@@ -613,6 +613,60 @@ namespace SommarkuleAlliansen.Controllers
                 return RedirectToAction("Index", "Home");
             }
         }
+        public ActionResult DeleteChild(int? id)
+        {
+            if (Session["employe_id"] != null || id != null)
+            {
+                ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
+                try
+                {
+                    childDetails = operations.GetChildDetails(id);
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hitta barnet, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+                if (childDetails == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(childDetails);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        public ActionResult DeleteChild(int id)
+        {
+            try
+            {
+                List<ChildGroupRelation> selectedGroups = operations.GetGroupInfoFromChild(id);
+                int price = 0;
+                if (selectedGroups.Count == 2)
+                {
+                    price = 1000;
+                    child child = operations.FindCaretakerByChild(id);
+                    operations.DecreaseCaretakerDebt(child.caretaker_id, price);
+                }
+                else if (selectedGroups.Count == 1)
+                {
+                    price = 700;
+                    child child = operations.FindCaretakerByChild(id);
+                    operations.DecreaseCaretakerDebt(child.caretaker_id, price);
+                }
+                operations.DeleteChildGroup(id);
+                operations.DeleteChild(id);
+                return RedirectToAction("Child");
+            }
+            catch (Exception e)
+            {
+                string message = "Det går inte att ta bort den anställda, vänligen försök igen.";
+                return RedirectToAction("Error", "Home", new { message = message });
+            }
+        }
         public ActionResult EditInformation(int? id)
         {
             if (Session["employe_id"] != null || id != null)

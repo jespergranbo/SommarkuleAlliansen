@@ -51,7 +51,7 @@
                 @if (ViewBag.Item == "1")
                 {
                     <hr />
-                    <p class="removeMarginBottom">@Html.ActionLink("Redigera barn", "EditChild", "Admin", new { id = Model.child_id }, null)</p>
+                    <p class="removeMarginBottom">@Html.ActionLink("Redigera barn", "EditChild", "Admin", new { id = Model.child_id }, null) | @Html.ActionLink("Ta bort barn", "DeleteChild", "Admin", new { id = Model.child_id }, null)</p>
                 }
 
 

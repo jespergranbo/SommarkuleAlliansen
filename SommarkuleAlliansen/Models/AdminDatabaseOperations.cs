@@ -50,8 +50,8 @@ namespace SommarkuleAlliansen.Models
             List<caretaker> caretakers = new List<caretaker>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT child.caretaker_id, caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, COUNT(*) " +
-                    "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id GROUP BY caretaker_id";
+                string query = "SELECT caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.caretaker_id, IFNULL(COUNT(child.caretaker_id), 0) AS amountOfChilds FROM caretaker " +
+                    "LEFT JOIN child ON caretaker.caretaker_id = child.caretaker_id GROUP BY caretaker.caretaker_id ORDER BY amountOfChilds DESC";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -68,7 +68,7 @@ namespace SommarkuleAlliansen.Models
                                 caretaker_email = Convert.ToString(sdr["caretaker_email"]),
                                 adress = Convert.ToString(sdr["address"]),
                                 debt = Convert.ToDouble(sdr["debt"]),
-                                count = Convert.ToInt32(sdr["count(*)"])
+                                count = Convert.ToInt32(sdr["amountOfChilds"])
                             });
                         }
                     }
@@ -259,6 +259,40 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void DeleteChild(int id)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM child WHERE child_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void DeleteChildGroup(int id)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM childgrouprelation WHERE child_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
         public long GetLocationIdByGroup (long group_id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -399,6 +433,29 @@ namespace SommarkuleAlliansen.Models
                 }
             }
             return caretaker;
+        }
+        public child FindCaretakerByChild(int id)
+        {
+            child child = new child();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT caretaker_id FROM child WHERE child_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            child.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return child;
         }
         public void UpdateCaretaker(caretaker caretaker)
         {
@@ -637,6 +694,32 @@ namespace SommarkuleAlliansen.Models
                 }
             }
             return groups;
+        }
+        public List<ChildGroupRelation> GetGroupInfoFromChild(int id)
+        {
+            List<ChildGroupRelation> attendedGroups = new List<ChildGroupRelation>();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM childgrouprelation WHERE child_id = @id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@id", id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            attendedGroups.Add(new ChildGroupRelation
+                            {
+                                group_id = Convert.ToInt32(sdr["group_id"])
+                            });
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return attendedGroups;
         }
         public List<groups> GetGroupId(int location_id, int birth)
         {
