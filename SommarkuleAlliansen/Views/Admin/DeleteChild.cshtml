@@ -1,0 +1,101 @@
+﻿@model SommarkuleAlliansen.ViewModel.ChildCaretakerLocationVM
+
+@{
+    ViewBag.Title = "DeleteChild";
+}
+<div class="standardStyle">
+    <h3>Är du säker på att du vill ta bort denna personen?</h3>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            Namn:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            Personnummer:
+        </dt>
+
+        <dd>
+            @String.Format("{0:yyy/MM/dd}", Model.birth_date) - @Html.DisplayFor(model => model.social_security)
+        </dd>
+
+        <dt>
+            Allergier:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.allergy_comment)
+        </dd>
+
+        <dt>
+            Kommentar:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.comment)
+        </dd>
+
+        <dt>
+            Plats:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.location_name)
+        </dd>
+
+        <dt>
+            Simkunnig:
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.can_swim, new { htmlAttributes = new { @class = "form-radio-css", @disabled = "disabled" } })
+        </dd>
+
+        <dt>
+            Tillåt foton:
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.allow_photos, new { htmlAttributes = new { @class = "form-radio-css", @disabled = "disabled" } })
+        </dd>
+
+        <dt>
+            Vaccinerad:
+        </dt>
+
+        <dd>
+            @Html.EditorFor(model => model.vaccinated, new { htmlAttributes = new { @class = "form-radio-css", @disabled = "disabled" } })
+        </dd>
+
+        <dt>
+            Tröjstorlek:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.shirt_size)
+        </dd>
+
+        <dt>
+            Anmälningsdatum
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.registration_date)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <hr />
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-outline-secondary" /> |
+            @Html.ActionLink("Backa", "Child")
+        </div>
+    }
+</div>

@@ -620,6 +620,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Home\Sent.cshtml" />
     <Content Include="Views\Admin\DetailsEmploye.cshtml" />
+    <Content Include="Views\Admin\DeleteChild.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
