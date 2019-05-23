@@ -182,7 +182,7 @@ namespace SommarkuleAlliansen.Controllers
                 }
                 catch (Exception e)
                 {
-                    string message = "Det går inte att redigera anställda, vänligen försök igen. " + e;
+                    string message = "Det går inte att redigera anställda, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
                 }
                 

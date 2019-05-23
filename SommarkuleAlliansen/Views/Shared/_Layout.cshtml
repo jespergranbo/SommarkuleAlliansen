@@ -1,5 +1,13 @@
 ﻿<!DOCTYPE html>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+@if (Convert.ToInt32(Session["employe_type"]) != 1)
+{
+    <style>
+        .hiddenAdmin {
+            display: none;
+        }
+    </style>
+}
 @if (Session["employe_type"] == null)
 {
     <style>
@@ -31,7 +39,7 @@
                     <li class="nav-item first-page">@Html.ActionLink("Hem", "Index", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item second-page">@Html.ActionLink("Anmälan", "Register", "Home", null, new { @class = "nav-link" })</li>
                     <li class="nav-item third-page">@Html.ActionLink("Kontakt", "Contact", "Home", null, new { @class = "nav-link" })</li>
-                    <li class="nav-item dropdown hidden three-items">
+                    <li class="nav-item dropdown hiddenAdmin three-items">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
                             Adminsida
                         </a>
