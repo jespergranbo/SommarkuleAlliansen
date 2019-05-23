@@ -81,5 +81,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        $(window).scroll(function () {
+            var scrolledY = $(window).scrollTop();
+            $('#bg-fixes').css('background-position', 'left ' + ((scrolledY)) + 'px');
+        });
+
+    </script>
 </body>
 </html>
