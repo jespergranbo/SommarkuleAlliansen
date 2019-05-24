@@ -20,7 +20,7 @@ namespace SommarkuleAlliansen.Controllers
 
         public ActionResult Employe()
         {
-            if (Session["employe_id"] != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
             {
                 try
                 {
@@ -41,7 +41,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Caretaker()
         {
-            if (Session["employe_id"] != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
             {
                 try
                 {
@@ -96,7 +96,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Child()
         {
-            if (Session["employe_id"] != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
             {
                 try
                 {
@@ -116,7 +116,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditEmploye(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 employe employe = new employe();
                 List<EmployeGroupLocationVM> employe_locations = new List<EmployeGroupLocationVM>();
@@ -191,7 +191,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteEmploye(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
                 try
@@ -230,7 +230,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DetailsEmploye(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
                 try
@@ -255,7 +255,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult CreateEmploye(bool? exsistingName)
         {
-            if (Session["employe_id"] != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
             {
                 if (exsistingName == true)
                 {
@@ -315,7 +315,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Edit(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 caretaker caretaker = new caretaker();
                 try
@@ -424,7 +424,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteCaretaker(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 caretaker caretaker = new caretaker();
                 try
@@ -463,7 +463,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditChild(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 ChildGroupLocationVM child = new ChildGroupLocationVM();
                 List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
@@ -654,7 +654,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteChild(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
                 try
@@ -708,7 +708,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditInformation(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
             {
                 information information = new information();
                 try
