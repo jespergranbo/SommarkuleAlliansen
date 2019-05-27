@@ -35,7 +35,7 @@
                 <img src="~/Content/images/HSK-logo.png" />
                 <img src="~/Content/images/gavle_kommun.png" />
             </div>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(0).information_id})'>
+            <a class="hiddenAdmin" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(0).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:7px; right: 7px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </center>
@@ -51,7 +51,7 @@
             <h4>Sista anmälningsdatumet</h4>
             <p>@Html.Raw(registerTitle)</p>
             <p>@Html.Raw(registerText)</p>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(1).information_id})'>
+            <a class="hiddenAdmin" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(1).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </div>
@@ -63,7 +63,7 @@
             <h4>Betala senast</h4>
             <p>@Html.Raw(debtTitle)</p>
             <p>@Html.Raw(debtText)</p>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(2).information_id})'>
+            <a class="hiddenAdmin" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(2).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </div>
@@ -75,7 +75,7 @@
             <h4>Sista dag för avbokning</h4>
             <p>@Html.Raw(unRegister)</p>
             <p>@Html.Raw(unRegisterText)</p>
-            <a class="hidden" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(3).information_id})'>
+            <a class="hiddenAdmin" href='@Url.Action("EditInformation", "Admin", new {id = Model.ElementAt(3).information_id})'>
                 <img style="width: 20px; height: 20px; position:absolute; top:5px; right: 5px;" src='@Url.Content("~/Content/images/Editingbtn.png")' />
             </a>
         </div>
