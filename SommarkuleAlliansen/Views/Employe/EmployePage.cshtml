@@ -43,7 +43,12 @@
                         @Html.DisplayFor(modelItem => item.birth_year)
                     </td>
                     <td>
-                        @Html.DisplayFor(ModelItem => item.location_name): @Html.DisplayFor(modelItem => item.weeks)
+                        <span class="hiddenAdmin">
+                            @Html.DisplayFor(ModelItem => item.location_name) : 
+                        </span>
+                        <span>
+                            @Html.DisplayFor(modelItem => item.weeks)
+                        </span>
                     </td>
                     <td>
                         @Html.ActionLink("Visa grupp", "GroupDetails", new { id = item.group_id })
