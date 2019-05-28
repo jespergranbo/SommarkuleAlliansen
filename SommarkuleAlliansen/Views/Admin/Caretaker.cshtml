@@ -46,91 +46,62 @@
             @for (int i = 0; i < Model.Count(); i++)
             {
             <tr>
-                @if (Model.ElementAt(i).debt != 0)
+                <td name="@Model.ElementAt(i).caretaker_name">
+                    @Model[i].caretaker_name
+                    @Html.HiddenFor(m => Model[i].caretaker_name)
+                </td>
+                <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_number">
+                    @Model[i].caretaker_number
+                    @Html.HiddenFor(m => Model[i].caretaker_number)
+                </td>
+                <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_email">
+                    @Model[i].caretaker_email
+                    @Html.HiddenFor(m => Model[i].caretaker_email)
+                </td>
+                <td id="HideFromMobile3" name="@Model.ElementAt(i).adress">
+                    @Model[i].adress
+                    @Html.HiddenFor(m => Model[i].adress)
+                </td>
+                <td id="HideFromMobile" style=" padding-left: 15px;" name="@Model.ElementAt(i).count">
+                    @Model[i].count
+                    @Html.HiddenFor(m => Model[i].count) st
+                </td>
+                @if (Model.ElementAt(i).debt > 0)
                 {
-
-                    <td style="background-color: #ff8080" name="@Model.ElementAt(i).caretaker_name">
-                        @Model[i].caretaker_name
-                        @Html.HiddenFor(m => Model[i].caretaker_name)
+                    <td id="HideFromMobile2" style="color: #ff8080" name="@Model.ElementAt(i).debt">
+                        <b>
+                            @Model[i].debt
+                            @Html.HiddenFor(m => Model[i].debt):-
+                        </b>
                     </td>
-                    <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_number" style="background-color: #ff8080">
-                        @Model[i].caretaker_number
-                        @Html.HiddenFor(m => Model[i].caretaker_number)
-                    </td>
-                    <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_email" style="background-color: #ff8080">
-                        @Model[i].caretaker_email
-                        @Html.HiddenFor(m => Model[i].caretaker_email)
-                    </td>
-                    <td id="HideFromMobile3" style="background-color: #ff8080" name="@Model.ElementAt(i).adress">
-                        @Model[i].adress
-                        @Html.HiddenFor(m => Model[i].adress)
-                    </td>
-                    <td id="HideFromMobile" style=" padding-left: 15px; background-color: #ff8080" name="@Model.ElementAt(i).count">
-                        @Model[i].count
-                        @Html.HiddenFor(m => Model[i].count) st
-                    </td>
-                    <td id="HideFromMobile2" style="background-color: #ff8080" name="@Model.ElementAt(i).debt">
-                        @Model[i].debt
-                        @Html.HiddenFor(m => Model[i].debt):-
-                    </td>
-                    <td style=" padding-left: 40px; padding-top: 0; padding-bottom: 0; background-color: #ff8080" name="@Model.ElementAt(i).selectedForEmail">
+                    <td style=" padding-left: 40px; padding-top: 0; padding-bottom: 0;" name="@Model.ElementAt(i).selectedForEmail">
                         @Html.CheckBoxFor(m => Model[i].selectedForEmail, new { @class = "form-radio-css" })
                     </td>
-                    if (Model.ElementAt(i).count > 0)
-                    {
-                        <td style="background-color: #ff8080">
-
-                            @Html.ActionLink("Visa mer", "Details", new { id = Model.ElementAt(i).caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
-                        </td>
-                    }
-                    else
-                    {
-                        <td style="background-color: #ff8080">
-                            @Html.ActionLink("Ta bort", "DeleteCaretaker", new { id = Model.ElementAt(i).caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
-                        </td>
-                    }
                 }
                 else
                 {
-                    <td style="background-color: #53c653" name="@Model.ElementAt(i).caretaker_name">
-                        @Model[i].caretaker_name
-                        @Html.HiddenFor(m => Model[i].caretaker_name)
+                    <td id="HideFromMobile2" style="color: #53c653" name="@Model.ElementAt(i).debt">
+                        <b>
+                            @Model[i].debt
+                            @Html.HiddenFor(m => Model[i].debt):-
+                        </b>
                     </td>
-                    <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_number" style="background-color: #53c653">
-                        @Model[i].caretaker_number
-                        @Html.HiddenFor(m => Model[i].caretaker_number)
+                    <td style=" padding-left: 40px; padding-top: 0; padding-bottom: 0;" name="@Model.ElementAt(i).selectedForEmail">
+                        @Html.CheckBoxFor(m => Model[i].selectedForEmail, new { @class = "form-radio-css", @disabled = "disabled"})
                     </td>
-                    <td id="HideFromMobile4" style="background-color: #53c653" name="@Model.ElementAt(i).caretaker_email">
-                        @Model[i].caretaker_email
-                        @Html.HiddenFor(m => Model[i].caretaker_email)
-                    </td>
-                    <td id="HideFromMobile3" style="background-color: #53c653" name="@Model.ElementAt(i).adress">
-                        @Model[i].adress
-                        @Html.HiddenFor(m => Model[i].adress)
-                    </td>
-                    <td id="HideFromMobile" style="background-color: #53c653" name="@Model.ElementAt(i).count">
-                        @Model[i].count
-                        @Html.HiddenFor(m => Model[i].count)
-                    </td>
-                    <td id="HideFromMobile2" style="background-color: #53c653" name="@Model.ElementAt(i).caretaker_email">
-                        @Model[i].debt
-                        @Html.HiddenFor(m => Model[i].debt):-
-                    </td>
-                    <td style="background-color: #53c653"></td>
+                }
+                @if (Model.ElementAt(i).count > 0)
+                {
+                    <td>
 
-                    if (Model.ElementAt(i).count > 0)
-                    {
-                        <td style="background-color: #53c653">
-
-                            @Html.ActionLink("Visa mer", "Details", new { id = Model.ElementAt(i).caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
-                        </td>
-                    }
-                    else
-                    {
-                        <td style="background-color: #53c653">
-                            @Html.ActionLink("Ta bort", "DeleteCaretaker", new { id = Model.ElementAt(i).caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
-                        </td>
-                    }
+                        @Html.ActionLink("Visa mer", "Details", new { id = Model.ElementAt(i).caretaker_id, justSentMessage = justSentMessage }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.ActionLink("Ta bort", "DeleteCaretaker", new { id = Model.ElementAt(i).caretaker_id }) | @Html.ActionLink("Redigera", "Edit", new { id = Model.ElementAt(i).caretaker_id })
+                    </td>
                 }
             </tr>
             }
