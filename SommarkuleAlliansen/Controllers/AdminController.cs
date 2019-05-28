@@ -32,7 +32,6 @@ namespace SommarkuleAlliansen.Controllers
                     string message = "Det går inte att hämta anställda, vänligen försök igen.";
                     return RedirectToAction("Error","Home", new { message = message });
                 }
-                
             }
             else
             {
@@ -65,13 +64,18 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
+                int year = DateTime.Now.Year;
                 for (int i = 0; i < caretakers.Count; i++)
                 {
                     if (caretakers[i].selectedForEmail == true)
                     {
                         try
                         {
-                            var body = "Hej " + caretakers[i].caretaker_name + "! Du har fortfarande inte betalat din skuld på " + caretakers[i].debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
+                            var body = "<p>Hej " + caretakers[i].caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + caretakers[i].debt + " kr betalas till sommarkulans bankgiro 273984</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                                "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
+                                "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
+                                "<b>Med vänliga hälsningar<br/>" +
+                                "Sommarkulealliansen</b></p>";
                             var message = new MailMessage();
                             message.To.Add(new MailAddress(caretakers[i].caretaker_email));
                             message.From = new MailAddress("sommarkulan@outlook.com");
@@ -398,7 +402,12 @@ namespace SommarkuleAlliansen.Controllers
             {
                 try
                 {
-                    var body = "Hej " + caretaker_name + "! Du har fortfarande inte betalat din skuld på " + debt + ":- vänligen gör detta så snart som möjligt. Mvh Sommarkulan";
+                    int year = DateTime.Now.Year;
+                    var body = "<p>Hej " + caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + debt + " kr betalas till sommarkulans bankgiro 273984</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                                "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
+                                "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
+                                "<b>Med vänliga hälsningar<br/>" +
+                                "Sommarkulealliansen</b></p>";
                     var message = new MailMessage();
                     message.To.Add(new MailAddress(caretaker_email));
                     message.From = new MailAddress("sommarkulan@outlook.com");
