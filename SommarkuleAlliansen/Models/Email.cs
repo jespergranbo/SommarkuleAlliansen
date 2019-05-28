@@ -10,7 +10,9 @@ namespace SommarkuleAlliansen.Models
     {
         [Required(ErrorMessage = "Du måste ange ditt namn.")]
         public string FromName { get; set; }
+        [Display(Name = "Email address")]
         [Required(ErrorMessage = "Du måste ange din epostadress.")]
+        [EmailAddress(ErrorMessage = "Du måste ange en korrekt email.")]
         public string FromEmail { get; set; }
         [Required(ErrorMessage = "Du måste ange ett ämne.")]
         public string Subject { get; set; }
