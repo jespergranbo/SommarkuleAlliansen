@@ -31,10 +31,10 @@
                         <th style="border:none;">
                             För- och Efternamn
                         </th>
-                        <th style="border:none;">
+                        <th id="HideFromMobile" style="border:none;">
                             Kommentar
                         </th>
-                        <th style="border:none;">
+                        <th id="HideFromMobile" style="border:none;">
                             Födelsedatum
                         </th>
                         <th style="border:none;">
@@ -57,10 +57,10 @@
                         <td>
                             @Html.ActionLink(Model[i].name, "DetailsChild", "Admin", new { id = Model[i].child_id }, null)
                         </td>
-                        <td>
+                        <td id="HideFromMobile">
                             @Html.DisplayFor(modelItem => Model[i].comment)
                         </td>
-                        <td>
+                        <td id="HideFromMobile">
                             @String.Format("{0:yyyy/MM/dd}", Model[i].birth_date)
                         </td>
                         <td style=" padding-left: 40px; padding-top: 0; padding-bottom: 0;" name="@Model[i].present">
