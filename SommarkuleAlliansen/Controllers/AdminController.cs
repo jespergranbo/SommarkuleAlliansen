@@ -373,6 +373,10 @@ namespace SommarkuleAlliansen.Controllers
                     string employe_type = Convert.ToString(Session["employe_type"]);
                     ViewBag.Item = employe_type;
                     caretakerDetails = operations.GetCaretakerDetails(id);
+                    if (caretakerDetails.Count == 0)
+                    {
+                        return RedirectToAction("Caretaker", "Admin");
+                    }
                 }
                 catch (Exception)
                 {
