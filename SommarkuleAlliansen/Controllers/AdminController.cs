@@ -120,7 +120,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditEmploye(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 employe employe = new employe();
                 List<EmployeGroupLocationVM> employe_locations = new List<EmployeGroupLocationVM>();
@@ -196,7 +196,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteEmploye(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
                 try
@@ -225,6 +225,10 @@ namespace SommarkuleAlliansen.Controllers
             try
             {
             operations.DeleteEmploye(id);
+            if (Convert.ToInt32(Session["employe_id"]) == id)
+            {
+                return RedirectToAction("Logout", "Employe");
+            }
             return RedirectToAction("Employe");
             }
             catch (Exception)
@@ -235,7 +239,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DetailsEmploye(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
                 try
@@ -320,7 +324,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Edit(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 caretaker caretaker = new caretaker();
                 try
@@ -366,7 +370,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult Details(int? id, bool? justSentMessage)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Session["employe_id"] != null && id != null)
             {
                 List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
                 try
@@ -438,7 +442,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteCaretaker(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 caretaker caretaker = new caretaker();
                 try
@@ -477,7 +481,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditChild(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 ChildGroupLocationVM child = new ChildGroupLocationVM();
                 List<ChildGroupLocationVM> childGroup = new List<ChildGroupLocationVM>();
@@ -641,7 +645,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DetailsChild(int? id)
         {
-            if (Session["employe_id"] != null || id != null)
+            if (Session["employe_id"] != null && id != null)
             {
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
                 try
@@ -668,7 +672,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult DeleteChild(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 ChildCaretakerLocationVM childDetails = new ChildCaretakerLocationVM();
                 try
@@ -722,7 +726,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult EditInformation(int? id)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1 || id != null)
+            if (Convert.ToInt32(Session["employe_type"]) == 1 && id != null)
             {
                 information information = new information();
                 try
