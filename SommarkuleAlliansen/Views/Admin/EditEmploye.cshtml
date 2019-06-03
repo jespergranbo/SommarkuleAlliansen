@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Redigera anställd";
-    int objects = Model.Count - 1;
+    int lastIndex = Model.Count - 1;
 }
 
 @using (Html.BeginForm())
@@ -12,10 +12,10 @@
         <div class="form-horizontal">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group removeDisplay">
-                @Html.LabelFor(model => Model.ElementAt(objects).employe_id, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => Model.ElementAt(lastIndex).employe_id, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).employe_id, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).employe_id, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).employe_id, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).employe_id, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -30,40 +30,48 @@
             <div class="form-group">
                 <label class="paddingLeft">Namn:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).name, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).name, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).name, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).name, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Nummer (+46):</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).number, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).number, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).number, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).number, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="paddingLeft">Epost:</label>
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).email, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).email, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Postnummer:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).post_number, new { htmlAttributes = new { @class = "form-control", @maxlength = "5", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).post_number, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).post_number, new { htmlAttributes = new { @class = "form-control", @maxlength = "5", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).post_number, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Adress:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).adress, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).adress, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).adress, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).adress, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Lösenord:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).password, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).password, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).password, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).password, "", new { @class = "text-danger" })
                 </div>
             </div>
 
@@ -71,7 +79,7 @@
                 <label class="paddingLeft">Ledare för plats och årsgrupp:</label>
                 <div class="col-md-10">
                     <select style="width: 100%;" id="locations" name="group_id">
-                        @for (int i = 0; i < objects; i++)
+                        @for (int i = 0; i < lastIndex; i++)
                         {
                             <option value="@Model.ElementAt(i).group_id">Plats: @Model.ElementAt(i).location_name. Årsgrupp: @Model.ElementAt(i).birth_year</option>
                         }
@@ -83,8 +91,8 @@
                 <label class="paddingLeft">Skatta:</label>
                 <div class="col-md-10">
                     <div class="checkbox">
-                        @Html.EditorFor(model => Model.ElementAt(objects).tax, new { htmlAttributes = new { @class = "form-radio-css", @name = "can_swim" } })
-                        @Html.ValidationMessageFor(model => Model.ElementAt(objects).tax, "", new { @class = "text-danger" })
+                        @Html.EditorFor(model => Model.ElementAt(lastIndex).tax, new { htmlAttributes = new { @class = "form-radio-css", @name = "can_swim" } })
+                        @Html.ValidationMessageFor(model => Model.ElementAt(lastIndex).tax, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
@@ -92,46 +100,46 @@
             <div class="form-group">
                 <label class="paddingLeft">Bank:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).bank, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).bank, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).bank, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).bank, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Clearing:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).clearing, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).clearing, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).clearing, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).clearing, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Banknummer:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).account_number, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).account_number, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).account_number, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).account_number, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Tröjstorlek:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).shirt_size, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).shirt_size, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).shirt_size, new { htmlAttributes = new { @class = "form-control", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).shirt_size, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="paddingLeft">Sista fyra i personnummer:</label>
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ElementAt(objects).social_security, new { htmlAttributes = new { @class = "form-control", @maxlength = "4", @required = "requred" } })
-                    @Html.ValidationMessageFor(model => model.ElementAt(objects).social_security, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.ElementAt(lastIndex).social_security, new { htmlAttributes = new { @class = "form-control", @maxlength = "4", @required = "requred" } })
+                    @Html.ValidationMessageFor(model => model.ElementAt(lastIndex).social_security, "", new { @class = "text-danger" })
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-outline-secondary" />
+                    <input type="submit" value="Spara" class="btn btn-outline-secondary" /> | <a class="removeMarginBottom">@Html.ActionLink("Ta bort", "DeleteEmploye", "Admin", new { id = Model.ElementAt(lastIndex).employe_id }, null)</a>
                 </div>
             </div>
         </div>
@@ -142,12 +150,12 @@
     window.onload = onPageLoad();
 
     function onPageLoad() {
-        if (@Model.ElementAt(objects).employe_type == 1) {
+        if (@Model.ElementAt(lastIndex).employe_type == 1) {
             document.getElementById("admincheck").checked = true;
         }
         else {
             document.getElementById("employecheck").checked = true;
         }
-        document.getElementById("locations").value = @Model.ElementAt(objects).group_id;
+        document.getElementById("locations").value = @Model.ElementAt(lastIndex).group_id;
     }
 </script>

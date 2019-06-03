@@ -41,6 +41,10 @@ namespace SommarkuleAlliansen.Controllers
             ViewBag.Message = message;
             return View();
         }
+        public ActionResult Error404()
+        {
+            return View();
+        }
         public ActionResult Register()
         {
             List<location> locations = new List<location>();

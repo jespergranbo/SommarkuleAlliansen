@@ -34,5 +34,6 @@ namespace SommarkuleAlliansen.ViewModel
         public string shirt_size { get; set; }
         public int social_security { get; set; }
         public string adress { get; set; }
+        public string email { get; set; }
     }
 }

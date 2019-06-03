@@ -23,7 +23,5 @@ namespace SommarkuleAlliansen.Models
         public int account_number { get; set; }
         public string shirt_size { get; set; }
         public int social_security { get; set; }
-
-
     }
 }

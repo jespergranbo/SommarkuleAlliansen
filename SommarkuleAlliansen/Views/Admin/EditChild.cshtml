@@ -128,7 +128,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Spara" class="btn btn-outline-secondary" />
+                    <input type="submit" value="Spara" class="btn btn-outline-secondary" /> | <a class="removeMarginBottom">@Html.ActionLink("Ta bort", "DeleteChild", "Admin", new { id = Model.ElementAt(lastIndex).child_id }, null)</a>
                 </div>
             </div>
         </div>

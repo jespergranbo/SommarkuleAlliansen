@@ -21,8 +21,10 @@
                 {
                     <p>Ledare</p>
                 }
-                <b style="margin-bottom: 0px;">Nummer:</b>
+                <b style="margin-bottom: 0px;">Nummer (+46):</b>
                 <p>@Html.DisplayFor(model => model.number)</p>
+                <b style="margin-bottom: 0px;">Epost:</b>
+                <p>@Html.DisplayFor(model => model.email)</p>
                 <b style="margin-bottom: 0px;">Adress:</b>
                 <p>@Html.DisplayFor(model => model.adress)</p>
                 <b style="margin-bottom: 0px;">Postnmr:</b>
@@ -32,10 +34,10 @@
                 <b style="margin-bottom: 0px;">Tröjstorlek:</b>
                 <p>@Html.DisplayFor(model => model.shirt_size)</p>
                 <hr />
-                <p style="margin-bottom: 0px;">
+                <a style="margin-bottom: 0px;">
                     @Html.ActionLink("Redigera", "EditEmploye", new { id = Model.employe_id }) |
                     @Html.ActionLink("Ta bort", "DeleteEmploye", new { id = Model.employe_id })
-                </p>
+                </a>
             </div>
             <div class="box detailsChild">
                 <h4>Personuppgifter</h4>
@@ -63,7 +65,7 @@
                 <b style="margin-bottom: 0px;">Clearingnmr:</b>
                 <p>@Html.DisplayFor(model => model.clearing)</p>
             </div>
-            <div style="margin-top: 5%; opacity: 0.9;" class="clearfix">
+            </div>
 </dl>
 </div>
 

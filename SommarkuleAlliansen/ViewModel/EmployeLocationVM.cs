@@ -12,7 +12,15 @@ namespace SommarkuleAlliansen.ViewModel
         public string name { get; set; }
         public int number { get; set; }
         public string password { get; set; }
-        public int group_id { get; set; }
+        public int post_number { get; set; }
+        public bool tax { get; set; }
+        public string bank { get; set; }
+        public int clearing { get; set; }
+        public int account_number { get; set; }
+        public string shirt_size { get; set; }
+        public int social_security { get; set; }
+        public string adress { get; set; }
+        public string email { get; set; }
 
         public int location_id { get; set; }
         public string location_name { get; set; }

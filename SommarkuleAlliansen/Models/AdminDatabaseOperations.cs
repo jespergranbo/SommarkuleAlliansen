@@ -143,6 +143,7 @@ namespace SommarkuleAlliansen.Models
                             employe.shirt_size = Convert.ToString(sdr["shirt_size"]);
                             employe.social_security = Convert.ToInt32(sdr["social_security"]);
                             employe.address = Convert.ToString(sdr["adress"]);
+                            employe.email = Convert.ToString(sdr["email"]);
                         }
                     }
                     con.Close();
@@ -155,7 +156,7 @@ namespace SommarkuleAlliansen.Models
             EmployeGroupLocationVM employe = new EmployeGroupLocationVM();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT employe.employe_id, employe.employe_type, employe.name, employe.number, employe.password, employe.post_number, employe.tax, employe.bank, employe.clearing, employe.account_number, employe.shirt_size, employe.social_security, employe.adress, location.location_name, groups.birth_year FROM employe " +
+                string query = "SELECT employe.employe_id, employe.email, employe.employe_type, employe.name, employe.number, employe.password, employe.post_number, employe.tax, employe.bank, employe.clearing, employe.account_number, employe.shirt_size, employe.social_security, employe.adress, location.location_name, groups.birth_year FROM employe " +
                     "INNER JOIN location ON employe.location_id = location.location_id INNER JOIN groups ON employe.group_id = groups.group_id WHERE employe_id = @id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
@@ -169,6 +170,7 @@ namespace SommarkuleAlliansen.Models
                             employe.employe_id = Convert.ToInt32(sdr["employe_id"]);
                             employe.employe_type = Convert.ToInt32(sdr["employe_type"]);
                             employe.name = Convert.ToString(sdr["name"]);
+                            employe.email = Convert.ToString(sdr["email"]);
                             employe.number = Convert.ToInt32(sdr["number"]);
                             employe.password = Convert.ToString(sdr["password"]);
                             employe.post_number = Convert.ToInt32(sdr["post_number"]);
@@ -211,11 +213,11 @@ namespace SommarkuleAlliansen.Models
             }
             return false;
         }
-        public void UpdateEmploye(int employe_id, string adress, long location_id, int employe_type, string name, int number, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
+        public void UpdateEmploye(int employe_id, string adress, long location_id, int employe_type, string name, int number, string email, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "UPDATE employe SET name = @name, adress = @adress, employe_type = @employe_type, number = @number, password = @password, group_id = @group_id, location_id = @location_id, post_number = @post_number, tax = @tax, bank = @bank, clearing = @clearing, account_number = @account_number, shirt_size = @shirt_size, social_security = @social_security WHERE employe_id = @id;";
+                string query = "UPDATE employe SET name = @name, email = @email, adress = @adress, employe_type = @employe_type, number = @number, password = @password, group_id = @group_id, location_id = @location_id, post_number = @post_number, tax = @tax, bank = @bank, clearing = @clearing, account_number = @account_number, shirt_size = @shirt_size, social_security = @social_security WHERE employe_id = @id;";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -223,6 +225,7 @@ namespace SommarkuleAlliansen.Models
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@employe_type", employe_type);
                     cmd.Parameters.AddWithValue("@number", number);
+                    cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@password", password);
                     cmd.Parameters.AddWithValue("@group_id", group_id);
                     cmd.Parameters.AddWithValue("@adress", adress);
@@ -391,16 +394,17 @@ namespace SommarkuleAlliansen.Models
             }
             return locations;
         }
-        public void AddEmploye (string name, string adress, int employe_type, int number, string password, int group_id, long location_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
+        public void AddEmploye (string name, string adress, string email, int employe_type, int number, string password, int group_id, long location_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "INSERT INTO employe (employe_id, name, adress, employe_type, number, password, group_id, location_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security) VALUES (NULL, @name, @adress, @employe_type, @number, @password, @group_id, @location_id, @post_number, @tax, @bank, @clearing, @account_number, @shirt_size, @social_security)";
+                string query = "INSERT INTO employe (employe_id, name, adress, email, employe_type, number, password, group_id, location_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security) VALUES (NULL, @name, @adress, @email, @employe_type, @number, @password, @group_id, @location_id, @post_number, @tax, @bank, @clearing, @account_number, @shirt_size, @social_security)";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@name", name);
                     cmd.Parameters.AddWithValue("@adress", adress);
+                    cmd.Parameters.AddWithValue("@email", email);
                     cmd.Parameters.AddWithValue("@employe_type", employe_type);
                     cmd.Parameters.AddWithValue("@number", number);
                     cmd.Parameters.AddWithValue("@password", password);

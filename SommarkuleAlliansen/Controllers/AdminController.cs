@@ -144,7 +144,8 @@ namespace SommarkuleAlliansen.Controllers
                         clearing = employe.clearing,
                         account_number = employe.account_number,
                         shirt_size = employe.shirt_size,
-                        social_security = employe.social_security
+                        social_security = employe.social_security,
+                        email = employe.email
                     });
                 }
                 catch (Exception)
@@ -165,7 +166,7 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditEmploye(int employe_id, int employe_type, string name, int number, string adress, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
+        public ActionResult EditEmploye(int employe_id, int employe_type, string name, int number, string email, string adress, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
         {
             if (ModelState.IsValid)
             {
@@ -173,7 +174,7 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     long location_id = operations.GetLocationIdByGroup(group_id);
                     location_id = Convert.ToInt32(location_id);
-                    operations.UpdateEmploye(employe_id, adress, location_id, employe_type, name, number, password, group_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security);
+                    operations.UpdateEmploye(employe_id, adress, location_id, employe_type, name, number, email, password, group_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security);
                     if (employe_id == Convert.ToInt32(Session["employe_id"]))
                     {
                         Session["employe_id"] = employe_id.ToString();
@@ -291,7 +292,7 @@ namespace SommarkuleAlliansen.Controllers
             }
         }
         [HttpPost]
-        public ActionResult CreateEmploye(int employe_type, string adress, string name, int number, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
+        public ActionResult CreateEmploye(int employe_type, string adress, string name, string email, int number, string password, int group_id, int post_number, bool tax, string bank, int clearing, int account_number, string shirt_size, int social_security)
         {
             if (ModelState.IsValid)
             {
@@ -301,7 +302,7 @@ namespace SommarkuleAlliansen.Controllers
                     if (exsistingName == false)
                     {
                         long location_id = operations.GetLocationIdByGroup(group_id);
-                        operations.AddEmploye(name, adress, employe_type, number, password, group_id, location_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security);
+                        operations.AddEmploye(name, adress, email, employe_type, number, password, group_id, location_id, post_number, tax, bank, clearing, account_number, shirt_size, social_security);
                         return RedirectToAction("Employe");
                     }
                     else

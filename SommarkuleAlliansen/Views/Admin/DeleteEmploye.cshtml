@@ -3,140 +3,72 @@
 @{
     ViewBag.Title = "Ta bort anställd";
 }
-<div class="standardStyle">
-    <h3>Är du säker på att du vill ta bort denna personen?</h3>
     <div>
-        <hr />
         <dl class="dl-horizontal">
-            <dt>
-                Namn:
-            </dt>
+            <div style="margin-top: 5%; opacity: 0.9;" class="clearfix">
+                <div class="box detailsChild">
+                    <h4>Är du säker på att du vill ta bort denna personen?</h4>
+                    <hr />
+                    <b style="margin-bottom: 0px;">Namn:</b>
+                    <p>@Html.DisplayFor(model => model.name)</p>
+                    <b style="margin-bottom: 0px;">Anställningstyp (+46):</b>
+                    @if (Model.employe_type == 1)
+                    {
+                        <p>Admin</p>
+                    }
+                    else
+                    {
+                        <p>Ledare</p>
+                    }
+                    <b style="margin-bottom: 0px;">Nummer (+46):</b>
+                    <p>@Html.DisplayFor(model => model.number)</p>
+                    <b style="margin-bottom: 0px;">Epost:</b>
+                    <p>@Html.DisplayFor(model => model.email)</p>
+                    <b style="margin-bottom: 0px;">Adress:</b>
+                    <p>@Html.DisplayFor(model => model.adress)</p>
+                    <b style="margin-bottom: 0px;">Postnmr:</b>
+                    <p>@Html.DisplayFor(model => model.post_number)</p>
+                    <b style="margin-bottom: 0px;">Lösenord:</b>
+                    <p>@Html.DisplayFor(model => model.password)</p>
+                    <b style="margin-bottom: 0px;">Tröjstorlek:</b>
+                    <p>@Html.DisplayFor(model => model.shirt_size)</p>
+                    <hr />
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
 
-            <dd>
-                @Html.DisplayFor(model => model.name)
-            </dd>
-
-            <dt>
-                Anställningstyp:
-            </dt>
-            @if (Model.employe_type == 1)
-            {
-                <dd>
-                    Admin
-                </dd>
-            }
-            else
-            {
-                <dd>
-                    Ledare
-                </dd>
-            }
-
-            <dt>
-                Nummer:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.number)
-            </dd>
-
-            <dt>
-                Adress:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.adress)
-            </dd>
-
-            <dt>
-                Postnummer:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.post_number)
-            </dd>
-
-            <dt>
-                Lösenord:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.password)
-            </dd>
-
-            <dt>
-                Anställningsplats:
-            </dt>
-
-            <dt>
-                Tröjstorlek:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.shirt_size)
-            </dd>
-
-            <dt>
-                Sista fyra:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.social_security)
-            </dd>
-
-            <dd>
-                @Html.DisplayFor(model => model.location_name)
-            </dd>
-
-            <dt>
-                Ledare för årsgrupp:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.birth_year)
-            </dd>
-
-            <dt>
-                Skatta:
-            </dt>
-
-            <dd>
-                @Html.EditorFor(model => model.tax, new { htmlAttributes = new { @class = "form-radio-css", @disabled = "disabled" } })
-            </dd>
-
-            <dt>
-                Bank:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.bank)
-            </dd>
-
-            <dt>
-                Clearingnummer:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.clearing)
-            </dd>
-
-            <dt>
-                Banknummer:
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.account_number)
-            </dd>
-            <hr />
-
-            @using (Html.BeginForm())
-            {
-                @Html.AntiForgeryToken()
-
-                <div class="form-actions no-color">
-                    <input type="submit" value="Ja" class="btn btn-outline-secondary" style="width: 45px;" />
+                    <div class="form-actions no-color" style="margin-bottom: 0px;">
+                        <input type="submit" value="Ja" class="btn btn-outline-secondary" style="width: 45px;" /> | <a class="removeMarginBottom">@Html.ActionLink("Backa", "Employe", "Admin")</a>
+                    </div>
+                    }
                 </div>
-            }
-            @Html.ActionLink("Backa", "Employe")
-</div>
-</div>
+                <div class="box detailsChild">
+                    <h4>Personuppgifter</h4>
+                    <hr />
+                    <b style="margin-bottom: 0px;">Sista fyra:</b>
+                    <p>@Html.DisplayFor(model => model.social_security)</p>
+                    <b style="margin-bottom: 0px;">Bank:</b>
+                    <p>@Html.DisplayFor(model => model.bank)</p>
+                    <b style="margin-bottom: 0px;">Banknmr:</b>
+                    <p>@Html.DisplayFor(model => model.account_number)</p>
+                    <b style="margin-bottom: 0px;">Skatta:</b>
+                    <p>@Html.EditorFor(model => model.tax, new { htmlAttributes = new { @class = "form-radio-css", @disabled = "disabled" } })</p>
+                    <b style="margin-bottom: 0px;">Clearingnmr:</b>
+                    <p>@Html.DisplayFor(model => model.clearing)</p>
+                </div>
+                <div class="box specialStyle" style="border-radius: 5px; background-color:white;">
+                    <h4>Föreningsinformation</h4>
+                    <hr />
+                    <b style="margin-bottom: 0px;">Anställningsplats:</b>
+                    <p>@Html.DisplayFor(model => model.location_name)</p>
+                    <b style="margin-bottom: 0px;">Ledare för årsgrupp:</b>
+                    <p>@Html.DisplayFor(model => model.birth_year)</p>
+                    <b style="margin-bottom: 0px;">Banknmr:</b>
+                    <p>@Html.DisplayFor(model => model.account_number)</p>
+                    <b style="margin-bottom: 0px;">Clearingnmr:</b>
+                    <p>@Html.DisplayFor(model => model.clearing)</p>
+                </div>
+            </div>
+        </dl>
+
+    </div>
