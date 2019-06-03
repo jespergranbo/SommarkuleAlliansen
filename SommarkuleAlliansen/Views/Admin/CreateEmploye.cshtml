@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group">
-            <label class="paddingLeft">Nummer</label>
+            <label class="paddingLeft">Telnmr:</label>
             <div class="col-md-10">
                 @Html.EditorFor(model => Model.ElementAt(0).number, new { htmlAttributes = new { @class = "form-control", @name = "number", @required = "required" } })
                 @Html.ValidationMessageFor(model => Model.ElementAt(0).number, "", new { @class = "text-danger" })
