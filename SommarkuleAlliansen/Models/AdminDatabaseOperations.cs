@@ -455,6 +455,29 @@ namespace SommarkuleAlliansen.Models
             }
             return caretaker;
         }
+        public caretaker FindCaretakerIDThroughOcr(int? ocr_number)
+        {
+            caretaker caretaker = new caretaker();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM caretaker WHERE ocr_number = @ocr_number";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@ocr_number", ocr_number);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            caretaker.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return caretaker;
+        }
         public child FindCaretakerByChild(int id)
         {
             child child = new child();
@@ -502,6 +525,7 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        
         public void UpdateCaretakerDebt(int caretaker_id, int debt)
         {
             using (MySqlConnection con = new MySqlConnection(constr))

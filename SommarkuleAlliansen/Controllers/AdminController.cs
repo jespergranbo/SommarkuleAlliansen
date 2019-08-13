@@ -45,6 +45,7 @@ namespace SommarkuleAlliansen.Controllers
                 try
                 {
                     List<caretaker> caretakers = operations.GetAllCaretakers();
+
                     return View(caretakers);
                 }
                 catch (Exception)
@@ -57,6 +58,64 @@ namespace SommarkuleAlliansen.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+        public ActionResult RegisterPayment(bool? success)
+        {
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
+            {
+                try
+                {
+                    if (success == true)
+                    {
+                        ViewData["success"] = "Betalningen har registrerats!";
+                    }
+                    else if (success == false)
+                    {
+                        ViewData["error"] = "Det angivna OCR numret finns inte.";
+                    }
+                    return View();
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hämta sidan just nu, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RegisterPayment(int ocr_number, int amount)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    caretaker caretaker = new caretaker();
+                    caretaker = operations.FindCaretakerIDThroughOcr(ocr_number);
+                    if (caretaker.caretaker_id == 0)
+                    {
+                        bool success = false;
+                        return RedirectToAction("RegisterPayment", "Admin", new { success = success });
+                    }
+                    else
+                    {
+                        operations.DecreaseCaretakerDebt(caretaker.caretaker_id, amount);
+                        bool success = true;
+                        return RedirectToAction("RegisterPayment", "Admin", new { success = success });
+                    }
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att registrera betalningen just nu, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+            }
+            return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

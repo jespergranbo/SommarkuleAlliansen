@@ -17,6 +17,7 @@ namespace SommarkuleAlliansen.Models
         public double debt { get; set; }
         public double paid { get; set; }
         public int count { get; set; }
+        public int ocr_number { get; set; }
         public bool selectedForEmail { get; set; }
     }
 }

@@ -75,6 +75,7 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     try
                     {
+                        int ocr_number = 0;
                         caretaker_id = operations.SearchForExistingCaretaker(caretakerEmail);
                         selectedLocation = operations.GetLocationInformation(location_id);
                         groups = operations.GetGroupId(location_id, birth);
@@ -82,14 +83,24 @@ namespace SommarkuleAlliansen.Controllers
                         if (caretaker_id != 0)
                         {
                             operations.UpdateCaretakerDebt(caretaker_id, selectedLocation.price);
+                            ocr_number = operations.GetCaretakerOCR(caretaker_id);
                         }
                         if (caretaker_id == 0)
                         {
-                            caretaker_id = operations.AddCaretaker(caretakerName, caretakerNumber, caretakerEmail, caretakerAddress, altName, altNumber, selectedLocation.price);
+                            for (int i = 0; i <= 999999; i++)
+                            {
+                                ocr_number = GenerateOCR();
+                                caretaker caretaker = operations.CheckIfOCRIsInUse(ocr_number);
+                                if (caretaker.caretaker_id == 0)
+                                {
+                                    i = 999999;
+                                }
+                            }
+                            caretaker_id = operations.AddCaretaker(caretakerName, caretakerNumber, caretakerEmail, caretakerAddress, altName, altNumber, selectedLocation.price, ocr_number);
                         }
                         child_id = operations.AddChild(child_name, comment, caretaker_id, CanSwim, birth, allowPhoto, isVaccinated, shirtSize, location_id, registration_date, social_security, allergy_comment);
                         operations.AddToGroup(groups, child_id);
-                        return RedirectToAction("OrderConfermation", new { caretakerEmail, caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name, selectedLocation.location_email,selectedLocation.location_number, birth, shirtSize, CanSwim, allowPhoto, isVaccinated, allergy_comment, comment, caretakerAddress, caretakerNumber, altName, altNumber, selectedLocation.weeks });
+                        return RedirectToAction("OrderConfermation", new { caretakerEmail, caretakerName, child_name, selectedLocation.price, selectedLocation.start_date, selectedLocation.end_date, selectedLocation.location_name, selectedLocation.location_email,selectedLocation.location_number, birth, shirtSize, CanSwim, allowPhoto, isVaccinated, allergy_comment, comment, caretakerAddress, caretakerNumber, altName, altNumber, selectedLocation.weeks, ocr_number });
                     }
                     catch (Exception)
                     {
@@ -100,6 +111,12 @@ namespace SommarkuleAlliansen.Controllers
                 }
             }
             return View();
+        }
+        public int GenerateOCR()
+        {
+            Random random = new Random();
+            int ocr_number = random.Next(100000, 999999);
+            return ocr_number;
         }
         public string CheckIfTrue(bool check)
         {
@@ -114,7 +131,7 @@ namespace SommarkuleAlliansen.Controllers
             }
             return result;
         }
-        public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name, string location_email, int location_number, DateTime birth,string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string allergy_comment, string comment, string caretakerAddress, int caretakerNumber, string altName, int altNumber, string weeks)
+        public async Task<ActionResult> OrderConfermation(string caretakerEmail, string caretakerName, string child_name, int price, DateTime start_date, DateTime end_date, string location_name, string location_email, int location_number, DateTime birth,string shirtSize, bool CanSwim, bool allowPhoto, bool isVaccinated, string allergy_comment, string comment, string caretakerAddress, int caretakerNumber, string altName, int altNumber, string weeks, int ocr_number)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +140,7 @@ namespace SommarkuleAlliansen.Controllers
                 var body = "<p>Hej " + caretakerName + "!<br/>Här är BEKRÄFTELSEN på din anmälan till Sommarkulan! Följande uppgifter om dig har registrerats.</p> <p>Observera att eftersom det inte går att besvara detta mail så måste du om du har frågor eller vill ändra något kontakta din Förening "
                     + location_name + ", ring (+46) " + location_number + " eller maila till "
                     + location_email + "</p><p><b>BETALINFO :</b> Du skall betala " + price + ":- för årets SOMMARKULA.</p> <p>Avgiften, "
-                    + price + ":- sista betaldatum är 2019-06-14, till bankgiro 5894-0172 eller SWISH till 123 613 34 25</p><p></p>" +
+                    + price + ":- sista betaldatum är 2019-06-14, till bankgiro 5894-0172 eller SWISH till 123 613 34 25.</p><p><h2>Ange ditt OCR nummer vid betalning "+ ocr_number +"</h2></p>" +
                 "<p>Namn: " + child_name + "<br/>Födelsedatum: " + String.Format("{0:yyy/MM/dd}", birth) + "<br/>Tröjstorlek: " + shirtSize + "<br/>Simkunnig: " + (result = CheckIfTrue(CanSwim)) + "<br/>Tillåt att barnet är med på foton: " + (result = CheckIfTrue(allowPhoto)) + "<br/>Vaccinerad mot stelkramp: " + (result = CheckIfTrue(isVaccinated)) + "<br/>Allergi: " + allergy_comment + "<br/>Övrig info: " + comment + "</p>" +
                 "<p>Målsman: " + caretakerName + ", " + caretakerAddress + ", Telnr: (+46)" + caretakerNumber + "<br/>Alt.kontakt: " + altName + ", Telnr: (+46)" + altNumber + "</p>" +
                 "<p>Period: " + location_name + " " + String.Format("{0:MM/dd}", start_date) + " - " + String.Format("{0:MM/dd}", end_date) + " (" + weeks + ")</p>" +

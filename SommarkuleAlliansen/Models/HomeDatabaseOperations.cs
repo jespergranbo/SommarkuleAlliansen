@@ -98,6 +98,54 @@ namespace SommarkuleAlliansen.Models
             }
             return selectedLocation;
         }
+        public caretaker CheckIfOCRIsInUse(int ocr_number)
+        {
+            caretaker caretaker = new caretaker();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM caretaker WHERE ocr_number = @ocr_number";
+
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@ocr_number", ocr_number);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            caretaker.caretaker_id = Convert.ToInt32(sdr["caretaker_id"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return caretaker;
+        }
+        public int GetCaretakerOCR(long caretaker_id)
+        {
+            caretaker caretaker = new caretaker();
+            int ocr_number = 0;
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT ocr_number FROM caretaker WHERE caretaker_id = @caretaker_id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            ocr_number = Convert.ToInt32(sdr["ocr_number"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return ocr_number;
+        }
         public List<groups> GetGroupId(int location_id, DateTime birth)
         {
             List<groups> groups = new List<groups>();
@@ -158,12 +206,12 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
-        public long AddCaretaker(string caretakerName, int caretakerNumber, string caretakerEmail, string caretakerAddress, string altName, int altNumber, int price)
+        public long AddCaretaker(string caretakerName, int caretakerNumber, string caretakerEmail, string caretakerAddress, string altName, int altNumber, int price, int ocr)
         {
             long caretaker_id = 0;
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number, debt) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, @address, @alternative_name, @alternative_number, @debt);";
+                string query = "INSERT INTO caretaker (caretaker_id, caretaker_name, caretaker_number, caretaker_email, address, alternative_name, alternative_number, debt, ocr_number) VALUES (NULL, @caretaker_name, @caretaker_number, @caretaker_email, @address, @alternative_name, @alternative_number, @debt, @ocr_number);";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
                     cmd.Connection = con;
@@ -174,6 +222,7 @@ namespace SommarkuleAlliansen.Models
                     cmd.Parameters.AddWithValue("@alternative_name", altName);
                     cmd.Parameters.AddWithValue("@alternative_number", altNumber);
                     cmd.Parameters.AddWithValue("@debt", price);
+                    cmd.Parameters.AddWithValue("@ocr_number", ocr);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
