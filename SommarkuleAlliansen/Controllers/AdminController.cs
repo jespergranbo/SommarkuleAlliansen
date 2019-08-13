@@ -48,7 +48,7 @@ namespace SommarkuleAlliansen.Controllers
 
                     return View(caretakers);
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
@@ -130,7 +130,7 @@ namespace SommarkuleAlliansen.Controllers
                     {
                         try
                         {
-                            var body = "<p>Hej " + caretakers[i].caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + caretakers[i].debt + " kr betalas till sommarkulans bankgiro 273984</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                            var body = "<p>Hej " + caretakers[i].caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + caretakers[i].debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: "+caretakers[i].ocr_number+" vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
                                 "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
                                 "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
                                 "<b>Med vänliga hälsningar<br/>" +
@@ -464,14 +464,14 @@ namespace SommarkuleAlliansen.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Details(string caretaker_name, string caretaker_email, int debt, int caretaker_id)
+        public async Task<ActionResult> Details(string caretaker_name, string caretaker_email, int debt, int ocr_number, int caretaker_id)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
                     int year = DateTime.Now.Year;
-                    var body = "<p>Hej " + caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + debt + " kr betalas till sommarkulans bankgiro 273984</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                    var body = "<p>Hej " + caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: " + ocr_number + " vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
                                 "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
                                 "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
                                 "<b>Med vänliga hälsningar<br/>" +

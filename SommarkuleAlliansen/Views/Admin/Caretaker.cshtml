@@ -54,6 +54,10 @@
                     @Model[i].caretaker_number
                     @Html.HiddenFor(m => Model[i].caretaker_number)
                 </td>
+                <td hidden id="HideFromMobile4" name="@Model.ElementAt(i).ocr_number">
+                    @Model[i].ocr_number
+                    @Html.HiddenFor(m => Model[i].ocr_number)
+                </td>
                 <td id="HideFromMobile4" name="@Model.ElementAt(i).caretaker_email">
                     @Model[i].caretaker_email
                     @Html.HiddenFor(m => Model[i].caretaker_email)
@@ -87,7 +91,7 @@
                         </b>
                     </td>
                     <td style=" padding-left: 40px; padding-top: 0; padding-bottom: 0;" name="@Model.ElementAt(i).selectedForEmail">
-                        @Html.CheckBoxFor(m => Model[i].selectedForEmail, new { @class = "form-radio-css", @disabled = "disabled"})
+                        @Html.CheckBoxFor(m => Model[i].selectedForEmail, new { @class = "form-radio-css", @disabled = "disabled" })
                     </td>
                 }
                 @if (Model.ElementAt(i).count > 0)

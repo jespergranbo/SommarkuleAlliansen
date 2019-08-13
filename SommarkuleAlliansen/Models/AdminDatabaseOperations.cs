@@ -50,7 +50,7 @@ namespace SommarkuleAlliansen.Models
             List<caretaker> caretakers = new List<caretaker>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.caretaker_id, IFNULL(COUNT(child.caretaker_id), 0) AS amountOfChilds FROM caretaker " +
+                string query = "SELECT caretaker.caretaker_name, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.caretaker_id, caretaker.ocr_number, IFNULL(COUNT(child.caretaker_id), 0) AS amountOfChilds FROM caretaker " +
                     "LEFT JOIN child ON caretaker.caretaker_id = child.caretaker_id GROUP BY caretaker.caretaker_id ORDER BY amountOfChilds DESC";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
@@ -68,6 +68,7 @@ namespace SommarkuleAlliansen.Models
                                 caretaker_email = Convert.ToString(sdr["caretaker_email"]),
                                 adress = Convert.ToString(sdr["address"]),
                                 debt = Convert.ToDouble(sdr["debt"]),
+                                ocr_number = Convert.ToInt32(sdr["ocr_number"]),
                                 count = Convert.ToInt32(sdr["amountOfChilds"])
                             });
                         }
@@ -76,6 +77,30 @@ namespace SommarkuleAlliansen.Models
                 }
             }
             return caretakers;
+        }
+        public int GetCaretakerOCR(long caretaker_id)
+        {
+            caretaker caretaker = new caretaker();
+            int ocr_number = 0;
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT ocr_number FROM caretaker WHERE caretaker_id = @caretaker_id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@caretaker_id", caretaker_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            ocr_number = Convert.ToInt32(sdr["ocr_number"]);
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return ocr_number;
         }
         public List<ChildCaretakerLocationVM> GetChildCaretakerLocation()
         {
@@ -567,7 +592,7 @@ namespace SommarkuleAlliansen.Models
             List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();
             using (MySqlConnection con = new MySqlConnection(constr))
             {
-                string query = "SELECT child.name, child.child_id, child.birth_date, child.comment, child.allergy_comment, child.social_security, caretaker.caretaker_name, caretaker.caretaker_id, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
+                string query = "SELECT child.name, child.child_id, child.birth_date, child.comment, child.allergy_comment, child.social_security, caretaker.caretaker_name, caretaker.ocr_number, caretaker.caretaker_id, caretaker.caretaker_number, caretaker.caretaker_email, caretaker.address, caretaker.debt, caretaker.alternative_name, caretaker.alternative_number, location.location_name, location.location_address, location.start_date, location.end_date, location.weeks " +
                     "FROM child INNER JOIN caretaker ON child.caretaker_id = caretaker.caretaker_id INNER JOIN location on child.location_id = location.location_id WHERE caretaker.caretaker_id = @id";
                 using (MySqlCommand cmd = new MySqlCommand(query))
                 {
@@ -592,6 +617,7 @@ namespace SommarkuleAlliansen.Models
                                 caretaker_email = Convert.ToString(sdr["caretaker_email"]),
                                 alternative_name = Convert.ToString(sdr["alternative_name"]),
                                 alternative_number = Convert.ToInt32(sdr["alternative_number"]),
+                                ocr_number = Convert.ToInt32(sdr["ocr_number"]),
                                 adress = Convert.ToString(sdr["address"]),
                                 debt = Convert.ToDouble(sdr["debt"]),
                                 location_name = Convert.ToString(sdr["location_name"]),
