@@ -4,7 +4,7 @@
     ViewBag.Title = "Vårdnadshavare detaljer";
 }
 <div style="margin-top: 5%; opacity: 0.9;" class="clearfix">
-    @using (Html.BeginForm("Details", "Admin", new { caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
+    @using (Html.BeginForm("Details", "Admin", new { caretaker_name = Model.ElementAt(0).caretaker_name, caretaker_email = Model.ElementAt(0).caretaker_email, debt = Model.ElementAt(0).debt, ocr_number = Model.ElementAt(0).ocr_number, caretaker_id = Model.ElementAt(0).caretaker_id }, FormMethod.Post))
     {
         @Html.AntiForgeryToken()
     <div class="box" style="border-radius: 5px; background-color:white; margin-right:1%; margin-bottom:100%;">
@@ -20,6 +20,8 @@
         <p>@Model.ElementAt(0).adress</p>
         <b class="removeMarginBottom">Skuld:</b>
         <p>@Model.ElementAt(0).debt</p>
+        <b class="removeMarginBottom">OCR nummer:</b>
+        <p>@Model.ElementAt(0).ocr_number</p>
         <b class="removeMarginBottom">Alternativ kontaktperson:</b>
         <p>@Model.ElementAt(0).alternative_name</p>
         <b class="removeMarginBottom">Alternativ kontaktnummer (+46):</b>

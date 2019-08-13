@@ -15,6 +15,7 @@ namespace SommarkuleAlliansen.ViewModel
         public string alternative_name { get; set; }
         public int alternative_number { get; set; }
         public double debt { get; set; }
+        public int ocr_number { get; set; }
 
         public int child_id { get; set; }
         public string name { get; set; }
