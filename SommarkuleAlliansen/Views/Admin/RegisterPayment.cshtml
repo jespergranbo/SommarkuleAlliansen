@@ -2,18 +2,27 @@
 @{
     ViewBag.Title = "Registrera betalning";
 }
+<style>
+    .seventh-page {
+        background-color: #B8BABC;
+    }
 
+    .three-items {
+        background-color: #46484B;
+        border-radius: 5px;
+    }
+</style>
 <div class="standardStyle">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
         <h3>Registrera en ny betalning</h3>
         <hr />
-        <label>OCR: </label><input type="text" name="ocr_number" required/>
-        <label>Belopp: </label><input type="text" name="amount" required/>
-        <input type="submit" value="Spara" class="btn btn-outline-secondary" />
-        <br />
-        <div style="padding-bottom: 2%; color:green;">@ViewData["success"]</div>
-        <div style="padding-bottom: 2%; color:red;">@ViewData["error"]</div>
+            <label>OCR: <br /><input type="text" name="ocr_number" required /></label>
+            <label>Belopp: <br /><input type="text" name="amount" required /></label>
+            <input type="submit" value="Spara" class="btn btn-outline-secondary" />
+            <br />
+            <div style="padding-bottom: 2%; color:green;">@ViewData["success"]</div>
+            <div style="padding-bottom: 2%; color:red;">@ViewData["error"]</div>
     }
 </div>
