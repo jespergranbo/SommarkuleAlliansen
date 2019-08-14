@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "ResetDatabase";
+}
+
+<div class="standardStyle">
+    @using (Html.BeginForm("ResetDatabase", "Admin", FormMethod.Post, new { Id = "sampleform" }))
+    {
+        @Html.AntiForgeryToken()
+        <h3>Återställ databasen</h3>
+        <hr />
+        <input type="button" id="reset" value="Återställ databasen" class="btn btn-outline-secondary" />
+        <br />
+        <div style="padding-bottom: 2%; color:green;">@ViewData["success"]</div>
+    }
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#reset").click(function (e) {
+            if (confirm("Är du säker på att du vill återställa hela databasen? (Alla grupper, barn och föräldrar kommer att raderas)")) {
+                console.log('Form is submitting');
+                $("#sampleform").submit();
+            } else {
+                console.log('User clicked no.');
+            }
+        });
+    });
+</script>

@@ -649,6 +649,7 @@
     <Content Include="Views\Home\PrivacyPolicy.cshtml" />
     <Content Include="Views\Home\Error404.cshtml" />
     <Content Include="Views\Admin\RegisterPayment.cshtml" />
+    <Content Include="Views\Admin\ResetDatabase.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

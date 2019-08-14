@@ -587,6 +587,54 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void ResetChildGroupRelation()
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM childgrouprelation";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void ResetChildren()
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM child";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void ResetCaretakers()
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM caretaker";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
         public List<ChildCaretakerLocationVM> GetCaretakerDetails(int? id)
         {
             List<ChildCaretakerLocationVM> caretakerDetails = new List<ChildCaretakerLocationVM>();

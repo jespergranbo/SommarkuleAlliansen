@@ -98,6 +98,52 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View();
         }
+        public ActionResult ResetDatabase(bool? justSentMessage)
+        {
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
+            {
+                try
+                {
+                    if (justSentMessage == true)
+                    {
+                        ViewData["success"] = "Alla vårdnadshavare, barn och grupper är nu borttagna!";
+                    }
+                    return View();
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ResetDatabase()
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    operations.ResetChildGroupRelation();
+                    operations.ResetChildren();
+                    operations.ResetCaretakers();
+                    bool justSentMessage = true;
+                    return RedirectToAction("ResetDatabase", "Admin", new { justSentMessage = justSentMessage });
+                }
+                catch (Exception)
+                {
+                    string message = "Det går inte att återställa databasen, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+
+            }
+            return RedirectToAction("Index", "Home");
+        }
         public ActionResult Caretaker(bool? justSentMessage)
         {
             if (Convert.ToInt32(Session["employe_type"]) == 1)
