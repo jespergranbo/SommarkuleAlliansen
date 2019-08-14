@@ -10,6 +10,8 @@ using SommarkuleAlliansen.ViewModel;
 using System.Configuration;
 using System.Net;
 using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace SommarkuleAlliansen.Controllers
 {
@@ -31,27 +33,6 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     string message = "Det går inte att hämta anställda, vänligen försök igen.";
                     return RedirectToAction("Error","Home", new { message = message });
-                }
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-        public ActionResult Caretaker()
-        {
-            if (Convert.ToInt32(Session["employe_type"]) == 1)
-            {
-                try
-                {
-                    List<caretaker> caretakers = operations.GetAllCaretakers();
-
-                    return View(caretakers);
-                }
-                catch (Exception e)
-                {
-                    string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
-                    return RedirectToAction("Error", "Home", new { message = message });
                 }
             }
             else
@@ -117,6 +98,30 @@ namespace SommarkuleAlliansen.Controllers
             }
             return View();
         }
+        public ActionResult Caretaker(bool? justSentMessage)
+        {
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
+            {
+                try
+                {
+                    List<caretaker> caretakers = operations.GetAllCaretakers();
+                    if (justSentMessage == true)
+                    {
+                        ViewData["error"] = "Betalningspåminnelsen har skickats!";
+                    }
+                    return View(caretakers);
+                }
+                catch (Exception e)
+                {
+                    string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
+                    return RedirectToAction("Error", "Home", new { message = message });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Caretaker(List<caretaker> caretakers)
@@ -130,22 +135,25 @@ namespace SommarkuleAlliansen.Controllers
                     {
                         try
                         {
-                            var body = "<p>Hej " + caretakers[i].caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + caretakers[i].debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: "+caretakers[i].ocr_number+" vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                            var apiKey = "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";
+                            var client = new SendGridClient(apiKey);
+                            var from = new EmailAddress("azure_c08bb7c4cecd81b13b93cede6422da66@azure.com", "Sommarkulan");
+                            var subject = "Betalningspåminnelse";
+                            var to = new EmailAddress(caretakers[i].caretaker_email, caretakers[i].caretaker_name);
+                            var plainTextContent = "<p>Hej " + caretakers[i].caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + caretakers[i].debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: " + caretakers[i].ocr_number + " vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
                                 "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
                                 "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
                                 "<b>Med vänliga hälsningar<br/>" +
                                 "Sommarkulealliansen</b></p>";
-                            var message = new MailMessage();
-                            message.To.Add(new MailAddress(caretakers[i].caretaker_email));
-                            message.From = new MailAddress("sommarkulan@outlook.com");
-                            message.Subject = "Betalningspåminnelse";
-                            message.Body = string.Format(body);
-                            message.IsBodyHtml = true;
-
-                            using (var smtp = new SmtpClient())
-                            {
-                                await smtp.SendMailAsync(message);
-                            }
+                            var htmlContent = "<p>Hej " + caretakers[i].caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + caretakers[i].debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: " + caretakers[i].ocr_number + " vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                                "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
+                                "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
+                                "<b>Med vänliga hälsningar<br/>" +
+                                "Sommarkulealliansen</b></p>";
+                            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                            var response = await client.SendEmailAsync(msg);
+                            bool justSentMessage = true;
+                            return RedirectToAction("Caretaker", "Admin", new { justSentMessage = justSentMessage });
                         }
                         catch (Exception)
                         {
@@ -155,7 +163,7 @@ namespace SommarkuleAlliansen.Controllers
                     }
                 }
             }
-            return RedirectToAction("Caretaker");
+            return RedirectToAction("Index", "Home");
         }
         public ActionResult Child()
         {
@@ -471,24 +479,25 @@ namespace SommarkuleAlliansen.Controllers
                 try
                 {
                     int year = DateTime.Now.Year;
-                    var body = "<p>Hej " + caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: " + ocr_number + " vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                    var apiKey = "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";
+                    var client = new SendGridClient(apiKey);
+                    var from = new EmailAddress("azure_c08bb7c4cecd81b13b93cede6422da66@azure.com", "Sommarkulan");
+                    var subject = "Betalningspåminnelse";
+                    var to = new EmailAddress(caretaker_email, caretaker_name);
+                    var plainTextContent = "<p>Hej " + caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: " + ocr_number + " vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
                                 "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
                                 "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
                                 "<b>Med vänliga hälsningar<br/>" +
                                 "Sommarkulealliansen</b></p>";
-                    var message = new MailMessage();
-                    message.To.Add(new MailAddress(caretaker_email));
-                    message.From = new MailAddress("sommarkulan@outlook.com");
-                    message.Subject = "Betalningspåminnelse";
-                    message.Body = string.Format(body);
-                    message.IsBodyHtml = true;
-
-                    using (var smtp = new SmtpClient())
-                    {
-                        await smtp.SendMailAsync(message);
-                        bool justSentMessage = true;
-                        return RedirectToAction("Details", "Admin", new { caretaker_id = caretaker_id, justSentMessage = justSentMessage });
-                    }
+                    var htmlContent = "<p>Hej " + caretaker_name + "!</p><p> Hoppas ert barn trivdes på SOMMARKULAN " + year + ".<br/>Enligt våra noteringar så saknar vi er inbetalning av anmälningsavgiften för SOMMARKULAN " + year + "<br/><b>Avgiften, " + debt + " kr betalas till sommarkulans bankgiro 273984. Vänligen ange OCR numret: " + ocr_number + " vid betalningen.</b><br/>Om våra noteringar stämmer så ber vi er vänligen betala avgiften de kommande dagarna.<br/>Om det av någon anledning inte stämmer vänligen kontakta er lokala idrottsförening.</p>" +
+                                "<p>Hagaström, kansli@hagastromssk.se, Telnr: 026-197966 elr 070-3201043. Hagaströms IP, Basvägen 23.<br/> " +
+                                "Strömsbro, kansli@stromsbroif.se, Telnr: 026-103238. Testebovallen, Hillevägen 14.<hr/> " +
+                                "<b>Med vänliga hälsningar<br/>" +
+                                "Sommarkulealliansen</b></p>";
+                    var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                    var response = await client.SendEmailAsync(msg);
+                    bool justSentMessage = true;
+                    return RedirectToAction("Details", "Admin", new { caretaker_id = caretaker_id, justSentMessage = justSentMessage });
                 }
                 catch (Exception)
                 {

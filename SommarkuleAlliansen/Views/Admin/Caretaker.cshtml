@@ -16,35 +16,35 @@
 @using (Html.BeginForm("Caretaker", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    <div class="standardStyle table-responsive">
-        <table class="table">
-            <tr>
-                <th class="PaddingCaretaker" style="border-top: none">
-                    Namn
-                </th>
-                <th id="HideFromMobile4" class="PaddingCaretaker" style="border-top: none">
-                    Nmr (+46)
-                </th>
-                <th id="HideFromMobile4" class="PaddingCaretaker" style="border-top: none">
-                    Mail
-                </th>
-                <th id="HideFromMobile3" class="PaddingCaretaker" style="border-top: none">
-                    Adress
-                </th>
-                <th id="HideFromMobile" class="PaddingCaretaker" style="border-top: none">
-                    Barn
-                </th>
-                <th id="HideFromMobile2" class="PaddingCaretaker" style="border-top: none">
-                    Betala
-                </th>
-                <th class="PaddingCaretaker" style="border-top: none">
-                    Påminnelse
-                </th>
-                <td  style="border-top: none">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
+<div class="standardStyle table-responsive">
+    <table class="table">
+        <tr>
+            <th class="PaddingCaretaker" style="border-top: none">
+                Namn
+            </th>
+            <th id="HideFromMobile4" class="PaddingCaretaker" style="border-top: none">
+                Nmr (+46)
+            </th>
+            <th id="HideFromMobile4" class="PaddingCaretaker" style="border-top: none">
+                Mail
+            </th>
+            <th id="HideFromMobile3" class="PaddingCaretaker" style="border-top: none">
+                Adress
+            </th>
+            <th id="HideFromMobile" class="PaddingCaretaker" style="border-top: none">
+                Barn
+            </th>
+            <th id="HideFromMobile2" class="PaddingCaretaker" style="border-top: none">
+                Betala
+            </th>
+            <th class="PaddingCaretaker" style="border-top: none">
+                Påminnelse
+            </th>
+            <td style="border-top: none">Vårdnadshavare | @Html.ActionLink("Barn", "Child")</td>
 
-            </tr>
-            @for (int i = 0; i < Model.Count(); i++)
-            {
+        </tr>
+        @for (int i = 0; i < Model.Count(); i++)
+        {
             <tr>
                 <td name="@Model.ElementAt(i).caretaker_name">
                     @Model[i].caretaker_name
@@ -108,8 +108,9 @@
                     </td>
                 }
             </tr>
-            }
-        </table>
-        <input type="submit" value="Skicka betalningspåmminelse" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
-    </div>
+        }
+    </table>
+    <input type="submit" value="Skicka betalningspåmminelse" style="margin-bottom:3%;" class="btn btn-outline-secondary" />
+    <div style="padding-bottom: 2%; color:green;">@ViewData["error"]</div>
+</div>
 }
