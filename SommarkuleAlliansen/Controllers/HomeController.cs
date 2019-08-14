@@ -10,6 +10,8 @@ using SommarkuleAlliansen.Models;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace SommarkuleAlliansen.Controllers
 {
@@ -182,19 +184,29 @@ namespace SommarkuleAlliansen.Controllers
         {
             if (ModelState.IsValid)
             {
-                var body = "<p>Email Från: {0} ({1})</p><p>Meddelande: {2}</p>";
-                var message = new MailMessage();
-                message.To.Add(new MailAddress("sommarkulan@outlook.com"));
-                message.From = new MailAddress("sommarkulan@outlook.com");
-                message.Subject = email.Subject;
-                message.Body = string.Format(body, email.FromName, email.FromEmail, email.Message);
-                message.IsBodyHtml = true;
+                //var body = "<p>Email Från: {0} ({1})</p><p>Meddelande: {2}</p>";
+                //var message = new MailMessage();
+                //message.To.Add(new MailAddress("sommarkulan@outlook.com"));
+                //message.From = new MailAddress("sommarkulan@outlook.com");
+                //message.Subject = email.Subject;
+                //message.Body = string.Format(body, email.FromName, email.FromEmail, email.Message);
+                //message.IsBodyHtml = true;
 
-                using (var smtp = new SmtpClient())
-                {
-                    await smtp.SendMailAsync(message);
-                    return RedirectToAction("Sent");
-                }
+                //using (var smtp = new SmtpClient())
+                //{
+                //    await smtp.SendMailAsync(message);
+                //    return RedirectToAction("Sent");
+                //}
+
+                var apiKey = "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";
+                var client = new SendGridClient(apiKey);
+                var from = new EmailAddress("azure_c08bb7c4cecd81b13b93cede6422da66@azure.com", "Sommarkulan");
+                var subject = email.Subject;
+                var to = new EmailAddress("sommarkulan@outlook.com", "Sommarkulan");
+                var plainTextContent = "<p>Email Från: " + email.FromName + " (" + email.FromEmail + ")</p><p>Meddelande: " + email.Message + "</p>";
+                var htmlContent = "<p>Email Från: " + email.FromName + " (" + email.FromEmail + ")</p><p>Meddelande: " + email.Message + "</p>";
+                var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+                var response = await client.SendEmailAsync(msg);
             }
             return View(email);
         }
