@@ -100,13 +100,17 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult ResetDatabase(bool? justSentMessage)
         {
-            if (Convert.ToInt32(Session["employe_type"]) == 1)
-            {
+            //if (Convert.ToInt32(Session["employe_type"]) == 1)
+            //{
                 try
                 {
                     if (justSentMessage == true)
                     {
                         ViewData["success"] = "Alla vårdnadshavare, barn och grupper är nu borttagna!";
+                    }
+                    else if (justSentMessage == false)
+                    {
+                        ViewData["error"] = "Databasen har redan återstälts!";
                     }
                     return View();
                 }
@@ -115,11 +119,11 @@ namespace SommarkuleAlliansen.Controllers
                     string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
                 }
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
+            //}
+            //else
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -129,11 +133,29 @@ namespace SommarkuleAlliansen.Controllers
             {
                 try
                 {
-                    operations.ResetChildGroupRelation();
-                    operations.ResetChildren();
-                    operations.ResetCaretakers();
-                    bool justSentMessage = true;
-                    return RedirectToAction("ResetDatabase", "Admin", new { justSentMessage = justSentMessage });
+                    bool justSentMessage;
+                    List<caretaker> caretakers = new List<caretaker>();
+                    caretakers = operations.GetAllCaretakers();
+                    if (caretakers.Count == 0)
+                    {
+                        justSentMessage = false;
+                        return RedirectToAction("ResetDatabase", "Admin", new { justSentMessage = justSentMessage });
+                    }
+                    else
+                    {
+                        operations.ResetChildGroupRelation();
+                        operations.ResetChildren();
+                        operations.ResetCaretakers();
+                        operations.ResetEmployeGroups();
+                        groups lowestGroup = operations.GetLowestGroup();
+                        operations.DeleteFromGroups(lowestGroup.birth_year);
+                        groups highestGroup = operations.GetHighestGroup();
+                        int newGroupYear = highestGroup.birth_year + 1;
+                        operations.AddNewGroups(newGroupYear);
+                        operations.UpdateEmployeGroup(highestGroup.group_id);
+                        justSentMessage = true;
+                        return RedirectToAction("ResetDatabase", "Admin", new { justSentMessage = justSentMessage });
+                    }
                 }
                 catch (Exception)
                 {
@@ -157,7 +179,7 @@ namespace SommarkuleAlliansen.Controllers
                     }
                     return View(caretakers);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
@@ -298,7 +320,7 @@ namespace SommarkuleAlliansen.Controllers
                     }
                     return RedirectToAction("Employe");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     string message = "Det går inte att redigera anställda, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
@@ -359,7 +381,7 @@ namespace SommarkuleAlliansen.Controllers
                 {
                     employe = operations.FindDetailsEmploye(id);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     string message = "Det går inte att hitta den anställda, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
@@ -748,7 +770,7 @@ namespace SommarkuleAlliansen.Controllers
 
                     return RedirectToAction("Child");
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     string message = "Det går inte att redigera barnet, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
@@ -832,7 +854,7 @@ namespace SommarkuleAlliansen.Controllers
                 operations.DeleteChild(id);
                 return RedirectToAction("Child");
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 string message = "Det går inte att ta bort den anställda, vänligen försök igen.";
                 return RedirectToAction("Error", "Home", new { message = message });

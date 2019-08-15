@@ -270,6 +270,23 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void UpdateEmployeGroup(int group_id)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE employe SET group_id = @group_id";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@group_id", group_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
         public void DeleteEmploye(int id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -773,6 +790,27 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void AddNewGroups(int newGroupYear)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                for (int i = 1; i < 7; i++)
+                {
+                    string query = "INSERT INTO groups (group_id, location_id, birth_year) VALUES (null, @location_id, @newGroupYear)";
+                    using (MySqlCommand cmd = new MySqlCommand(query))
+                    {
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@location_id", i);
+                        cmd.Parameters.AddWithValue("@newGroupYear", newGroupYear);
+                        con.Open();
+                        using (MySqlDataReader sdr = cmd.ExecuteReader())
+                        {
+                        }
+                        con.Close();
+                    }
+                }
+            }
+        }
         public void DeleteFromRelation(int childGroup_id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -782,6 +820,23 @@ namespace SommarkuleAlliansen.Models
                 {
                     cmd.Connection = con;
                     cmd.Parameters.AddWithValue("@id", childGroup_id);
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
+        public void DeleteFromGroups(int birth_year)
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "DELETE FROM groups WHERE birth_year = @birth_year";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    cmd.Parameters.AddWithValue("@birth_year", birth_year);
                     con.Open();
                     using (MySqlDataReader sdr = cmd.ExecuteReader())
                     {
@@ -906,6 +961,22 @@ namespace SommarkuleAlliansen.Models
                 }
             }
         }
+        public void ResetEmployeGroups()
+        {
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "UPDATE employe SET group_id = NULL";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                    }
+                    con.Close();
+                }
+            }
+        }
         public void UpdateChildGroup(int group_id, int childGroupRelation_id)
         {
             using (MySqlConnection con = new MySqlConnection(constr))
@@ -996,6 +1067,56 @@ namespace SommarkuleAlliansen.Models
                 }
             }
             return information;
+        }
+        public groups GetLowestGroup()
+        {
+            groups group = new groups();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM groups ORDER BY birth_year desc";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            group.birth_year = Convert.ToInt32(sdr["birth_year"]);
+                            group.location_id = Convert.ToInt32(sdr["location_id"]);
+                            group.group_id = Convert.ToInt32(sdr["group_id"]);
+
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return group;
+        }
+        public groups GetHighestGroup()
+        {
+            groups group = new groups();
+            using (MySqlConnection con = new MySqlConnection(constr))
+            {
+                string query = "SELECT * FROM groups ORDER BY birth_year asc";
+                using (MySqlCommand cmd = new MySqlCommand(query))
+                {
+                    cmd.Connection = con;
+                    con.Open();
+                    using (MySqlDataReader sdr = cmd.ExecuteReader())
+                    {
+                        while (sdr.Read())
+                        {
+                            group.birth_year = Convert.ToInt32(sdr["birth_year"]);
+                            group.location_id = Convert.ToInt32(sdr["location_id"]);
+                            group.group_id = Convert.ToInt32(sdr["group_id"]);
+
+                        }
+                    }
+                    con.Close();
+                }
+            }
+            return group;
         }
         public void UpdateInformation(information information)
         {
