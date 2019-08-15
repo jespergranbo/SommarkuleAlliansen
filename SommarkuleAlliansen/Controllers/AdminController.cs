@@ -100,8 +100,8 @@ namespace SommarkuleAlliansen.Controllers
         }
         public ActionResult ResetDatabase(bool? justSentMessage)
         {
-            //if (Convert.ToInt32(Session["employe_type"]) == 1)
-            //{
+            if (Convert.ToInt32(Session["employe_type"]) == 1)
+            {
                 try
                 {
                     if (justSentMessage == true)
@@ -119,11 +119,11 @@ namespace SommarkuleAlliansen.Controllers
                     string message = "Det går inte att hämta vårdnadshavare, vänligen försök igen.";
                     return RedirectToAction("Error", "Home", new { message = message });
                 }
-            //}
-            //else
-            //{
-            //    return RedirectToAction("Index", "Home");
-            //}
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
