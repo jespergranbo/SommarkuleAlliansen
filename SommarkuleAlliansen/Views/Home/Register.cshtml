@@ -104,8 +104,9 @@
 <script>
     document.getElementById("childBirth").addEventListener("change", function () {
         var input = this.value;
+        var thisYear = new Date.thisYear;
         var dateEntered = new Date(input);
-        if (dateEntered.getFullYear() > 2012 || dateEntered.getFullYear() < 2007) {
+        if (dateEntered.getFullYear() > thisYear - 7 || dateEntered.getFullYear() < thisYear - 11) {
             document.getElementById("errorMessage").style.visibility = "visible";
             document.getElementById("register").disabled = true;
         }
